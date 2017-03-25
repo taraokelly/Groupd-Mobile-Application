@@ -56,13 +56,13 @@ export class MyApp {
     // Tabs are a special case because they have their own navigation
     if (childNav) {
       if (childNav.getSelected() && childNav.getSelected().root === page.tabComponent) {
-        return 'primary';
+        return 'danger';
       }
       return;
     }
 
     if (this.nav.getActive() && this.nav.getActive().component === page.component) {
-      return 'primary';
+      return 'danger';
     }
     return;
   }

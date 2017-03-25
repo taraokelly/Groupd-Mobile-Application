@@ -1,4 +1,4 @@
-<ion-split-pane>
+<!--<ion-split-pane> -->
 
   <ion-menu id="loggedOutMenu" [content]="content">
         
@@ -19,7 +19,9 @@
 
     </ion-content>
 
-     <ion-menu id="loggedInMenu" [content]="content">
+     </ion-menu>
+
+ <!--    <ion-menu id="loggedInMenu" [content]="content">
           
         <ion-header>
           <ion-toolbar>
@@ -43,4 +45,4 @@
   <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
   <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
 
-</ion-split-pane>
+<!--</ion-split-pane>-->
