@@ -1,11 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { /*Events, MenuController, */ Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 
+export interface PageInterface {
+  title: string;
+  component: any;
+  icon: string;
+  logsOut?: boolean;
+  index?: number;
+  tabComponent?: any;
+}
 
 @Component({
   templateUrl: 'app.html'
@@ -13,19 +21,18 @@ import { SignupPage } from '../pages/signup/signup';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  //For now until we add a logged in menu
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  loggedOutPages: PageInterface[] = [
+    { title: 'Log In', component: LoginPage, icon: 'log-in' },
+    { title: 'Sign Up', component: SignupPage, icon: 'person-add' }
+  ];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+  loggedInPages: PageInterface[] = [];
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Log In', component: LoginPage},
-       { title: 'Sign Up', component: SignupPage}
-    ];
-
+  constructor(/*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+   this.initializeApp();
   }
 
   initializeApp() {
@@ -41,5 +48,22 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+   isActive(page: PageInterface) {
+    let childNav = this.nav.getActiveChildNav();
+
+    // Tabs are a special case because they have their own navigation
+    if (childNav) {
+      if (childNav.getSelected() && childNav.getSelected().root === page.tabComponent) {
+        return 'primary';
+      }
+      return;
+    }
+
+    if (this.nav.getActive() && this.nav.getActive().component === page.component) {
+      return 'primary';
+    }
+    return;
   }
 }
