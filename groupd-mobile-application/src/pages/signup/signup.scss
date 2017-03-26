@@ -1,3 +1,29 @@
 page-signup {
 
+   // Content
+   //fix for ionic scroll not playing nice with slides
+   // https://github.com/driftyco/ionic/issues/9553
+    .scroll-content {
+        padding-bottom: 0px!important;
+    }
+  // Input items
+  /*ion-label,
+  .input-has-focus {
+    color: #FF7700 !important;
+  }
+  ion-item {
+    border-radius: 3px !important;
+    padding-right: 16px !important;
+    margin-bottom: 5px !important;
+    color: #FF7700 !important;
+    background-color: transparent !important;
+    font-size: 0.9em;
+  }
+  .margin-bottom {
+    margin-bottom: 15px !important;
+  }
+  .item-inner {
+    border-bottom: 2px solid #FF7700 !important;
+    box-shadow: none !important;
+  }*/
 }

@@ -11,5 +11,97 @@
 
 
 <ion-content padding>
+  <!-- <form>
+    <ion-item>
+    <ion-label floating>User Name: </ion-label>
+      <ion-input type="text" name="user.username" [(ngModel)]="user.username"></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-label floating>Password: </ion-label>
+      <ion-input type="text" name="user.password" [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+     
+    <ion-item>
+      <ion-label floating>First Name: </ion-label>
+      <ion-input type="text" name="user.firstname" [(ngModel)]="user.firstname"></ion-input>
+    </ion-item>
+     
+    <ion-item>
+      <ion-label floating>Surname: </ion-label>
+      <ion-input type="text" name="user.surname" [(ngModel)]="user.surname"></ion-input>
+    </ion-item>
+     
+    <ion-item>
+      <ion-label floating>Email: </ion-label>
+      <ion-input type="text" name="user.email" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label floating>Job: </ion-label>
+      <ion-input type="text" name="user.job" [(ngModel)]="user.job"></ion-input>
+    </ion-item>
+      
+    <ion-item>
+      <ion-label floating>Bio: </ion-label>
+      <ion-input type="text" name="user.bio" [(ngModel)]="user.bio"></ion-input>
+    </ion-item>
+      
+      <button ion-button round (click)="addUser()">Submit</button>
+  </form> -->
+  <ion-slides>
+    <ion-slide>
+     
+      <ion-item>
+      <ion-label floating>User Name: </ion-label>
+        <ion-input type="text" name="user.username" [(ngModel)]="user.username"></ion-input>
+      </ion-item>
+
+  <!--    <ion-item>
+        <ion-label floating>Password: </ion-label>
+        <ion-input type="text" name="user.password" [(ngModel)]="user.password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email: </ion-label>
+        <ion-input type="text" name="user.email" [(ngModel)]="user.email"></ion-input>
+      </ion-item>
+      -->
+
+      <br/>
+
+      <button ion-button round (click)="goToSlide(1)">Continue</button>
+
+    </ion-slide>
+    <ion-slide>
+
+      <h1>Slide 2</h1>
+      <ion-item>
+        <ion-label floating>First Name: </ion-label>
+        <ion-input type="text" name="user.firstname" [(ngModel)]="user.firstname"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label floating>Surname: </ion-label>
+        <ion-input type="text" name="user.surname" [(ngModel)]="user.surname"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Job: </ion-label>
+        <ion-input type="text" name="user.job" [(ngModel)]="user.job"></ion-input>
+      </ion-item>
+        
+      <ion-item>
+        <ion-label floating>Bio: </ion-label>
+        <ion-input type="text" name="user.bio" [(ngModel)]="user.bio"></ion-input>
+      </ion-item>
+
+      <br/>
+
+      <button ion-button round (click)="goToSlide(2)">Continue</button>
+    </ion-slide>
+    <ion-slide>
+      <h1>Slide 3</h1>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
