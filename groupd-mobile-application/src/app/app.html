@@ -1,9 +1,9 @@
 <!--<ion-split-pane> -->
 
-  <ion-menu id="loggedOutMenu" [content]="content">
+  <ion-menu id="loggedOutMenu" [content]="content"> 
         
       <ion-header>
-        <ion-toolbar>
+        <ion-toolbar color="dark">
           <ion-title>Menu</ion-title>
         </ion-toolbar>
       </ion-header>
@@ -11,15 +11,43 @@
       <ion-content class="outer-content">
 
         <ion-list>
-          <button ion-item menuClose ion-item *ngFor="let p of loggedOutPages" (click)="openPage(p)">
-            <ion-icon item-left [name]="p.icon" [color]="isActive(p)"></ion-icon>
-            {{p.title}}
-          </button>
+            <button ion-item menuClose ion-item *ngFor="let p of loggedOutPages" (click)="openPage(p)">
+              <ion-icon item-left [name]="p.icon" [color]="isActive(p)"></ion-icon>
+              {{p.title}}
+            </button>
         </ion-list>
 
     </ion-content>
 
-     </ion-menu>
+     </ion-menu> 
+
+
+<!-- LOGGED IN MENU WITH PROFILE PHOTO -->
+
+
+ <!--<ion-menu id="loggedInMenu" [content]="content"> 
+        
+      <ion-header class="menu-header">
+        <img class="user-avatar round" [src]="chosenPicture || placeholder" onerror="this.src='assets/img/profile/girl-avatar.png'"
+        />
+      </ion-header>
+
+      <ion-content class="outer-content">
+
+        <ion-list>
+            <button ion-item menuClose ion-item *ngFor="let p of loggedInPages" (click)="openPage(p)">
+              <ion-icon item-left [name]="p.icon" [color]="isActive(p)"></ion-icon>
+              {{p.title}}
+            </button>
+        </ion-list>
+
+    </ion-content>
+
+     </ion-menu> -->
+
+
+<!-- LOGGED IN MENU WITH OUT PROFILE PHOTO -->
+
 
  <!--    <ion-menu id="loggedInMenu" [content]="content">
           
