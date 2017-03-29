@@ -2,6 +2,8 @@ import { ViewChild, Component } from '@angular/core';
 import { Slides, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
+import {EmailValidator} from '../../validators/email-validator';
+
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
@@ -22,7 +24,7 @@ export class SignupPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
     this.setUserNull(this.user);
     this.userForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators. required/*, EmailValidator.isValidMailFormat*/])],
+      email: ['', Validators.compose([Validators. required, EmailValidator.isValidMailFormat])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       password: ['', Validators.minLength(8)]
 
