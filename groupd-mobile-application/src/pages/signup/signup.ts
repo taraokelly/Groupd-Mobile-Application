@@ -3,6 +3,7 @@ import { Slides, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import {EmailValidator} from '../../validators/email-validator';
+import {NoSpaceValidator} from '../../validators/no-space-validator';
 
 @Component({
   selector: 'page-signup',
@@ -25,7 +26,7 @@ export class SignupPage {
     this.setUserNull(this.user);
     this.userForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators. required, EmailValidator.isValidMailFormat])],
-      username: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      username: ['', Validators.compose([Validators.required, Validators.minLength(4), NoSpaceValidator.hasNoSpaces])],
       password: ['', Validators.minLength(8)]
 
     });
