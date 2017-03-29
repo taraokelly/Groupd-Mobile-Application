@@ -11,87 +11,124 @@
 
 <ion-content padding>
   <ion-slides>
-    <!-- First Slide: Get username, passowrd, e-mail with button for next slide. -->
-    <ion-slide>   
-      <ion-item>
-      <ion-label floating>User Name: </ion-label>
-        <ion-input type="text" name="user.username" [(ngModel)]="user.username"></ion-input>
-      </ion-item>
-     <ion-item>
-        <ion-label floating>Password: </ion-label>
-        <ion-input type="text" name="user.password" [(ngModel)]="user.password"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Email: </ion-label>
-        <ion-input type="text" name="user.email" [(ngModel)]="user.email"></ion-input>
-      </ion-item>  
-     <br/>
-      <button ion-button round (click)="goToSlide(1)">Continue</button>
-    </ion-slide>
-    <ion-slide>
-     <!-- Second Slide: Get name, occupation, locatíon with buttons for next slide and previous slide. -->
-      <ion-item>
-        <ion-label floating>First Name: </ion-label>
-        <ion-input type="text" name="user.firstname" [(ngModel)]="user.firstname"></ion-input>
-      </ion-item>    
-      <ion-item>
-        <ion-label floating>Surname: </ion-label>
-        <ion-input type="text" name="user.surname" [(ngModel)]="user.surname"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Occupation: </ion-label>
-        <ion-input type="text" name="user.occupation" [(ngModel)]="user.occupation"></ion-input>
-      </ion-item> 
-      <ion-item>
-        <ion-label floating>Location: </ion-label>
-        <ion-input type="text" name="user.address" [(ngModel)]="user.address"></ion-input>
-      </ion-item>      
-      <br/>
+      <!-- First Slide: Get username, passowrd, e-mail with button for next slide. -->
+      <ion-slide>  
+        <form [formGroup]="userForm">
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label floating>Username: </ion-label>
+            <ion-input formControlName="username" [class.invalid]="!userForm.controls.username.valid && (userForm.controls.username.dirty || submitAttempt)"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="!userForm.controls.username.valid  && (userForm.controls.username.dirty || submitAttempt)">
+              <small color="danger">Please enter a valid name.</small>
+          </ion-item>      
+
+          <ion-item>
+            <ion-label floating>Password: </ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+      </form>
       <ion-grid>
           <ion-row>
             <ion-col>
-              <button ion-button round (click)="goToSlide(0)">&emsp;Back&emsp;</button>
             </ion-col>
             <ion-col>
-             <button ion-button round (click)="goToSlide(2)">Continue</button>
+             <!-- <button ion-button round (click)="goToSlide(1)">Continue</button> -->
+             <div class="locators">
+             <ion-icon large name="arrow-forward" color="danger" (click)="goToSlide(1)"></ion-icon>
+             </div>
             </ion-col>
           </ion-row>
         </ion-grid>
     </ion-slide>
+     <!-- Second Slide: Get name, occupation, locatíon with buttons for next slide and previous slide. -->
     <ion-slide>
-      <!-- Third Slide: Display skills with buttons to add a skill, for next slide and previous slide. -->
-      <div *ngFor="let skill of user.skills; let i = index">
-        <button ion-button round icon-only small *ngIf="(user.skills.length<6) || (i > user.skills.length-6)" color="warm" (click)="deleteSkill(i)"> &emsp;{{skill}}<ion-icon name="close"></ion-icon></button>
-      </div>
-
-      <form>
-        <ion-item>
-            <ion-label floating>Skills: </ion-label>
-            <ion-textarea type="text" name="skill" [(ngModel)]="skill"></ion-textarea>
+       <form [formGroup]="userDetailsForm">
+          <ion-item>
+            <ion-label floating>First Name: </ion-label>
+            <ion-input formControlName="firstName"></ion-input>
           </ion-item>
-          <br/>
-          <button ion-button round (click)="addSkill()">Add Skill</button>
-        </form>  
-
-        <br/>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <button ion-button round (click)="goToSlide(1)">&emsp;Back&emsp;</button>
-            </ion-col>
-            <ion-col>
-             <button ion-button round (click)="goToSlide(3)">Continue</button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-
-    </ion-slide>
-    <ion-slide>
-       <!-- Forth Slide: Get biography with buttons previous slide and to create user/submit user. -->
-      <ion-item>
-        <ion-label floating>Bio: </ion-label>
-        <ion-textarea rows="6" type="text" name="user.bio" [(ngModel)]="user.bio"></ion-textarea>
-      </ion-item>
-    </ion-slide>
+          <ion-item>
+            <ion-label floating>Surname: </ion-label>
+            <ion-input formControlName="surname"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Occupation: </ion-label>
+            <ion-input formControlName="occupation"></ion-input>
+          </ion-item>
+       </form>
+       <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <div class="locators">
+                    <ion-icon large name="arrow-back" color="danger" (click)="goToSlide(0)"></ion-icon>
+                  </div>
+                </ion-col>
+                <ion-col>
+                <div class="locators">
+                  <ion-icon large name="arrow-forward" color="danger" (click)="goToSlide(2)"></ion-icon>
+                </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+        </ion-slide>
+        <!-- Third Slide: Display skills with buttons to add a skill, for next slide and previous slide. -->
+        <ion-slide>
+          <div *ngFor="let skill of user.skills; let i = index">
+              <button ion-button round icon-only small *ngIf="(user.skills.length<6) || (i > user.skills.length-6)" color="warm" (click)="deleteSkill(i)"> &emsp;{{skill}}<ion-icon name="close"></ion-icon></button>
+            </div>
+            <form>
+              <ion-item>
+                  <ion-label floating>Skills: </ion-label>
+                  <ion-input type="text" name="skill" [(ngModel)]="skill"></ion-input>
+                </ion-item>
+                <br/>
+                <button color="dark" ion-button (click)="addSkill()">ADD SKILL</button>
+            </form>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <div class="locators">
+                    <ion-icon large name="arrow-back" color="danger" (click)="goToSlide(1)"></ion-icon>
+                  </div>
+                </ion-col>
+                <ion-col>
+                <div class="locators">
+                  <ion-icon large name="arrow-forward" color="danger" (click)="goToSlide(3)"></ion-icon>
+                </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-slide>
+          <!-- Forth Slide: Get biography with buttons previous slide and to create user/submit user. -->
+          <ion-slide>
+            <form> 
+                <ion-item>
+                  <ion-label floating>Location: </ion-label>
+                  <ion-input type="text" name="user.address" [(ngModel)]="user.address"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label floating>Bio: </ion-label>
+                  <ion-textarea rows="6" type="text" name="user.bio" [(ngModel)]="user.bio"></ion-textarea>
+                </ion-item> 
+            </form>
+            <button color="dark" block ion-button type="submit" [disabled]="!userForm.valid || !userDetailsForm.valid" (click)="addUser()">CREATE USER</button>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <div class="locators">
+                    <ion-icon large name="arrow-back" color="danger" (click)="goToSlide(2)"></ion-icon>
+                  </div>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+      </ion-slide>
   </ion-slides>
 </ion-content>

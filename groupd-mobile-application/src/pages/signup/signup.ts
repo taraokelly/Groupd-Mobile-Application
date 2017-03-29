@@ -1,5 +1,6 @@
 import { ViewChild, Component } from '@angular/core';
 import { Slides, NavController, NavParams } from 'ionic-angular';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'page-signup',
@@ -13,24 +14,44 @@ export class SignupPage {
 
   skill: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private userForm : FormGroup;
+
+  private userDetailsForm : FormGroup;
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
     this.setUserNull(this.user);
+    this.userForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators. required/*, EmailValidator.isValidMailFormat*/])],
+      username: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      password: ['', Validators.minLength(8)]
+
+    });
+    this.userDetailsForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      surname: ['', Validators.required],
+      occupation: ['', Validators.required]
+    });
   }
 
   goToSlide(index) {
     this.slides.slideTo(index, 500);
   }
- /* addSkill(skill){
-    this.user.skills.push(skill);
-  }*/
   addSkill(){
     this.user.skills.push(this.skill);
     this.skill=null;
   }
   deleteSkill(i){
-  this.user.skills.splice(i, 1);
+    this.user.skills.splice(i, 1);
   }
   addUser(){
+    this.user.email=this.userForm.value.email;
+    this.user.username=this.userForm.value.username;
+    this.user.password=this.userForm.value.password;
+    this.user.firstName=this.userDetailsForm.value.firstName;
+    this.user.surname=this.userDetailsForm.value.surname;
+    this.user.occupation=this.userDetailsForm.value.occupation;
+    console.log(this.user);
   /* this.ContactData.addUserProvider(JSON.stringify(this.user))
       .subscribe(
         data => alert("Successful!"),
