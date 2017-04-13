@@ -27,7 +27,7 @@ export class SignupPage {
     this.userForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators. required, EmailValidator.isValidMailFormat])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), NoSpaceValidator.hasNoSpaces])],
-      password: ['', Validators.minLength(8)]
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), NoSpaceValidator.hasNoSpaces])]
 
     });
     this.userDetailsForm = this.formBuilder.group({
@@ -41,8 +41,17 @@ export class SignupPage {
     this.slides.slideTo(index, 500);
   }
   addSkill(){
-    this.user.skills.push(this.skill);
-    this.skill=null;
+      if(this.skill == null || this.skill ==""){
+        console.log("Null String");
+      }
+      else if(this.skill.trim().length==0){
+         console.log("String Full of Spaces");
+         this.skill=null;
+      }
+      else{
+      this.user.skills.push(this.skill);
+      this.skill=null;
+    }
   }
   deleteSkill(i){
     this.user.skills.splice(i, 1);
@@ -63,6 +72,7 @@ export class SignupPage {
       );*/
     this.setUserNull(this.user);
   }
+  
   setUserNull(user:User){
     this.user = {
         email: null,

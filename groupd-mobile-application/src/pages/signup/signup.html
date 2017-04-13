@@ -26,7 +26,10 @@
 
           <ion-item *ngIf="!userForm.controls.username.valid  && (userForm.controls.username.dirty || submitAttempt)">
               <small color="danger">Please enter a valid name.</small>
-          </ion-item>      
+          </ion-item>    
+          <ion-item *ngIf="userForm.controls.username.pending">
+              <p>Checking username...</p>
+          </ion-item>  
 
           <ion-item>
             <ion-label floating>Password: </ion-label>
