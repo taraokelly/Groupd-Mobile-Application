@@ -58,12 +58,13 @@ export class SignupPage {
     this.user.skills.splice(i, 1);
   }
   addUser(){
-    this.user.email=this.userForm.value.email;
+    this.user.email=this.userForm.value.email.replace(/^\s+|\s+$/g, "");
+    //username and password don't need to be trimmed, no spaces can be add to them
     this.user.username=this.userForm.value.username;
     this.user.password=this.userForm.value.password;
-    this.user.firstName=this.userDetailsForm.value.firstName;
-    this.user.surname=this.userDetailsForm.value.surname;
-    this.user.occupation=this.userDetailsForm.value.occupation;
+    this.user.firstName=this.userDetailsForm.value.firstName.replace(/^\s+|\s+$/g, "");
+    this.user.surname=this.userDetailsForm.value.surname.replace(/^\s+|\s+$/g, "");
+    this.user.occupation=this.userDetailsForm.value.occupation.replace(/^\s+|\s+$/g, "");
     console.log(this.user);
   /* this.ContactData.addUserProvider(JSON.stringify(this.user))
       .subscribe(
