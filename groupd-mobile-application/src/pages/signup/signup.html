@@ -19,14 +19,19 @@
             <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
           
+          <ion-item *ngIf="!userForm.controls.email.valid  && (userForm.controls.email.dirty || submitAttempt)">
+          <small color="danger">Please enter a valid email.</small>
+          </ion-item> 
+
           <ion-item>
             <ion-label floating>Username: </ion-label>
             <ion-input formControlName="username" [class.invalid]="!userForm.controls.username.valid && (userForm.controls.username.dirty || submitAttempt)"></ion-input>
           </ion-item>
 
           <ion-item *ngIf="!userForm.controls.username.valid  && (userForm.controls.username.dirty || submitAttempt)">
-              <small color="danger">Please enter a valid name.</small>
-          </ion-item>    
+              <small color="danger">Must have 4 characters and no spaces.</small>
+          </ion-item>
+          
           <ion-item *ngIf="userForm.controls.username.pending">
               <p>Checking username...</p>
           </ion-item>  
@@ -34,6 +39,10 @@
           <ion-item>
             <ion-label floating>Password: </ion-label>
             <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+
+          <ion-item *ngIf="!userForm.controls.password.valid  && (userForm.controls.password.dirty || submitAttempt)">
+              <small color="danger">Must have 8 characters and no spaces.</small>
           </ion-item>
       </form>
       <ion-grid>
@@ -56,6 +65,9 @@
             <ion-label floating>First Name: </ion-label>
             <ion-input formControlName="firstName"></ion-input>
           </ion-item>
+         <!-- <ion-item *ngIf="!userDetailsForm.controls.firstName.valid  && (userDetailsForm.controls.firstName.dirty || submitAttempt)">
+          <small color="danger">Please enter a valid email.</small>
+          </ion-item> -->
           <ion-item>
             <ion-label floating>Surname: </ion-label>
             <ion-input formControlName="surname"></ion-input>

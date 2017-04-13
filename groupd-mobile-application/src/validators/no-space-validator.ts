@@ -6,7 +6,7 @@ export class NoSpaceValidator {
 
         // Check for white space
         if (/\s/.test(control.value)) {
-            return { "Please provide a valid username": true };
+            return { "Contains spaces": true };
         }
 
         return null;

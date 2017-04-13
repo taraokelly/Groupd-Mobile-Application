@@ -4,6 +4,7 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import {EmailValidator} from '../../validators/email-validator';
 import {NoSpaceValidator} from '../../validators/no-space-validator';
+import {ContainsCharacterValidator} from '../../validators/contains-character-validator';
 
 @Component({
   selector: 'page-signup',
@@ -25,15 +26,15 @@ export class SignupPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
     this.setUserNull(this.user);
     this.userForm = this.formBuilder.group({
-      email: ['', Validators.compose([Validators. required, EmailValidator.isValidMailFormat])],
+      email: ['', Validators.compose([Validators.required, EmailValidator.isValidMailFormat])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), NoSpaceValidator.hasNoSpaces])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), NoSpaceValidator.hasNoSpaces])]
 
     });
     this.userDetailsForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      surname: ['', Validators.required],
-      occupation: ['', Validators.required]
+      firstName: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
+      surname: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
+      occupation: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])]
     });
   }
 
@@ -49,7 +50,7 @@ export class SignupPage {
          this.skill=null;
       }
       else{
-      this.user.skills.push(this.skill);
+      this.user.skills.push(this.skill.replace(/^\s+|\s+$/g, ""));
       this.skill=null;
     }
   }
