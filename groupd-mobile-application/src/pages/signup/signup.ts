@@ -2,9 +2,11 @@ import { ViewChild, Component } from '@angular/core';
 import { Slides, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
-import {EmailValidator} from '../../validators/email-validator';
-import {NoSpaceValidator} from '../../validators/no-space-validator';
-import {ContainsCharacterValidator} from '../../validators/contains-character-validator';
+import { EmailValidator } from '../../validators/email-validator';
+import { NoSpaceValidator } from '../../validators/no-space-validator';
+import { ContainsCharacterValidator } from '../../validators/contains-character-validator';
+
+import { UserData } from "../../providers/user-data";
 
 @Component({
   selector: 'page-signup',
@@ -23,7 +25,7 @@ export class SignupPage {
   private userDetailsForm : FormGroup;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public UserData: UserData, private formBuilder: FormBuilder) {
     this.setUserNull(this.user);
     this.userForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValidMailFormat])],
@@ -66,12 +68,13 @@ export class SignupPage {
     this.user.surname=this.userDetailsForm.value.surname.replace(/^\s+|\s+$/g, "");
     this.user.occupation=this.userDetailsForm.value.occupation.replace(/^\s+|\s+$/g, "");
     console.log(this.user);
-  /* this.ContactData.addUserProvider(JSON.stringify(this.user))
+    
+    this.UserData.addUserProvider(JSON.stringify(this.user))
       .subscribe(
         data => alert("Successful!"),
         err => alert("Unsuccessful!" + err),
         () => console.log("Finished")
-      );*/
+      );
     this.setUserNull(this.user);
   }
   

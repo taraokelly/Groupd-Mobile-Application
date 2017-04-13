@@ -66,15 +66,21 @@
             <ion-input formControlName="firstName"></ion-input>
           </ion-item>
           <ion-item *ngIf="!userDetailsForm.controls.firstName.valid  && (userDetailsForm.controls.firstName.dirty || submitAttempt)">
-          <small color="danger">Please enter a valid email.</small>
+            <small color="danger">Please enter a valid name.</small>
           </ion-item>
           <ion-item>
             <ion-label floating>Surname: </ion-label>
             <ion-input formControlName="surname"></ion-input>
           </ion-item>
+          <ion-item *ngIf="!userDetailsForm.controls.surname.valid  && (userDetailsForm.controls.surname.dirty || submitAttempt)">
+            <small color="danger">Please enter a valid surname.</small>
+          </ion-item>
           <ion-item>
             <ion-label floating>Occupation: </ion-label>
             <ion-input formControlName="occupation"></ion-input>
+          </ion-item>
+         <ion-item *ngIf="!userDetailsForm.controls.occupation.valid  && (userDetailsForm.controls.occupation.dirty || submitAttempt)">
+            <small color="danger">Please enter a valid occupation.</small>
           </ion-item>
        </form>
        <ion-grid>

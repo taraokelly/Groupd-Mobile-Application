@@ -4,7 +4,7 @@ export class ContainsCharacterValidator {
 
    static hasCharacter(control: FormControl) {
 
-        // Check for white space
+        // Check for character in string 
         if (control.value.trim().length == 0) {
             return { "Contains character": true };
         }
