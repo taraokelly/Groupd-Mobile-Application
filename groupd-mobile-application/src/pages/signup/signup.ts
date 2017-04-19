@@ -1,10 +1,11 @@
 import { ViewChild, Component } from '@angular/core';
 import { Slides, NavController, NavParams } from 'ionic-angular';
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { EmailValidator } from '../../validators/email-validator';
 import { NoSpaceValidator } from '../../validators/no-space-validator';
 import { ContainsCharacterValidator } from '../../validators/contains-character-validator';
+//import { UsernameAvailabiltyValidator } from '../../validators/username-availablity-validator';
 
 import { UserData } from "../../providers/user-data";
 
@@ -29,7 +30,7 @@ export class SignupPage {
     this.setUserNull(this.user);
     this.userForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValidMailFormat])],
-      username: ['', Validators.compose([Validators.required, Validators.minLength(4), NoSpaceValidator.hasNoSpaces])],
+      username: ['', Validators.compose([Validators.required, Validators.minLength(4), NoSpaceValidator.hasNoSpaces])/*, UsernameAvailabiltyValidator.checkAvailability*/],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), NoSpaceValidator.hasNoSpaces])]
 
     });
@@ -60,6 +61,8 @@ export class SignupPage {
     this.user.skills.splice(i, 1);
   }
   addUser(){
+
+    //prepare data to be sent to server
     this.user.email=this.userForm.value.email.replace(/^\s+|\s+$/g, "");
     //username and password don't need to be trimmed, no spaces can be add to them
     this.user.username=this.userForm.value.username;
@@ -68,17 +71,26 @@ export class SignupPage {
     this.user.surname=this.userDetailsForm.value.surname.replace(/^\s+|\s+$/g, "");
     this.user.occupation=this.userDetailsForm.value.occupation.replace(/^\s+|\s+$/g, "");
     console.log(this.user);
-    
+
+    //add user
     this.UserData.addUser(JSON.stringify(this.user))
       .subscribe(
-        data => alert(data.message),
+        data => {
+            if(data.message === 'Saved'){
+
+              this.setUserNull(this.user);    
+              this.userDetailsForm.reset();
+              this.userForm.reset();
+              alert(data.message);
+            }else{
+
+              alert(data.message);
+              this.slides.slideTo(0, 500);
+            }
+        },
         err => alert("Unsuccessful!" + err),
         () => console.log("Finished")
       );
-    this.setUserNull(this.user);
-    
-    this.userDetailsForm.reset();
-    this.userForm.reset();
 
   }
   

@@ -8,7 +8,7 @@ export class ContainsCharacterValidator {
     if(control.value!=null || control.value!=undefined){
         // Check for character in string 
         if (control.value.trim().length == 0) {
-            return { "Contains character": true };
+            return { "No character": true };
         }
     }
         return null;
