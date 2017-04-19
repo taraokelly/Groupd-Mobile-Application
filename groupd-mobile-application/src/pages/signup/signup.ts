@@ -8,7 +8,10 @@ import { ContainsCharacterValidator } from '../../validators/contains-character-
 //import { UsernameAvailabiltyValidator } from '../../validators/username-availablity-validator';
 
 import { UserData } from "../../providers/user-data";
+
 import { LoginPage } from "../login/login";
+
+import { User } from '../../objects/user';
 
 @Component({
   selector: 'page-signup',
@@ -166,7 +169,7 @@ export class SignupPage {
   }
 }
 
-interface User {
+/*interface User {
   email: String;
   username: String;
   password: String;
@@ -194,4 +197,4 @@ interface Rating{
 interface Ratedby{
 				username: String,
 				rate: number 
-			}
+			}*/
