@@ -38,6 +38,45 @@ page-login {
     font-size: 0.9em;
    // color: white !important;
   }
+  //this is the label color
+  //ion-list .item .item-inner .input-wrapper ion-label{ 
+  //color: #ffffff;
+  //  }
+
+  //this is the border/line color
+
+  .item-inner {
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+    //border-color: white !important;
+   // border-bottom-color: white !important;
+  }
+  .input-has-focus {
+    color: #FF7700 !important;
+    border-bottom: 2px solid #FF7700 !important;
+  }
+
+   // Input items
+/* ion-label,
+  .input-has-focus {
+    color: #FF7700 !important;
+  }*/
+  /*ion-item {
+    border-radius: 3px !important;
+    padding-right: 16px !important;
+    margin-bottom: 5px !important;
+    color: #FF7700 !important;
+    background-color: transparent !important;
+    font-size: 0.9em;
+  }
+  .margin-bottom {
+    margin-bottom: 15px !important;
+  }
+  .item-inner {
+    border-bottom: 2px solid #FF7700 !important;
+    box-shadow: none !important;
+  }*/
+
   ::-webkit-input-placeholder {
     color: white !important;
   }
