@@ -6,6 +6,7 @@ export class EmailValidator {
    static isValidMailFormat(control: FormControl){
         let email_regexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+        //check if valid email
         if (!email_regexp.test(control.value)) {
             return { "Please provide a valid email": true };
         }

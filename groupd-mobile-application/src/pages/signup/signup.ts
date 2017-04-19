@@ -16,6 +16,7 @@ import { LoginPage } from "../login/login";
 })
 export class SignupPage {
 
+  //variables
   @ViewChild(Slides) slides: Slides;
 
   user: User;
@@ -26,14 +27,13 @@ export class SignupPage {
 
   private userDetailsForm : FormGroup;
 
-
+  //constructor
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public UserData: UserData, private formBuilder: FormBuilder) {
     this.setUserNull(this.user);
     this.userForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValidMailFormat])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), NoSpaceValidator.hasNoSpaces])/*, UsernameAvailabiltyValidator.checkAvailability*/],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), NoSpaceValidator.hasNoSpaces])]
-
     });
     this.userDetailsForm = this.formBuilder.group({
       firstName: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
@@ -42,9 +42,13 @@ export class SignupPage {
     });
   }
 
+  //functions
+
+  //slide navigation
   goToSlide(index) {
     this.slides.slideTo(index, 500);
   }
+  //add and delete a skill
   addSkill(){
       if(this.skill == null || this.skill ==""){
         console.log("Null String");
@@ -61,6 +65,9 @@ export class SignupPage {
   deleteSkill(i){
     this.user.skills.splice(i, 1);
   }
+
+  //add user 
+  //called when submit is clicked
   addUser(){
 
     //prepare data to be sent to server
@@ -82,11 +89,9 @@ export class SignupPage {
               this.setUserNull(this.user);    
               this.userDetailsForm.reset();
               this.userForm.reset();
-              //alert(data.message);
               this.successfulAlert();
             }else{
 
-              //alert(data.message);
               this.unsuccessfulAlert();
               this.goToSlide(0);
             }
@@ -97,6 +102,7 @@ export class SignupPage {
 
   }
 
+  //result alerts
   successfulAlert() {
     let alert = this.alertCtrl.create({
       title: 'Success!',
@@ -123,12 +129,13 @@ export class SignupPage {
   unsuccessfulAlert() {
     let alert = this.alertCtrl.create({
       title: 'Whoops!',
-      subTitle: 'Looks like that username is taken!',
+      subTitle: 'Looks like the username'+ this.user.username + ' is taken!',
       buttons: ['Okay']
     });
     alert.present();
   }
   
+  //reset user object
   setUserNull(user:User){
     this.user = {
         email: null,
