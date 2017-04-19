@@ -1,5 +1,5 @@
 import { ViewChild, Component } from '@angular/core';
-import { Slides, NavController, NavParams } from 'ionic-angular';
+import { Slides, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { EmailValidator } from '../../validators/email-validator';
@@ -8,6 +8,7 @@ import { ContainsCharacterValidator } from '../../validators/contains-character-
 //import { UsernameAvailabiltyValidator } from '../../validators/username-availablity-validator';
 
 import { UserData } from "../../providers/user-data";
+import { LoginPage } from "../login/login";
 
 @Component({
   selector: 'page-signup',
@@ -26,7 +27,7 @@ export class SignupPage {
   private userDetailsForm : FormGroup;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public UserData: UserData, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public UserData: UserData, private formBuilder: FormBuilder) {
     this.setUserNull(this.user);
     this.userForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValidMailFormat])],
@@ -81,17 +82,51 @@ export class SignupPage {
               this.setUserNull(this.user);    
               this.userDetailsForm.reset();
               this.userForm.reset();
-              alert(data.message);
+              //alert(data.message);
+              this.successfulAlert();
             }else{
 
-              alert(data.message);
-              this.slides.slideTo(0, 500);
+              //alert(data.message);
+              this.unsuccessfulAlert();
+              this.goToSlide(0);
             }
         },
         err => alert("Unsuccessful!" + err),
         () => console.log("Finished")
       );
 
+  }
+
+  successfulAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Success!',
+      subTitle: 'Proceed to log in page?',
+      buttons: [
+      {
+        text: 'Close',
+        role: 'cancel',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Login',
+        handler: data => {
+            console.log('Login clicked');
+            this.navCtrl.setRoot(LoginPage);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  unsuccessfulAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Whoops!',
+      subTitle: 'Looks like that username is taken!',
+      buttons: ['Okay']
+    });
+    alert.present();
   }
   
   setUserNull(user:User){
