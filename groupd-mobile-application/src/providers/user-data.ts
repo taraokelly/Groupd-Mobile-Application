@@ -16,7 +16,7 @@ export interface User {
 export class UserData {
   constructor(public http: Http, public events: Events) {}
 
-  addUserProvider(user: string){
+  addUser(user: string){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://127.0.0.1:8080/api/users', user, 

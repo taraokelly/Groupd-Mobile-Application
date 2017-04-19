@@ -69,13 +69,17 @@ export class SignupPage {
     this.user.occupation=this.userDetailsForm.value.occupation.replace(/^\s+|\s+$/g, "");
     console.log(this.user);
     
-    this.UserData.addUserProvider(JSON.stringify(this.user))
+    this.UserData.addUser(JSON.stringify(this.user))
       .subscribe(
-        data => alert("Successful!"),
+        data => alert(data.message),
         err => alert("Unsuccessful!" + err),
         () => console.log("Finished")
       );
     this.setUserNull(this.user);
+    
+    this.userDetailsForm.reset();
+    this.userForm.reset();
+
   }
   
   setUserNull(user:User){
