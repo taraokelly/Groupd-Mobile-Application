@@ -36,15 +36,13 @@ export class MyApp {
   loggedInPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' }
   ];
+  
+  username: String = "Anna Walker";
 
   constructor(public menu: MenuController,  public events: Events, public userData: UserData, /*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
    this.initializeApp();
    this.enableMenu(false);
-   this.events.subscribe('user:login', () => {
-      this.enableMenu(true);
-      this.nav.setRoot(HomePage);
-      console.log("Logged in event triggered");
-    });
+   this.startEvents();
   }
 
   initializeApp() {
@@ -58,7 +56,7 @@ export class MyApp {
 
   openPage(page) {
     // Reset the content nav to have just this page
-    // donn't want the back button to show in this scenario
+    // don't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 
@@ -82,5 +80,22 @@ export class MyApp {
    enableMenu(loggedIn: boolean) {
     this.menu.enable(loggedIn, 'loggedInMenu');
     this.menu.enable(!loggedIn, 'loggedOutMenu');
+  }
+  getUsername() {
+    this.userData.getCurrentUser().then((user) => {
+      this.username = user.username;
+    });
+  }
+
+  startEvents(){
+    this.events.subscribe('user:login', () => {
+      this.enableMenu(true);
+      this.nav.setRoot(HomePage);
+      console.log("Logged in event triggered");
+    });
+    this.events.subscribe('user:changed', () => {
+      this.getUsername();
+      console.log("User changed event triggered");
+    });
   }
 }

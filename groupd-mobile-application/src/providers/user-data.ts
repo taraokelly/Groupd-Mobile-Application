@@ -15,9 +15,15 @@ export class UserData {
 
   login(user: User){
     //Save user to storage, trigger logged in event
-    this.storage.set ("currentUser", JSON.stringify(user));
+    //this.storage.set ("currentUser", JSON.stringify(user));
     //console.log(user);
+    this.setCurrentUser(user);
     this.events.publish('user:login');
+  }
+
+  setCurrentUser(user: User): void{
+     this.storage.set ("currentUser", JSON.stringify(user));
+     this.events.publish('user:changed');
   }
 
   getCurrentUser(): Promise<User>{
