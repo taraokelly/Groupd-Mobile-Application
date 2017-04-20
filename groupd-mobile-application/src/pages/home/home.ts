@@ -5,12 +5,6 @@ import { UserData } from "../../providers/user-data";
 
 import { User } from '../../objects/user';
 
-/*
-  Generated class for the Home page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -22,10 +16,6 @@ export class HomePage {
   constructor(public navCtrl: NavController, public UserData:UserData, public navParams: NavParams) {
     this.setUserNull();
     this.getUser();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
   }
 
   getUser() {

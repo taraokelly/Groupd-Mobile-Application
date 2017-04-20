@@ -34,7 +34,7 @@ export class MyApp {
   ];
 
   loggedInPages: PageInterface[] = [
-    { title: 'Log In', component: HomePage, icon: 'ion-home' }
+    { title: 'Home', component: HomePage, icon: 'home' }
   ];
 
   constructor(public menu: MenuController,  public events: Events, public userData: UserData, /*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
@@ -58,7 +58,7 @@ export class MyApp {
 
   openPage(page) {
     // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
+    // donn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 
