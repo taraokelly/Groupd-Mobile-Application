@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 
 import { HomePage } from '../pages/home/home';
+import { ProfilePage } from '../pages/profile/profile';
 
 export interface PageInterface {
   title: string;
@@ -34,10 +35,13 @@ export class MyApp {
   ];
 
   loggedInPages: PageInterface[] = [
-    { title: 'Home', component: HomePage, icon: 'home' }
+    { title: 'Home', component: HomePage, icon: 'home' },
+    { title: 'Profile', component: ProfilePage, icon: 'person' }
   ];
   
-  username: String = "Anna Walker";
+  username: String = "";
+  occupation: String = "";
+  email: String = "";
 
   constructor(public menu: MenuController,  public events: Events, public userData: UserData, /*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
    this.initializeApp();
@@ -81,9 +85,11 @@ export class MyApp {
     this.menu.enable(loggedIn, 'loggedInMenu');
     this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
-  getUsername() {
+  getUserDetails() {
     this.userData.getCurrentUser().then((user) => {
       this.username = user.username;
+      this.occupation = user.occupation;
+      this.email = user.email;
     });
   }
 
@@ -94,8 +100,11 @@ export class MyApp {
       console.log("Logged in event triggered");
     });
     this.events.subscribe('user:changed', () => {
-      this.getUsername();
+      this.getUserDetails();
       console.log("User changed event triggered");
+    });
+    this.events.subscribe('user:logout', () => {
+      this.enableMenu(false);
     });
   }
 }
