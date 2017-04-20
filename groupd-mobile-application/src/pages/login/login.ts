@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController, App, Events } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, App } from 'ionic-angular';
 import { SignupPage } from "../signup/signup";
 
 import { UserData } from "../../providers/user-data";
@@ -16,7 +16,7 @@ export class LoginPage {
   private loginForm: LoginForm;
   public backgroundImage = "assets/img/background/orange.png";
 
-  constructor(private navCtrl: NavController, public events: Events, public navParams: NavParams, public UserData: UserData, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public app: App) {
+  constructor(private navCtrl: NavController, public navParams: NavParams, public UserData: UserData, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public app: App) {
     this.setLoginFormNull();
    }
 
@@ -40,6 +40,7 @@ export class LoginPage {
                   //this.showAlert('Logged in!', 'Thanks for logging in.');
                   //this.events.publish('user:login');
                   //this.navCtrl.setRoot(SignupPage);
+                  this.UserData.login(data);
                 }else{
                   //invalid password
                   this.showAlert('Invalid password', 'Are you using the correct username?');

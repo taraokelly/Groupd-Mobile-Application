@@ -11,11 +11,20 @@ import { User } from "../objects/user";
 
 @Injectable()
 export class UserData {
-  constructor(public http: Http, public events: Events) {}
+  constructor(public http: Http, public events: Events, public storage: Storage) {}
 
   login(user: User){
     //Save user to storage, trigger logged in event
+    this.storage.set ("currentUser", JSON.stringify(user));
+    //console.log(user);
     this.events.publish('user:login');
+  }
+
+  getCurrentUser(): Promise<User>{
+     return this.storage.get("currentUser").then((value) => {
+                    return JSON.parse(value);
+     }); 
+   
   }
 
   getUser(user: string){

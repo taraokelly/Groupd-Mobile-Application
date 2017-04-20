@@ -8,6 +8,8 @@ import { UserData } from "../providers/user-data";
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 
+import { HomePage } from '../pages/home/home';
+
 export interface PageInterface {
   title: string;
   component: any;
@@ -31,13 +33,16 @@ export class MyApp {
     { title: 'Sign Up', component: SignupPage, icon: 'person-add' }
   ];
 
-  loggedInPages: PageInterface[] = [];
+  loggedInPages: PageInterface[] = [
+    { title: 'Log In', component: HomePage, icon: 'ion-home' }
+  ];
 
   constructor(public menu: MenuController,  public events: Events, public userData: UserData, /*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
    this.initializeApp();
    this.enableMenu(false);
    this.events.subscribe('user:login', () => {
       this.enableMenu(true);
+      this.nav.setRoot(HomePage);
       console.log("Logged in event triggered");
     });
   }
