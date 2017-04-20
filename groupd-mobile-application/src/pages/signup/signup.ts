@@ -132,7 +132,7 @@ export class SignupPage {
   unsuccessfulAlert() {
     let alert = this.alertCtrl.create({
       title: 'Whoops!',
-      subTitle: 'Looks like the username'+ this.user.username + ' is taken!',
+      subTitle: 'Looks like the username '+ this.user.username + ' is taken!',
       buttons: ['Okay']
     });
     alert.present();

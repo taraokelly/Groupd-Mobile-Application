@@ -16,7 +16,7 @@ export interface User {
 export class UserData {
   constructor(public http: Http, public events: Events) {}
 
-  checkUsername(user: string){
+  getUser(user: string){
     return this.http.get('http://127.0.0.1:8080/api/users' + "/" + user)
     .map(res => res.json());
   }

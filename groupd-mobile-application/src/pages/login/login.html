@@ -26,18 +26,18 @@
         <ion-list inset class="no-border">
           <ion-item>
             <ion-label>Username</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input type="text" name="loginForm.username"  [(ngModel)]="loginForm.username"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Password</ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input type="password" name="loginForm.password"  [(ngModel)]="loginForm.password"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <button ion-button color="dark" class="login-button" (click)="login()">Login</button>
+        <button ion-button color="dark" class="login-button" (click)="login()">LOGIN</button>
       </ion-col>
     </ion-row>
     <ion-row>
