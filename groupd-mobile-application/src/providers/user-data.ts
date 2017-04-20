@@ -7,14 +7,16 @@ import { Storage } from '@ionic/storage';
 
 import 'rxjs/add/operator/map';
 
-
-export interface User {
-  
-}
+import { User } from "../objects/user";
 
 @Injectable()
 export class UserData {
   constructor(public http: Http, public events: Events) {}
+
+  login(user: User){
+    //Save user to storage, trigger logged in event
+    this.events.publish('user:login');
+  }
 
   getUser(user: string){
     return this.http.get('http://127.0.0.1:8080/api/users' + "/" + user)

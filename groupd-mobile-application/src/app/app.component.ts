@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { /*Events, MenuController, */ Nav, Platform } from 'ionic-angular';
+import { /*Events, MenuController, */ Nav, Platform, MenuController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { UserData } from "../providers/user-data";
 
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
@@ -31,8 +33,13 @@ export class MyApp {
 
   loggedInPages: PageInterface[] = [];
 
-  constructor(/*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public menu: MenuController,  public events: Events, public userData: UserData, /*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
    this.initializeApp();
+   this.enableMenu(false);
+   this.events.subscribe('user:login', () => {
+      this.enableMenu(true);
+      console.log("Logged in event triggered");
+    });
   }
 
   initializeApp() {
@@ -65,5 +72,10 @@ export class MyApp {
       return 'danger';
     }
     return;
+  }
+
+   enableMenu(loggedIn: boolean) {
+    this.menu.enable(loggedIn, 'loggedInMenu');
+    this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
 }
