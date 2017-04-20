@@ -22,9 +22,9 @@ export class SignupPage {
   //variables
   @ViewChild(Slides) slides: Slides;
 
-  user: User;
+  private user: User;
 
-  skill: string;
+  private skill: string;
 
   private userForm : FormGroup;
 

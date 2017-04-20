@@ -4,6 +4,7 @@ import { SignupPage } from "../signup/signup";
 
 import { UserData } from "../../providers/user-data";
 
+import { LoginForm } from '../../objects/login-form';
 //import { User } from '../../objects/user';
 
 @Component({
@@ -12,8 +13,8 @@ import { UserData } from "../../providers/user-data";
 })
 export class LoginPage {
   
-  public loginForm: LoginForm;
-  public backgroundImage = "assets/img/background/orange.png";
+  private loginForm: LoginForm;
+  private backgroundImage = "assets/img/background/orange.png";
 
   constructor(private navCtrl: NavController, public UserData: UserData, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public app: App) {
     this.setLoginFormNull();
@@ -61,8 +62,4 @@ export class LoginPage {
   goToSignup() {
     this.navCtrl.setRoot(SignupPage);
   }
-}
-interface LoginForm{
-  username: string;
-  password: string;
 }
