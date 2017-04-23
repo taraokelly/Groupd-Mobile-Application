@@ -18,7 +18,7 @@ export class ProfilePage {
 
   username:any;
 
-  showSkills: boolean = false;
+  currentUser: boolean = false;
 
   constructor(public navCtrl: NavController, public UserData: UserData, public navParams: NavParams) {
     this.username = this.navParams.get('param1'); 
@@ -26,15 +26,27 @@ export class ProfilePage {
     this.setUserNull();
     this.getUser();
   }
-
+  
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
+      
+      if(user.username===this.username){
+        this.currentUser = true;
+      }
+      else{
+        this.currentUser = false;
+      }
     });
   }
 
   toggleSkills(){
-    this.showSkills = !this.showSkills; 
+    if(this.currentUser=== true){
+      alert("Your Profile");
+    }
+    else{
+      alert("Not Your Profile");
+    }
 }
 
   //reset user object

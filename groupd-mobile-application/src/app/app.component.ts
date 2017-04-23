@@ -10,6 +10,7 @@ import { SignupPage } from '../pages/signup/signup';
 
 import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
+import { CreateProjectPage } from '../pages/create-project/create-project';
 
 export interface PageInterface {
   title: string;
@@ -18,7 +19,7 @@ export interface PageInterface {
   logsOut?: boolean;
   index?: number;
   tabComponent?: any;
-  param?: any;
+  param?: String;
 }
 
 @Component({
@@ -37,7 +38,8 @@ export class MyApp {
 
   loggedInPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
-    { title: 'Profile', component: ProfilePage, icon: 'person', param:'username' }
+    { title: 'Profile', component: ProfilePage, icon: 'person', param:"username" },
+    { title: 'CreateProjectPage', component: CreateProjectPage, icon: 'create' }
   ];
   
   username: String = "";
@@ -99,7 +101,7 @@ export class MyApp {
       this.username = user.username;
       this.occupation = user.occupation;
       this.email = user.email;
-      this.loggedInPages[1].param = user.username;
+      this.loggedInPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
     });
   }
 
