@@ -18,6 +18,7 @@ export interface PageInterface {
   logsOut?: boolean;
   index?: number;
   tabComponent?: any;
+  param?: any;
 }
 
 @Component({
@@ -36,7 +37,7 @@ export class MyApp {
 
   loggedInPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
-    { title: 'Profile', component: ProfilePage, icon: 'person' }
+    { title: 'Profile', component: ProfilePage, icon: 'person', param:'username' }
   ];
   
   username: String = "";
@@ -61,7 +62,15 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // don't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if(page.hasOwnProperty('param')){
+      alert("Page has param: " + page.param);
+      this.nav.setRoot(page.component, {
+        param1: page.param
+    });
+    }
+    else{
+      this.nav.setRoot(page.component);
+    }     
   }
 
    isActive(page: PageInterface) {
@@ -90,6 +99,7 @@ export class MyApp {
       this.username = user.username;
       this.occupation = user.occupation;
       this.email = user.email;
+      this.loggedInPages[1].param = user.username;
     });
   }
 

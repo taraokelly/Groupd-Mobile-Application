@@ -16,9 +16,13 @@ export class ProfilePage {
 
   private user: User;
 
+  username:any;
+
   showSkills: boolean = false;
 
   constructor(public navCtrl: NavController, public UserData: UserData, public navParams: NavParams) {
+    this.username = this.navParams.get('param1'); 
+    alert("Received param1: " + this.username)
     this.setUserNull();
     this.getUser();
   }
