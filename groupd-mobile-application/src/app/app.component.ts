@@ -39,7 +39,7 @@ export class MyApp {
   loggedInPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
     { title: 'Profile', component: ProfilePage, icon: 'person', param:"username" },
-    { title: 'CreateProjectPage', component: CreateProjectPage, icon: 'create' }
+    { title: 'New Project', component: CreateProjectPage, icon: 'create' }
   ];
   
   username: String = "";

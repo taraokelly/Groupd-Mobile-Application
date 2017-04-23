@@ -1,6 +1,9 @@
 <ion-header>
 
-  <ion-navbar>
+    <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>New Project</ion-title>
   </ion-navbar>
 
@@ -8,5 +11,45 @@
 
 
 <ion-content padding>
+  
+  <form [formGroup]="projectForm">
+    <ion-list inset class="no-border">
+      <ion-item>
+        <ion-label floating>Name:</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
 
+      <ion-item>
+        <ion-label floating>Positions: </ion-label>
+        <ion-input type="number" min="1" formControlName="maxMembers"></ion-input>
+      </ion-item>      
+
+      <ion-item>
+        <ion-label floating>Thumbnail Description: </ion-label>
+        <ion-input formControlName="thumb"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Description: </ion-label>
+        <ion-textarea rows="6" type="text" formControlName="desc"></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+    <hr>
+
+  </form>
+  <form>
+    <ion-item>
+      <ion-label floating>Member: </ion-label>
+      <ion-input type="text" name="member" [(ngModel)]="member"></ion-input>
+    </ion-item>
+    <div class="wrapper">
+      <button color="dark" small ion-button (click)="addMember()">ADD MEMBER</button>
+    </div>
+  </form>
+    <div class="wrapper" *ngFor="let p of project.projectMembers; let i = index">
+      <button ion-button round icon-only small *ngIf="(project.projectMembers.length<6) || (i > project.projectMembers.length-6)" color="warm" (click)="deleteMember(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
+    </div>
+            
+   <button color="dark" block ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid" (click)="addProject()">CREATE PROJECT</button>
 </ion-content>
