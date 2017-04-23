@@ -24,9 +24,6 @@ export class CreateProjectPage {
       thumb: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
       desc: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
       maxMembers: ['', Validators.compose([Validators.required])] //check int maybe?
-      /*creator: ['', Validators.compose([Validators.required])],
-      projectName: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      projectThumb: ['', Validators.compose([Validators.required, Validators.minLength(8)])]*/
     });
   }
 
