@@ -9,4 +9,14 @@ import { Proj } from '../../objects/project';
 @Injectable()
 export class UserData {
   constructor(public http: Http) {}
+
+  addProject(project: string){
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://127.0.0.1:8080/api/projects', project, 
+    {
+      headers: headers
+    })
+    .map(res => res.json());
+  }
 }

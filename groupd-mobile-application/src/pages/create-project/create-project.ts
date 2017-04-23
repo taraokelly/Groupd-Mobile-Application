@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ContainsCharacterValidator } from '../../validators/contains-character-validator';
 
@@ -17,7 +17,7 @@ export class CreateProjectPage {
 
   private projectForm : FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private formBuilder: FormBuilder) {
     this.setProjectNull();
     this.projectForm = this.formBuilder.group({
       name: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
@@ -40,6 +40,14 @@ export class CreateProjectPage {
       this.member=null;
     }
   }
+   showAlert(t: string, subT: string){
+    let alert = this.alertCtrl.create({
+                title: t,
+                subTitle: subT,
+                buttons: ['Dismiss']
+              });
+              alert.present();
+    }
   deleteMember(i){
     this.project.projectMembers.splice(i, 1);
   }
