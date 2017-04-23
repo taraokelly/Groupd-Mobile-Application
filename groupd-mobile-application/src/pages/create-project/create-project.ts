@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ContainsCharacterValidator } from '../../validators/contains-character-validator';
 
+import { Proj } from '../../objects/project';
+
 @Component({
   selector: 'page-create-project',
   templateUrl: 'create-project.html'
@@ -11,7 +13,7 @@ export class CreateProjectPage {
 
   member: String;
 
-  project: Project;
+  project: Proj;
 
   private projectForm : FormGroup;
 
@@ -65,20 +67,4 @@ export class CreateProjectPage {
     }
   }
 
-}
-interface Project{
-    projectId: String,
-    projectName: String,
-    projectThumb: String,
-    projectCreator: String,
-    projectMembers: String[],
-    maxMembers: Number,
-    projectDesc: String,
-    comments: String,
-    /*projectMembers: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
-    
-    tags: [String],
-    projectDelete: Boolean,
-    projectCompleted: Boolean,*/
-    time: { type: Date }
 }
