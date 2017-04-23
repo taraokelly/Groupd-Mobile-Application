@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { ContainsCharacterValidator } from '../../validators/contains-character-validator';
 
 @Component({
   selector: 'page-create-project',
@@ -17,9 +18,9 @@ export class CreateProjectPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder) {
     this.setProjectNull();
     this.projectForm = this.formBuilder.group({
-      name: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      thumb: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-      desc: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+      name: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
+      thumb: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
+      desc: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
       maxMembers: ['', Validators.compose([Validators.required])] //check int maybe?
       /*creator: ['', Validators.compose([Validators.required])],
       projectName: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -44,10 +45,10 @@ export class CreateProjectPage {
     this.project.projectMembers.splice(i, 1);
   }
   addProject(){
-    this.project.projectName=this.projectForm.value.name;
-    this.project.projectThumb=this.projectForm.value.thumb;
-    this.project.projectDesc=this.projectForm.value.desc;
-    this.project.maxMembers=this.projectForm.value.maxMembers;
+    this.project.projectName=this.projectForm.value.name.replace(/^\s+|\s+$/g, "");
+    this.project.projectThumb=this.projectForm.value.thumb.replace(/^\s+|\s+$/g, "");
+    this.project.projectDesc=this.projectForm.value.desc.replace(/^\s+|\s+$/g, "");
+    this.project.maxMembers=this.projectForm.value.maxMembers.replace(/^\s+|\s+$/g, "");
     console.log(this.project);
   }
   setProjectNull(){
