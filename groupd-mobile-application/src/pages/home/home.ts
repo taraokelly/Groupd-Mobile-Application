@@ -21,6 +21,9 @@ export class HomePage {
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
+      //this.UserData.setCurrentUser(user);
+      console.log("Profile User:" + user);
+      this.UserData.setCurrentUser(user);
     });
   }
 

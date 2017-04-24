@@ -22,15 +22,22 @@ export class UserData {
   }
 
   setCurrentUser(user: User): void{
-     this.storage.set ("currentUser", JSON.stringify(user));
+     this.storage.set("currentUser", JSON.stringify(user));
      this.events.publish('user:changed');
   }
 
   getCurrentUser(): Promise<User>{
      return this.storage.get("currentUser").then((value) => {
+                    console.log("In get current details - app provider");
+                    console.log(JSON.parse(value));
                     return JSON.parse(value);
      }); 
    
+  }
+  getLoginUser() {
+     this.storage.get("currentUser").then((value) => {
+                    return JSON.parse(value);
+     }); 
   }
 
   getUser(user: string){

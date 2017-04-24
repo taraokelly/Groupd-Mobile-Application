@@ -98,15 +98,38 @@ export class MyApp {
   }
   getUserDetails() {
     this.userData.getCurrentUser().then((user) => {
-      this.username = user.username;
-      this.occupation = user.occupation;
-      this.email = user.email;
-      this.loggedInPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
-    });
-  }
+    console.log("In get user details - app component");
+    console.log(user);
+    this.username = user.username;
+    this.occupation = user.occupation;
+    this.email = user.email;
+    this.loggedInPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
+  });/*.then((user) => {
+    console.log("Triggering login event");
+    this.events.publish('user:login');
+  });*/
+
+}
+getLoginDetails() {
+    this.userData.getCurrentUser().then((user) => {
+    console.log("In get user details - app component");
+    console.log(user);
+    this.username = user.username;
+    this.occupation = user.occupation;
+    this.email = user.email;
+    this.loggedInPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
+  }).then((user) => {
+    console.log("Triggering login event");
+    this.events.publish('user:logined');
+  });
+}
 
   startEvents(){
     this.events.subscribe('user:login', () => {
+      this.getLoginDetails();
+      console.log("Logged in event triggered");
+    });
+    this.events.subscribe('user:logined', () => {
       this.enableMenu(true);
       this.nav.setRoot(HomePage);
       console.log("Logged in event triggered");
@@ -115,6 +138,7 @@ export class MyApp {
       this.getUserDetails();
       console.log("User changed event triggered");
     });
+    
     this.events.subscribe('user:logout', () => {
       this.enableMenu(false);
     });
