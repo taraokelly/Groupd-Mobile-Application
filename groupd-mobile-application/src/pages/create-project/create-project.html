@@ -57,9 +57,9 @@
       <button color="dark" small ion-button (click)="addMember()">ADD MEMBER</button>
     </div>
   </form>
-    <div class="wrapper" *ngFor="let p of project.projectMembers; let i = index">
-      <button ion-button round icon-only small *ngIf="(project.projectMembers.length<6) || (i > project.projectMembers.length-6)" color="warm" (click)="deleteMember(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
-    </div>
+    <span class="wrapper" *ngFor="let p of project.projectMembers; let i = index">
+      <button ion-button round icon-only small color="warm" (click)="deleteMember(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
+    </span>
             
    <button color="danger" block ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid" (click)="addProject()">CREATE PROJECT</button>
 </ion-content>

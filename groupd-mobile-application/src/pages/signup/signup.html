@@ -105,7 +105,7 @@
         <!-- Third Slide: Display skills with buttons to add a skill, for next slide and previous slide. -->
         <ion-slide>
           <div *ngFor="let skill of user.skills; let i = index">
-              <button ion-button round icon-only small *ngIf="(user.skills.length<6) || (i > user.skills.length-6)" color="warm" (click)="deleteSkill(i)"> &emsp;{{skill}}<ion-icon name="close"></ion-icon></button>
+              <button ion-button round icon-only small *ngIf="(user.skills.length<100) || (i > user.skills.length-100)" color="warm" (click)="deleteSkill(i)"> &emsp;{{skill}}<ion-icon name="close"></ion-icon></button>
             </div>
             <form>
               <ion-item>
