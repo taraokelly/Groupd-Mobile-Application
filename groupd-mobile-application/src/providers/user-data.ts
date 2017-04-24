@@ -34,11 +34,6 @@ export class UserData {
      }); 
    
   }
-  getLoginUser() {
-     this.storage.get("currentUser").then((value) => {
-                    return JSON.parse(value);
-     }); 
-  }
 
   getUser(user: string){
     return this.http.get('http://127.0.0.1:8080/api/users' + "/" + user)

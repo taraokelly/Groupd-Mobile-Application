@@ -150,6 +150,7 @@ export class SignupPage {
         email: null,
         username: null,
         password: null,
+        gender: "Female",
         firstName: null,
         surname: null,
         address: null,

@@ -4,7 +4,7 @@ import { Headers } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 
-import { Proj } from '../../objects/project';
+//import { Proj } from '../../objects/project';
 
 @Injectable()
 export class ProjectData {

@@ -8,6 +8,7 @@ export interface Proj{
     maxMembers: Number,
     projectDesc: String,
     comments: String,
+    tags?: String[],
     /*projectMembers: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
     
     tags: [String],

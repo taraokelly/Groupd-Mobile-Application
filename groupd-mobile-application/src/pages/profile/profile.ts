@@ -12,7 +12,8 @@ import { UserData } from "../../providers/user-data";
 export class ProfilePage {
 
   public backgroundImage = "assets/img/background/orange.png";
-  public profileImage = "assets/img/profile/default-profile.jpg";
+  //public profileImage = "assets/img/profile/Female.jpg";
+  public profileImage = "assets/img/profile/Female.jpg";
 
   private user: User;
 

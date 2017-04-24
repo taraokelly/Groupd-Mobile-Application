@@ -124,6 +124,7 @@ export class CreateProjectPage {
       maxMembers: null,
       projectDesc: null,
       comments: null,
+      tags: [],
       time: null
     }
   }
