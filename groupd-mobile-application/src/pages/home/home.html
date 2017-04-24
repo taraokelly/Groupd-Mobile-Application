@@ -11,5 +11,10 @@
 
 
 <ion-content padding>
-<h1>Hello {{user.firstName}}!</h1>
+  <h1>Hello {{user.firstName}}!</h1>
+  <h3>Posts</h3>
+  <div *ngFor="let p of projects">
+    <h3>{{p.projectName}}</h3>
+    <p> {{p.projectThumb}}</p>
+  </div>
 </ion-content>

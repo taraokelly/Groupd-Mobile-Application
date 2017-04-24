@@ -47,21 +47,25 @@
     <hr>
 
   </form>
-  <form>
-    <ion-item>
-      <ion-label floating>Member: </ion-label>
-      <ion-input type="text" name="member" [(ngModel)]="member"></ion-input>
-    </ion-item>
-    <br>
+
+  <div *ngIf="edit">
+    <form>
+      <ion-item>
+        <ion-label floating>Member: </ion-label>
+        <ion-input type="text" name="member" [(ngModel)]="member"></ion-input>
+      </ion-item>
+      <br>
+      <div class="wrapper">
+        <button color="dark" small ion-button (click)="addMember()">ADD MEMBER</button>
+      </div>
+    </form>
     <div class="wrapper">
-      <button color="dark" small ion-button (click)="addMember()">ADD MEMBER</button>
+      <span *ngFor="let p of project.projectMembers; let i = index">
+        <button ion-button round icon-only small color="warm" (click)="deleteMember(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
+      </span>
     </div>
-  </form>
-  <div class="wrapper">
-    <span *ngFor="let p of project.projectMembers; let i = index">
-      <button ion-button round icon-only small color="warm" (click)="deleteMember(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
-    </span>
   </div>
+
   <form>
     <ion-item>
       <ion-label floating>Tags: </ion-label>

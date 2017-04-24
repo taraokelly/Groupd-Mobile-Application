@@ -31,13 +31,27 @@ export class ProfilePage {
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
-      
+      // Username can never change, therefore there is no point changing it
       if(user.username===this.username){
         this.currentUser = true;
       }
       else{
         this.currentUser = false;
       }
+      // always reload user in the case of changes
+      this.UserData.getUser(this.user.username.toString()).subscribe(
+            data => {
+              if(data.hasOwnProperty('message')){
+                //user not found
+              }else{
+                //user found
+                  this.user = data;
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
+      this.UserData.setCurrentUser(user);
     });
   }
 

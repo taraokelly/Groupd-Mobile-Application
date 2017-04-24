@@ -15,9 +15,13 @@ import { User } from "../../objects/user";
 })
 export class CreateProjectPage {
 
-  user:User;
+  user: User;
 
-  tag:String;
+  edit: boolean;
+
+  tag: String;
+
+  state: String;
 
   member: String;
 
@@ -26,6 +30,12 @@ export class CreateProjectPage {
   private projectForm : FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ProjectData: ProjectData, public UserData: UserData,public alertCtrl: AlertController, private formBuilder: FormBuilder) {
+    this.state = this.navParams.get('param1'); 
+    if(this.state==="edit"){
+      this.edit = true;
+    }else{
+      this.edit = false;
+    }
     this.setProjectNull();
     this.setUserNull();
     this.getUser();
@@ -39,6 +49,20 @@ export class CreateProjectPage {
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
+      //always reload user in the case of changes
+      this.UserData.getUser(this.user.username.toString()).subscribe(
+            data => {
+              if(data.hasOwnProperty('message')){
+                //user not found
+              }else{
+                //user found
+                  this.user = data;
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
+      this.UserData.setCurrentUser(user);
     });
   }
   addMember(){
@@ -63,6 +87,9 @@ export class CreateProjectPage {
       }
       else if(this.tag.trim().length==0){
          console.log("String Full of Spaces");
+         this.tag=null;
+      }
+     else if(!this.project.tags.indexOf(this.tag)){
          this.tag=null;
       }
       else{

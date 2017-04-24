@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { UserData } from "../../providers/user-data";
+import { ProjectData } from "../../providers/project-data";
 
+import { Proj } from '../../objects/project';
 import { User } from '../../objects/user';
 
 @Component({
@@ -13,17 +15,38 @@ export class HomePage {
 
   user: User;
 
-  constructor(public navCtrl: NavController, public UserData:UserData, public navParams: NavParams) {
+  projects: Proj[];
+
+  constructor(public navCtrl: NavController, public UserData:UserData, public ProjectData:ProjectData, public navParams: NavParams) {
     this.setUserNull();
     this.getUser();
+    this.getProjects();
   }
 
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
-      //this.UserData.setCurrentUser(user);
-      console.log("Profile User:" + user);
+      //always reload user in the case of changes
+      this.UserData.getUser(this.user.username.toString()).subscribe(
+            data => {
+              //console.log(data);
+              if(data.hasOwnProperty('message')){
+                //user not found
+              }else{
+                //user found
+                  this.user = data;
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
       this.UserData.setCurrentUser(user);
+    });
+  }
+
+  getProjects(){
+    this.ProjectData.getAllProjects().subscribe(projects => {
+      this.projects = projects;
     });
   }
 
