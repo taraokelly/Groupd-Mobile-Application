@@ -12,6 +12,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { UserData } from '../providers/user-data';
+import { ProjectData } from '../providers/project-data';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -38,7 +40,8 @@ import { UserData } from '../providers/user-data';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
-    UserData
+    UserData,
+    ProjectData
   ]
 })
 export class AppModule {}

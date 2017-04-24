@@ -32,7 +32,7 @@ export class SignupPage {
 
   //constructor
   constructor(public navCtrl: NavController, private alertCtrl: AlertController, public navParams: NavParams, public UserData: UserData, private formBuilder: FormBuilder) {
-    this.setUserNull(this.user);
+    this.setUserNull();
     this.userForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, EmailValidator.isValidMailFormat])],
       username: ['', Validators.compose([Validators.required, Validators.minLength(4), NoSpaceValidator.hasNoSpaces])/*, UsernameAvailabiltyValidator.checkAvailability*/],
@@ -88,18 +88,16 @@ export class SignupPage {
       .subscribe(
         data => {
             if(data.message === 'Saved'){
-
-              this.setUserNull(this.user);    
+              this.setUserNull();    
               this.userDetailsForm.reset();
               this.userForm.reset();
               this.successfulAlert();
             }else{
-
-              this.unsuccessfulAlert();
+              this.showAlert('Whoops!','Looks like the username '+ this.user.username + ' is taken!');
               this.goToSlide(0);
             }
         },
-        err => alert("Unsuccessful!" + err),
+        err => this.showAlert('Whoops!','Looks like something went wrong!'),
         () => console.log("Finished")
       );
 
@@ -133,13 +131,21 @@ export class SignupPage {
     let alert = this.alertCtrl.create({
       title: 'Whoops!',
       subTitle: 'Looks like the username '+ this.user.username + ' is taken!',
-      buttons: ['Okay']
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
+  showAlert(t: string, subT: string){
+    let alert = this.alertCtrl.create({
+      title: t,
+      subTitle: subT,
+      buttons: ['Dismiss']
     });
     alert.present();
   }
   
   //reset user object
-  setUserNull(user:User){
+  setUserNull(){
     this.user = {
         email: null,
         username: null,

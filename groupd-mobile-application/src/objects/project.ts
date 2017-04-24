@@ -13,5 +13,5 @@ export interface Proj{
     tags: [String],
     projectDelete: Boolean,
     projectCompleted: Boolean,*/
-    time: { type: Date }
+    time: Date
 }

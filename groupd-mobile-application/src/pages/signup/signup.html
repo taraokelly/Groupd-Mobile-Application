@@ -14,36 +14,38 @@
       <!-- First Slide: Get username, passowrd, e-mail with button for next slide. -->
       <ion-slide>  
         <form [formGroup]="userForm">
-          <ion-item>
-            <ion-label floating>Email</ion-label>
-            <ion-input type="email" formControlName="email"></ion-input>
-          </ion-item>
-          
-          <ion-item *ngIf="!userForm.controls.email.valid  && (userForm.controls.email.dirty || submitAttempt)">
-          <small color="danger">Please enter a valid email.</small>
-          </ion-item> 
+          <ion-list inset>
+            <ion-item>
+              <ion-label floating>Email</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+            
+            <ion-item *ngIf="!userForm.controls.email.valid  && (userForm.controls.email.dirty || submitAttempt)">
+            <small color="danger">Please enter a valid email.</small>
+            </ion-item> 
 
-          <ion-item>
-            <ion-label floating>Username: </ion-label>
-            <ion-input formControlName="username" [class.invalid]="!userForm.controls.username.valid && (userForm.controls.username.dirty || submitAttempt)"></ion-input>
-          </ion-item>
+            <ion-item>
+              <ion-label floating>Username: </ion-label>
+              <ion-input formControlName="username" [class.invalid]="!userForm.controls.username.valid && (userForm.controls.username.dirty || submitAttempt)"></ion-input>
+            </ion-item>
 
-          <ion-item *ngIf="!userForm.controls.username.valid  && (userForm.controls.username.dirty || submitAttempt)">
-              <small color="danger">Must have 4 characters and no spaces.</small>
-          </ion-item>
-          
-          <ion-item *ngIf="userForm.controls.username.pending">
-              <p>Checking username...</p>
-          </ion-item>  
+            <ion-item *ngIf="!userForm.controls.username.valid  && (userForm.controls.username.dirty || submitAttempt)">
+                <small color="danger">Must have 4 characters and no spaces.</small>
+            </ion-item>
+            
+            <ion-item *ngIf="userForm.controls.username.pending">
+                <p>Checking username...</p>
+            </ion-item>  
 
-          <ion-item>
-            <ion-label floating>Password: </ion-label>
-            <ion-input type="password" formControlName="password"></ion-input>
-          </ion-item>
+            <ion-item>
+              <ion-label floating>Password: </ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
 
-          <ion-item *ngIf="!userForm.controls.password.valid  && (userForm.controls.password.dirty || submitAttempt)">
-              <small color="danger">Must have 8 characters and no spaces.</small>
-          </ion-item>
+            <ion-item *ngIf="!userForm.controls.password.valid  && (userForm.controls.password.dirty || submitAttempt)">
+                <small color="danger">Must have 8 characters and no spaces.</small>
+            </ion-item>
+          </ion-list>
       </form>
       <ion-grid>
           <ion-row>
@@ -61,6 +63,7 @@
      <!-- Second Slide: Get name, occupation, locatíon with buttons for next slide and previous slide. -->
     <ion-slide>
        <form [formGroup]="userDetailsForm">
+         <ion-list inset>
           <ion-item>
             <ion-label floating>First Name: </ion-label>
             <ion-input formControlName="firstName"></ion-input>
@@ -82,6 +85,7 @@
          <ion-item *ngIf="!userDetailsForm.controls.occupation.valid  && (userDetailsForm.controls.occupation.dirty || submitAttempt)">
             <small color="danger">Please enter a valid occupation.</small>
           </ion-item>
+         </ion-list>
        </form>
        <ion-grid>
               <ion-row>

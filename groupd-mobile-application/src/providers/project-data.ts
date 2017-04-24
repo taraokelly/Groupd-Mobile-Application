@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import { Proj } from '../../objects/project';
 
 @Injectable()
-export class UserData {
+export class ProjectData {
   constructor(public http: Http) {}
 
   addProject(project: string){
