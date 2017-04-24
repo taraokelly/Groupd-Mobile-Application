@@ -17,6 +17,8 @@ export class CreateProjectPage {
 
   user:User;
 
+  tag:String;
+
   member: String;
 
   project: Proj;
@@ -54,6 +56,22 @@ export class CreateProjectPage {
   }
   deleteMember(i){
     this.project.projectMembers.splice(i, 1);
+  }
+  addTag(){
+    if(this.tag == null || this.tag ==""){
+        console.log("Null String");
+      }
+      else if(this.tag.trim().length==0){
+         console.log("String Full of Spaces");
+         this.tag=null;
+      }
+      else{
+      this.project.tags.push(this.tag.replace(/^\s+|\s+$/g, ""));
+      this.tag=null;
+    }
+  }
+  deleteTag(i){
+    this.project.tags.splice(i, 1);
   }
   addProject(){
     this.project.projectName=this.projectForm.value.name.replace(/^\s+|\s+$/g, "");

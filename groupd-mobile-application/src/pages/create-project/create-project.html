@@ -57,9 +57,25 @@
       <button color="dark" small ion-button (click)="addMember()">ADD MEMBER</button>
     </div>
   </form>
-    <span class="wrapper" *ngFor="let p of project.projectMembers; let i = index">
+  <div class="wrapper">
+    <span *ngFor="let p of project.projectMembers; let i = index">
       <button ion-button round icon-only small color="warm" (click)="deleteMember(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
     </span>
-            
-   <button color="danger" block ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid" (click)="addProject()">CREATE PROJECT</button>
+  </div>
+  <form>
+    <ion-item>
+      <ion-label floating>Tags: </ion-label>
+      <ion-input type="text" name="tag" [(ngModel)]="tag"></ion-input>
+    </ion-item>
+    <br>
+    <div class="wrapper">
+      <button color="dark" small ion-button (click)="addTag()">ADD TAG</button>
+    </div>
+  </form>
+  <div class="wrapper">
+    <span *ngFor="let p of project.tags; let i = index">
+      <button ion-button round icon-only small color="warm" (click)="deleteTag(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
+    </span>
+  </div>
+  <button color="danger" block ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid" (click)="addProject()">CREATE PROJECT</button>
 </ion-content>
