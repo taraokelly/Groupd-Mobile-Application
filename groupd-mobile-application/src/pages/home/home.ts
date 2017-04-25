@@ -7,6 +7,8 @@ import { ProjectData } from "../../providers/project-data";
 import { Proj } from '../../objects/project';
 import { User } from '../../objects/user';
 
+import { CreateProjectPage } from "../create-project/create-project";
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -22,7 +24,9 @@ export class HomePage {
     this.getUser();
     this.getProjects();
   }
-
+  newProject(){
+    this.navCtrl.setRoot(CreateProjectPage);
+  }
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;

@@ -10,11 +10,60 @@
 </ion-header>
 
 
-<ion-content padding>
-  <h1>Hello {{user.firstName}}!</h1>
-  <h3>Posts</h3>
+<ion-content padding class="masters">
+
+ <!-- <h1>Hello {{user.firstName}}!</h1>
+  <h3>Posts</h3>-->
+  <ion-card class="greeting">
+    <h1>Hello {{user.firstName}}!</h1>
+    <p>Would you like to make a new project?</p>
+    <button color="danger" small ion-button (click)="newProject()">NEW PROJECT</button>
+  </ion-card>
+  <hr>
   <div *ngFor="let p of projects">
-    <h3>{{p.projectName}}</h3>
-    <p> {{p.projectThumb}}</p>
+    <ion-card>
+      <ion-card-header class="h">
+       <!-- <div class="h">-->
+          <h2>{{p.projectName}}</h2>
+       <!-- </div>-->
+      </ion-card-header>
+      <ion-card-content class="c">
+        <!--<div class="c">-->
+          <ion-grid>
+            <ion-row>
+              <ion-col col-9>
+                <p> {{p.projectThumb}} </p>
+              </ion-col>
+              <ion-col class="center">
+                <small class="pos" center>Positions:</small>
+                <p class="posnum" center>{{p.maxMembers - p.projectMembers.length}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      <!--  </div> -->
+      </ion-card-content>
+      <ion-row>
+
+        <ion-col center text-center>
+          <button color="danger" ion-button icon-left clear small>
+            <!--<ion-icon name="thumbs-up"></ion-icon>-->
+            <div>View Project</div>
+          </button>
+        </ion-col>
+
+        <ion-col center text-center>
+          <button color="warm" ion-button icon-left clear small>
+            <ion-icon name="star"></ion-icon>
+          </button>
+        </ion-col>
+        
+        <ion-col center text-center>
+          <ion-note class="d">
+           <!-- {{p.time | date:'short'}} -->
+           {{p.time | date}}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+  </ion-card>
   </div>
 </ion-content>
