@@ -1,3 +1,39 @@
 page-project {
-
+    .masters {
+        background-color: #eaeaea;
+        padding-right: 5px !important;
+        padding-left: 5px !important;
+    }
+     .h {
+        padding-top: 5px !important;
+        padding-bottom: 2px !important;
+        text-align: center;
+        //border-bottom: 1px solid lightgrey !important;
+        border-bottom: 1px solid darkgrey !important;
+        background-color: #f53d3d;
+        //padding-bottom: 10px !important;
+    }
+    .title{
+        color: white;
+    }
+    .subt{
+        font-style: italic;
+        font-size: 15px !important;
+        padding-top: 12px !important;
+    }
+    .project{
+        text-align: center;
+    }
+    .desc{
+        padding-top: 12px !important;
+    }
+    .wrapper {
+        text-align: center;
+    }
+    .label {
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+        text-align: center;
+        color: black;
+    }
 }

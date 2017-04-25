@@ -13,6 +13,11 @@ import { User } from "../../objects/user";
 })
 export class ProjectPage {
 
+  //selectedSegment: string;
+  hasTags: Boolean = true;
+
+  hasMembers: Boolean = true;
+
   found: Boolean;
 
   user: User;
@@ -22,15 +27,29 @@ export class ProjectPage {
   projectSelected: String;
 
   constructor(public navCtrl: NavController, public UserData:UserData, public ProjectData:ProjectData, public navParams: NavParams) {
+    this.setProjectNull();
     this.getUser();
+    //this.getProject();
+    //this.selectedSegment = 'project';
   }
-
-  getUser() {
+  /* onSegmentChanged(segmentButton) {
+    this.selectedSegment=segmentButton.value;
+    
+  }*/
+   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
       //JSON.parse
       if(this.navParams.get('projectSelected')!=null||this.navParams.get('projectSelected')!=undefined){
         this.project= JSON.parse(this.navParams.get('projectSelected'));
+        if(this.project.tags.length <1){
+          this.hasTags = false;
+          console.log("Tags: In false");
+        }
+        if(this.project.projectMembers.length<1){
+          this.hasMembers =false;
+          console.log("Members: In false");
+        }
         this.found=true;
       }
       else{

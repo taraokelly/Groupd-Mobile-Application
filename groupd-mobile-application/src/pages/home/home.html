@@ -12,20 +12,27 @@
 
 <ion-content padding class="masters">
 
- <!-- <h1>Hello {{user.firstName}}!</h1>
-  <h3>Posts</h3>-->
   <ion-card class="greeting">
     <h1>Hello {{user.firstName}}!</h1>
     <p>Would you like to make a new project?</p>
     <button color="danger" small ion-button (click)="newProject()">NEW PROJECT</button>
   </ion-card>
   <hr>
-  <div *ngFor="let p of projects">
+  <div *ngFor="let p of projects | reverse">
     <ion-card>
       <ion-card-header class="h">
+        <ion-row>
+          <ion-col col-10 center text-center>
        <!-- <div class="h">-->
           <h2>{{p.projectName}}</h2>
        <!-- </div>-->
+          </ion-col>
+          <ion-col col-2 center text-center>
+            <!--<button color="warm" ion-button icon-left clear small>-->
+              <ion-icon name="star" class="star"></ion-icon>
+           <!-- </button>-->
+          </ion-col>
+        </ion-row>
       </ion-card-header>
       <ion-card-content class="c">
         <!--<div class="c">-->
@@ -44,23 +51,23 @@
       </ion-card-content>
       <ion-row>
 
-        <ion-col center text-center>
+        <ion-col col-4 center text-center>
           <button color="danger" ion-button icon-left clear small (click)="viewProject(p)">
             <!--<ion-icon name="thumbs-up"></ion-icon>-->
             <div>View Project</div>
           </button>
         </ion-col>
-
+<!--
         <ion-col center text-center>
           <button color="warm" ion-button icon-left clear small>
             <ion-icon name="star"></ion-icon>
           </button>
         </ion-col>
-        
-        <ion-col center text-center>
+    -->    
+        <ion-col col-8 center text-center>
           <ion-note class="d">
            <!-- {{p.time | date:'short'}} -->
-           {{p.time | date}}
+           {{p.time | date:'short'}}
           </ion-note>
         </ion-col>
       </ion-row>

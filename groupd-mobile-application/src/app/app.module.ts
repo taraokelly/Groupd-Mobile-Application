@@ -15,6 +15,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { UserData } from '../providers/user-data';
 import { ProjectData } from '../providers/project-data';
 
+import { Reverse } from '../pipes/reverse';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -23,7 +25,8 @@ import { ProjectData } from '../providers/project-data';
     HomePage,
     ProfilePage,
     CreateProjectPage,
-    ProjectPage
+    ProjectPage,
+    Reverse
   ],
   imports: [
     IonicModule.forRoot(MyApp),

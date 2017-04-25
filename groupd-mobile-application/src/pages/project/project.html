@@ -4,17 +4,63 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Project</ion-title>
+    <ion-title>View Project</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
+<ion-content class="masters">
+  <div *ngIf="found">
+    <ion-card class="project">
+      <ion-card-header class="h">
+          <ion-card-title class="title">{{project.projectName}}</ion-card-title>
+      </ion-card-header>
+    <ion-card-content class="c"> 
+      <ion-card-title class="subt">{{project.projectThumb}}</ion-card-title>
+      <hr>
+      <p class="desc">{{project.projectDesc}}</p>
+      <div  *ngIf="hasTags">
+        <p class="label"><strong>Tags:</strong></p>
+        <div class="wrapper">
+          <span *ngFor="let p of project.tags; let i = index">
+            <button ion-button round icon-only small color="warm"> &emsp;{{p}} &emsp;</button>
+          </span>
+        </div>
+      </div>
+      <div *ngIf="hasMembers==true">
+        <p class="label"><strong>Members:</strong></p>
+        <div class="wrapper">
+          <span *ngFor="let p of project.projectMembers; let i = index">
+            <button ion-button round icon-only small color="danger"> &emsp;{{p}} &emsp;</button>
+          </span>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  </div>
+  <div *ngIf="!found">
+    <h1>404</h1>
+  </div>
+</ion-content>
+<!--
+<ion-toolbar>
+  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)" color="danger"> 
+    <ion-segment-button value="project">
+      Project
+    </ion-segment-button>
+    <ion-segment-button value="creator">
+      Creator
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
 <ion-content padding>
-<div *ngIf="found">
-  <h1>{{project.projectName}}</h1>
+<div *ngIf="selectedSegment==project">
+  <h1>{{ project.projectName }}</h1>
 </div>
-<div *ngIf="!found">
-  <h1>404</h1>
+<div *ngIf="selectedSegment==creator">
+  <h1>{{ project.projectCreator }}</h1>
 </div>
 </ion-content>
+-->

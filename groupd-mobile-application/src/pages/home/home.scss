@@ -3,11 +3,13 @@ page-home {
         background-color: #eaeaea;
     }
     .h {
-        padding-top: 20px !important;
-        padding-bottom: 15px !important;
-        color: #f53d3d;
+        padding-top: 5px !important;
+        padding-bottom: 2px !important;
+        color: white;
         text-align: center;
-        border-bottom: 1px solid lightgrey !important;
+        //border-bottom: 1px solid lightgrey !important;
+        border-bottom: 1px solid darkgrey !important;
+        background-color: #f53d3d;
         //padding-bottom: 10px !important;
     }
     .c {
@@ -32,5 +34,9 @@ page-home {
     }
     .center{
         text-align: center;
+    }
+    .star {
+       font-size: 30px;
+       color: orange;
     }
 }
