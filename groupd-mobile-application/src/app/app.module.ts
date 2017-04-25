@@ -7,6 +7,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
 import { CreateProjectPage } from '../pages/create-project/create-project';
+import { ProjectPage } from '../pages/project/project';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +22,8 @@ import { ProjectData } from '../providers/project-data';
     SignupPage,
     HomePage,
     ProfilePage,
-    CreateProjectPage
+    CreateProjectPage,
+    ProjectPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -34,7 +36,8 @@ import { ProjectData } from '../providers/project-data';
     SignupPage,
     HomePage,
     ProfilePage,
-    CreateProjectPage
+    CreateProjectPage,
+    ProjectPage
   ],
   providers: [
     StatusBar,
