@@ -8,6 +8,7 @@ import { Proj } from '../../objects/project';
 import { User } from '../../objects/user';
 
 import { CreateProjectPage } from "../create-project/create-project";
+import { ProjectPage } from "../project/project";
 
 @Component({
   selector: 'page-home',
@@ -26,6 +27,12 @@ export class HomePage {
   }
   newProject(){
     this.navCtrl.setRoot(CreateProjectPage);
+  }
+  viewProject(p : Proj){
+    this.navCtrl.push(ProjectPage, {
+        projectSelected: JSON.stringify(p)
+    });
+    console.log(p);
   }
   getUser() {
     this.UserData.getCurrentUser().then((user) => {

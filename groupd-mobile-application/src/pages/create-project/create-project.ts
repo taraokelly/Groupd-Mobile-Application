@@ -30,7 +30,7 @@ export class CreateProjectPage {
   private projectForm : FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ProjectData: ProjectData, public UserData: UserData,public alertCtrl: AlertController, private formBuilder: FormBuilder) {
-    this.state = this.navParams.get('param1'); 
+    this.state = this.navParams.get('editParam'); 
     if(this.state==="edit"){
       this.edit = true;
     }else{

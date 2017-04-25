@@ -65,7 +65,7 @@ export class MyApp {
     // Reset the content nav to have just this page
     // don't want the back button to show in this scenario
     if(page.hasOwnProperty('param')){
-      alert("Page has param: " + page.param);
+      //alert("Page has param: " + page.param);
       this.nav.setRoot(page.component, {
         param1: page.param
     });
