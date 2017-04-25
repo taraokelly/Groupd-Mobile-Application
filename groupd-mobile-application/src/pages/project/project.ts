@@ -12,7 +12,8 @@ import { User } from "../../objects/user";
   templateUrl: 'project.html'
 })
 export class ProjectPage {
-    alertCtrl: any;
+  
+  alertCtrl: any;
 
   pos: any = 0;
 
@@ -66,7 +67,6 @@ export class ProjectPage {
               alert.present();
     }
     getCreator(){
-      var res = false;
       this.UserData.getUser(this.project.projectCreator.toString()).subscribe(
             data => {
               //console.log(data);

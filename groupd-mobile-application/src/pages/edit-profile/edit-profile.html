@@ -1,0 +1,75 @@
+<ion-header>
+
+ <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="master">
+
+  <div class="wrapper" *ngIf="!found">
+    <h1>404 Not Found</h1>
+  </div>
+
+  <div *ngIf="found">
+    <ion-card>
+      <ion-card-content>
+        <form [formGroup]="userForm">
+          <ion-list inset>
+            <ion-item>
+              <ion-label floating>Email</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+            
+            <ion-item *ngIf="!userForm.controls.email.valid  && (userForm.controls.email.dirty || submitAttempt)">
+            <small color="danger">Please enter a valid email.</small>
+            </ion-item> 
+
+            <ion-item>
+              <ion-label floating>Password: </ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="!userForm.controls.password.valid  && (userForm.controls.password.dirty || submitAttempt)">
+                <small color="danger">Must have 8 characters and no spaces.</small>
+            </ion-item>
+
+            <ion-item>
+              <ion-label floating>First Name</ion-label>
+              <ion-input type="firstName" formControlName="firstName"></ion-input>
+            </ion-item>
+            
+            <ion-item *ngIf="!userForm.controls.firstName.valid  && (userForm.controls.firstName.dirty || submitAttempt)">
+            <small color="danger">Please enter name.</small>
+            </ion-item> 
+
+            <ion-item>
+              <ion-label floating>Surname: </ion-label>
+              <ion-input type="surname" formControlName="surname"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="!userForm.controls.surname.valid  && (userForm.controls.surname.dirty || submitAttempt)">
+                <small color="danger">Please enter name.</small>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>Occupation: </ion-label>
+              <ion-input type="occupation" formControlName="occupation"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="!userForm.controls.occupation.valid  && (userForm.controls.occupation.dirty || submitAttempt)">
+                <small color="danger">Please enter occupation.</small>
+            </ion-item>
+          </ion-list>
+          <button color="danger" small ion-button (click)="saveChanges()">SAVE CHANGES</button>
+          <button color="danger" small ion-button (click)="deleteAccount()">DELETE ACCOUNT</button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
 import { CreateProjectPage } from '../pages/create-project/create-project';
 import { ProjectPage } from '../pages/project/project';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,7 +27,8 @@ import { Reverse } from '../pipes/reverse';
     ProfilePage,
     CreateProjectPage,
     ProjectPage,
-    Reverse
+    Reverse,
+    EditProfilePage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -40,7 +42,8 @@ import { Reverse } from '../pipes/reverse';
     HomePage,
     ProfilePage,
     CreateProjectPage,
-    ProjectPage
+    ProjectPage,
+    EditProfilePage
   ],
   providers: [
     StatusBar,

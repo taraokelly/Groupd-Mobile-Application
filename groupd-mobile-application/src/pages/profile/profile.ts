@@ -5,6 +5,8 @@ import { User } from "../../objects/user";
 
 import { UserData } from "../../providers/user-data";
 
+import { EditProfilePage } from "../edit-profile/edit-profile";
+
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html'
@@ -18,6 +20,8 @@ export class ProfilePage {
   username:any;
 
   currentUser: boolean = false;
+
+  showSkills:Boolean = false;
 
   directory: string = "assets/img/profile/";
 
@@ -59,14 +63,11 @@ export class ProfilePage {
   }
 
   toggleSkills(){
-    if(this.currentUser=== true){
-      alert("Your Profile");
-    }
-    else{
-      alert("Not Your Profile");
-    }
+    this.showSkills= !this.showSkills;
 }
-
+  editProfile(){
+    this.navCtrl.push(EditProfilePage);
+  }
   //reset user object
   setUserNull(){
     this.user = {

@@ -1,9 +1,3 @@
-<!--
-  Generated template for the Profile page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
     <ion-navbar color="dark">
@@ -26,12 +20,22 @@
       <!--<h6 color="danger">3.5 stars</h6> -->
       <p>{{user.occupation}} &bull; {{user.address}} &bull; 3.5 stars</p>
       <p class="profile-description">{{user.bio}}</p>
-      <p color="warm">{{user.skills}}</p>
-      <div *ngIf="currentUser==false">
-        <button ion-button small color="danger" (click)="toggleSkills()">RATE</button>
+      <!--<p color="warm">{{user.skills}}</p>-->
+      <button color="danger" ion-button icon-left clear small (click)="toggleSkills()">
+            <div>{{showSkills ? "Hide Skills" : "Show Skills"}}</div>
+          </button>
+      <div *ngIf="showSkills">
+        <span *ngFor="let skill of user.skills; let i = index">
+          <ion-chip color="warm">
+            <ion-label>{{skill}}</ion-label>
+          </ion-chip>
+        </span>
+      </div> 
+      <div *ngIf="!currentUser">
+        <button ion-button small color="danger" (click)="editProfile()">RATE</button>
       </div>
       <div *ngIf="currentUser">
-        <button ion-button small color="danger" (click)="toggleSkills()">EDIT</button>
+        <button ion-button small color="danger" (click)="editProfile()">EDIT</button>
       </div>
 
      <!-- <button ion-button color="danger" (click)="toggleSkills()">{{showSkills ? "Hide Skills" : "Show Skills"}} </button>-->

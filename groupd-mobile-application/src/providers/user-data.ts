@@ -37,7 +37,20 @@ export class UserData {
     return this.http.get('http://127.0.0.1:8080/api/users' + "/" + user)
     .map(res => res.json());
   }
-
+  updateUser(user: User){
+      var headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http.put('http://127.0.0.1:8080/api/users' + "/" + user.username, JSON.stringify(user), 
+      {
+        headers: headers
+      })
+      .map(res => res.json());
+  }
+  deleteUser(user: string){
+     return this.http.delete('http://127.0.0.1:8080/api/users' + "/" + user)
+    .map(res => res.json());
+  
+  }
   addUser(user: string){
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
