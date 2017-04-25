@@ -23,4 +23,8 @@ export class ProjectData {
     return this.http.get('http://127.0.0.1:8080/api/projects')
     .map(res => res.json());
   }
+  getProject(project: string){
+    return this.http.get('http://127.0.0.1:8080/api/projects' + "/" + project)
+    .map(res => res.json());
+  }
 }

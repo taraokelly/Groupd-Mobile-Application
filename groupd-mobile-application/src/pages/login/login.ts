@@ -47,7 +47,7 @@ export class LoginPage {
                 }
               }
             },
-            err => alert("Unsuccessful!" + err),
+            err => this.showAlert("Unsuccessful!", "Error" + err),
             () => console.log("Finished")
         );
       }

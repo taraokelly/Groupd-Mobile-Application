@@ -36,4 +36,32 @@ page-project {
         text-align: center;
         color: black;
     }
+    .pos {
+        padding-top: 12px !important;
+        text-align: center;
+        color: gray;
+    }
+    .posnum {
+        color: red;
+        text-align: center;
+    }
+    .c{
+         padding-bottom: 10px !important;
+    }
+    .footer{
+         padding-top: 0px !important;
+        padding-bottom: 10px !important;
+    }
+    .creatortitle{
+        text-align: left;
+        padding-top: 23px !important;
+    }
+    .user-avatar {
+        padding: .5em;
+        height: 12vh;
+        width: 12vh;
+       // position: absolute;
+        text-align: center;
+        //height: 18vh;
+  }
 }

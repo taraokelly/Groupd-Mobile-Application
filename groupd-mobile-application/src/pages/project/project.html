@@ -27,14 +27,73 @@
             <button ion-button round icon-only small color="warm"> &emsp;{{p}} &emsp;</button>
           </span>
         </div>
+        <ion-grid>
+        <ion-row>
+          <ion-col>
+            <small class="pos" center>Total Positions:</small>
+            <p class="posnum" center>{{project.maxMembers}}</p>
+          </ion-col>
+          <ion-col>
+            <small class="pos" center>Positions Available:</small>
+            <p class="posnum" center>{{pos}}</p>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
       </div>
-      <div *ngIf="hasMembers==true">
+      <div *ngIf="hasMembers">
         <p class="label"><strong>Members:</strong></p>
         <div class="wrapper">
-          <span *ngFor="let p of project.projectMembers; let i = index">
-            <button ion-button round icon-only small color="danger"> &emsp;{{p}} &emsp;</button>
+          <span *ngFor="let m of project.projectMembers; let i = index">
+            <button ion-button round icon-only small color="danger"> &emsp;{{m}} &emsp;</button>
           </span>
         </div>
+      </div>
+      <ion-row>
+        <ion-col center text-center>
+          <button color="danger" ion-button icon-left clear small (click)="toggleMessages()">
+            <ion-icon name="chatboxes"></ion-icon>
+            <div>Comments</div>
+          </button>
+        </ion-col>
+        <ion-col center text-center>
+          <button color="warm" ion-button icon-left clear small (click)="addFavourite()">
+            <ion-icon name="star"></ion-icon>
+            <div>Favourite</div>
+          </button>
+        </ion-col>
+      </ion-row>
+        <div *ngIf="showMessages">
+          <hr>
+          <ion-row>
+            <ion-col col-5>
+              <p><strong>username</strong></p>
+            </ion-col>
+            <ion-col col-7>
+              <p><strong>message</strong></p>
+            </ion-col>
+            </ion-row>
+            <hr>
+        </div>
+    </ion-card-content>
+    <div class class="footer">
+          <ion-note class="wrapper">
+          <!-- {{p.time | date:'short'}} -->
+          {{project.time | date:'medium'}}
+        </ion-note>
+      </div>
+  </ion-card>
+  <ion-card>
+    <ion-row>
+      <ion-col col-3>
+        <img class="user-avatar round" [src]="choosenPicture" onerror="this.src='assets/img/profile/default-profile.jpg'"/>
+      </ion-col>
+      <ion-col col-9>
+        <ion-card-title class="creatortitle">{{creator.username}}</ion-card-title>
+      </ion-col>
+    </ion-row>
+    <ion-card-content>
+      <div class="wrapper">
+        <button color="danger" block ion-button>MESSAGE</button>
       </div>
     </ion-card-content>
   </ion-card>

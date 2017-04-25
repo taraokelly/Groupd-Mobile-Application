@@ -21,7 +21,7 @@
   <div id="profile-bg" [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}"></div>
   <div id="content">
     <div id="profile-info" padding>
-     <img id="profile-image" [src]="profileImage" onerror="this.src='assets/img/profile/Female.jpg'"> 
+     <img id="profile-image" [src]="choosenPicture" onerror="this.src='assets/img/profile/Female.jpg'"> 
       <h3 id="profile-name">{{user.username}}</h3>
       <!--<h6 color="danger">3.5 stars</h6> -->
       <p>{{user.occupation}} &bull; {{user.address}} &bull; 3.5 stars</p>

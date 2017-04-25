@@ -45,6 +45,9 @@ export class MyApp {
   username: String = "";
   occupation: String = "";
   email: String = "";
+  directory: string = "assets/img/profile/";
+  chosenPicture: string = "";
+
 
   constructor(public menu: MenuController,  public events: Events, public userData: UserData, /*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
    this.initializeApp();
@@ -103,6 +106,7 @@ export class MyApp {
     this.username = user.username;
     this.occupation = user.occupation;
     this.email = user.email;
+    this.chosenPicture= this.directory + user.gender + ".jpg";
     this.loggedInPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
   });/*.then((user) => {
     console.log("Triggering login event");
@@ -117,6 +121,7 @@ getLoginDetails() {
     this.username = user.username;
     this.occupation = user.occupation;
     this.email = user.email;
+    this.chosenPicture= this.directory + user.gender + ".jpg";
     this.loggedInPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
   }).then((user) => {
     console.log("Triggering login event");

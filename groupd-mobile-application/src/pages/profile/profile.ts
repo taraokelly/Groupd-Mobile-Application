@@ -12,14 +12,16 @@ import { UserData } from "../../providers/user-data";
 export class ProfilePage {
 
   public backgroundImage = "assets/img/background/orange.png";
-  //public profileImage = "assets/img/profile/Female.jpg";
-  public profileImage = "assets/img/profile/Female.jpg";
 
   private user: User;
 
   username:any;
 
   currentUser: boolean = false;
+
+  directory: string = "assets/img/profile/";
+
+  choosenPicture: string = "";
 
   constructor(public navCtrl: NavController, public UserData: UserData, public navParams: NavParams) {
     this.username = this.navParams.get('param1'); 
@@ -46,6 +48,7 @@ export class ProfilePage {
               }else{
                 //user found
                   this.user = data;
+                  this.choosenPicture= this.directory + this.user.gender + ".jpg";
               }
             },
             err => console.log("Unsuccessful!" + err),
