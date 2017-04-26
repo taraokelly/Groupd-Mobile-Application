@@ -7,7 +7,7 @@ export interface Proj{
     projectMembers: String[],
     maxMembers: Number,
     projectDesc: String,
-    comments: String,
+    comments: [Comment],
     tags?: String[],
     /*projectMembers: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}],
     
@@ -16,3 +16,8 @@ export interface Proj{
     projectCompleted: Boolean,*/
     time: Date
 }
+export interface Comment{
+        username: String,
+        comment: String,
+        time: Date
+    }

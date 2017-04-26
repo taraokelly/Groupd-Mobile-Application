@@ -4,6 +4,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ProjectData } from "../../providers/project-data";
 import { UserData } from "../../providers/user-data";
 
+import { Comment } from '../../objects/project';
 import { Proj } from '../../objects/project';
 import { User } from "../../objects/user";
 
@@ -15,6 +16,10 @@ import { EditProjectPage } from "../edit-project/edit-project";
   templateUrl: 'project.html'
 })
 export class ProjectPage {
+
+  comObj: Comment;
+
+  comment: string = "";
 
   pos: any = 0;
 
@@ -46,6 +51,7 @@ export class ProjectPage {
   constructor(public navCtrl: NavController, public UserData:UserData, public ProjectData:ProjectData, public alertCtrl: AlertController, public navParams: NavParams) {
     this.setProjectNull();
     this.setCreatorNull();
+    this.setCommentNull();
     this.getUser();
     this.getProject();
     //this.getProject();
@@ -91,6 +97,11 @@ export class ProjectPage {
             () => console.log("Finished")
         );
     }
+    goToProfile(m){
+      this.navCtrl.setRoot(ProfilePage,{
+        param1: m
+      });
+    }
   getProject(){
       //JSON.parse
       if(this.navParams.get('projectSelected')!=null||this.navParams.get('projectSelected')!=undefined){
@@ -104,10 +115,6 @@ export class ProjectPage {
                   if(this.project.tags.length <1){
                     this.hasTags = false;
                   }
-                  /*if(this.project.comments.length <1){
-                    this.hasComments = false;
-                    console.log("Tags: In false");
-                  }*/
                   this.pos = this.project.maxMembers;
                   if(this.project.projectMembers.length<this.project.maxMembers){
                     this.pos -= this.project.projectMembers.length;
@@ -130,6 +137,67 @@ export class ProjectPage {
         this.found=false;
       }
   }
+  addComment(){
+    if(this.comment == null || this.comment ==""){
+        console.log("Null String");
+      }
+      else if(this.comment.trim().length==0){
+         console.log("String Full of Spaces");
+         this.comment=null;
+      }else{
+        this.ProjectData.getProject(this.project.projectId.toString()).subscribe(
+          data=>{
+                if(!data.hasOwnProperty('message')){
+                      //user found           
+                      this.project=data;
+                      this.comObj.username = this.user.username;
+                      this.comObj.comment = this.comment.replace(/^\s+|\s+$/g, "");
+                      this.comObj.time= new Date();
+                      this.project.comments.push(this.comObj);
+                      this.comment=null;
+                      this.ProjectData.updateProject(this.project).subscribe(
+                        data =>{
+                          this.setCommentNull();
+                          if(data.hasOwnProperty('message')){
+                            //user wasn't found
+                            this.showAlert("Whoops","Looks like something went wrong!");
+                          }else{
+                            //Successful
+                            //Save user to storage and trigger event to alert any the app page of the changes
+                            this.showAlert("Success","Your project has been updated!");
+                            /*this.navCtrl.setRoot(ProjectPage, {
+                              projectSelected: this.project.projectId
+                            });*/
+                          }
+                        },
+                        err => this.showAlert("Whoops","Looks like something went wrong!"),
+                        () => console.log("Finished")
+                      );
+                      if(this.project.tags.length <1){
+                        this.hasTags = false;
+                      }
+                      this.pos = this.project.maxMembers;
+                      if(this.project.projectMembers.length<this.project.maxMembers){
+                        this.pos -= this.project.projectMembers.length;
+                      }
+                      else{
+                        this.pos = 0;
+                      }
+                      if(this.project.projectMembers.length<1){
+                        this.hasMembers =false;
+                    }
+                    //get project creator
+                    this.getCreator();
+                  }
+            
+
+          },
+          err => console.log("Unsuccessful!" + err),
+          () => console.log("Finished")
+        );
+      }
+  }
+
   creatorProfile(){
     this.navCtrl.push( ProfilePage, {
         param1: this.creator.username
@@ -171,8 +239,20 @@ export class ProjectPage {
       projectMembers: [],
       maxMembers: null,
       projectDesc: null,
-      comments: null,
+      comments: [{
+        username: null,
+        comment: null,
+        time: null 
+      }],
       tags: [],
+      time: null
+    }
+  }
+  //reset comment object
+  setCommentNull(){
+    this.comObj ={
+      username: null,
+      comment: null,
       time: null
     }
   }

@@ -50,13 +50,12 @@ export class ProfilePage {
         this.currentUser = false;
       }
       // always reload user in the case of changes
-      this.UserData.getUser(this.user.username.toString()).subscribe(
+      this.UserData.getUser(user.username.toString()).subscribe(
             data => {
               if(data.hasOwnProperty('message')){
                 //user not found
               }else{
                 //user found
-                  this.found = true;
                   this.currUser = data;
                   this.choosenPicture= this.directory + this.user.gender + ".jpg";
               }
@@ -76,6 +75,7 @@ export class ProfilePage {
                 //user not found
               }else{
                 //user found
+                console.log("Profile:" + data);
                   this.found = true;
                   this.user = data;
                   this.choosenPicture= this.directory + this.user.gender + ".jpg";

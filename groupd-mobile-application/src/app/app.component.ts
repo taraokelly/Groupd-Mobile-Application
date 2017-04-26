@@ -41,7 +41,7 @@ export class MyApp {
     { title: 'New Project', component: CreateProjectPage, icon: 'create' }
   ];
   accountPages: PageInterface[] = [
-    { title: 'Profile', component: ProfilePage, icon: 'person', param:"username" },
+    { title: 'Profile', component: ProfilePage, icon: 'person', param:'username' },
     { title: 'Edit Account', component: EditProfilePage, icon: 'contact' }
   ];
   
@@ -110,7 +110,7 @@ export class MyApp {
     this.occupation = user.occupation;
     this.email = user.email;
     this.chosenPicture= this.directory + user.gender + ".jpg";
-    this.loggedInPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
+    this.accountPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
   });/*.then((user) => {
     console.log("Triggering login event");
     this.events.publish('user:login');
@@ -125,7 +125,7 @@ getLoginDetails() {
     this.occupation = user.occupation;
     this.email = user.email;
     this.chosenPicture= this.directory + user.gender + ".jpg";
-    this.loggedInPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
+    this.accountPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
   }).then((user) => {
     console.log("Triggering login event");
     this.events.publish('user:logined');

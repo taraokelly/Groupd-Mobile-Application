@@ -165,7 +165,11 @@ export class CreateProjectPage {
       projectMembers: [],
       maxMembers: null,
       projectDesc: null,
-      comments: null,
+      comments: [{
+        username: null,
+        comment: null,
+        time: null 
+      }],
       tags: [],
       time: null
     }
