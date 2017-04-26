@@ -11,6 +11,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
 import { CreateProjectPage } from '../pages/create-project/create-project';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 
 export interface PageInterface {
   title: string;
@@ -38,8 +39,11 @@ export class MyApp {
 
   loggedInPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
-    { title: 'Profile', component: ProfilePage, icon: 'person', param:"username" },
     { title: 'New Project', component: CreateProjectPage, icon: 'create' }
+  ];
+  accountPages: PageInterface[] = [
+    { title: 'Profile', component: ProfilePage, icon: 'person', param:"username" },
+    { title: 'Edit Account', component: EditProfilePage, icon: 'contact' }
   ];
   
   username: String = "";

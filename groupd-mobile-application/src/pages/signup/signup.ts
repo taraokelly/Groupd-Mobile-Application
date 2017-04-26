@@ -59,6 +59,8 @@ export class SignupPage {
       else if(this.skill.trim().length==0){
          console.log("String Full of Spaces");
          this.skill=null;
+      }else if(!this.user.skills.indexOf(this.skill)){
+         this.skill=null;
       }
       else{
       this.user.skills.push(this.skill.replace(/^\s+|\s+$/g, ""));

@@ -133,22 +133,22 @@
           <!-- Forth Slide: Get biography with buttons previous slide and to create user/submit user. -->
           <ion-slide>
             <form> 
-                <ion-item>
-                  <ion-label floating>Location: </ion-label>
-                  <ion-input type="text" name="user.address" [(ngModel)]="user.address"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label floating>Gender</ion-label>
-                  <!--<ion-select [(ngModel)]="toppings" multiple="true">-->
-                  <ion-select name="user.gender" [(ngModel)]="user.gender">
-                    <ion-option>Female</ion-option>
-                    <ion-option>Male</ion-option>
-                  </ion-select>
-                </ion-item>
-                <ion-item>
-                  <ion-label floating>Bio: </ion-label>
-                  <ion-textarea rows="6" type="text" name="user.bio" [(ngModel)]="user.bio"></ion-textarea>
-                </ion-item> 
+              <ion-item>
+                <ion-label floating>Location: </ion-label>
+                <ion-input type="text" name="user.address" [(ngModel)]="user.address"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Gender</ion-label>
+                <!--<ion-select [(ngModel)]="toppings" multiple="true">-->
+                <ion-select name="user.gender" [(ngModel)]="user.gender">
+                  <ion-option>Female</ion-option>
+                  <ion-option>Male</ion-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>Bio: </ion-label>
+                <ion-textarea rows="6" type="text" name="user.bio" [(ngModel)]="user.bio"></ion-textarea>
+              </ion-item> 
             </form>
             <button color="dark" block ion-button type="submit" [disabled]="!userForm.valid || !userDetailsForm.valid" (click)="addUser()">CREATE USER</button>
             <ion-grid>

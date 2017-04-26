@@ -4,7 +4,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Profile</ion-title>
+    <ion-title>Edit Account</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -64,8 +64,40 @@
             <ion-item *ngIf="!userForm.controls.occupation.valid  && (userForm.controls.occupation.dirty || submitAttempt)">
                 <small color="danger">Please enter occupation.</small>
             </ion-item>
+            <form>
+              <ion-item>
+                  <ion-label floating>Skills: </ion-label>
+                  <ion-input type="text" name="skill" [(ngModel)]="skill"></ion-input>
+              </ion-item>
+              <br/>
+              <div class="wrapper">
+                <button color="dark" ion-button (click)="addSkill()">ADD SKILL</button>
+              </div>
+            </form>
+            <span *ngFor="let skill of user.skills; let i = index">
+              <button ion-button round icon-only small *ngIf="(user.skills.length<100) || (i > user.skills.length-100)" color="warm" (click)="deleteSkill(i)"> &emsp;{{skill}}<ion-icon name="close"></ion-icon></button>
+            </span>
+            <form>
+              <ion-list>
+                <ion-item>
+                  <ion-label floating>Location: </ion-label>
+                  <ion-input type="text" name="user.address" [(ngModel)]="user.address"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label floating>Gender</ion-label>
+                  <ion-select name="user.gender" [(ngModel)]="user.gender">
+                    <ion-option>Female</ion-option>
+                    <ion-option>Male</ion-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item>
+                  <ion-label floating>Bio: </ion-label>
+                  <ion-textarea rows="6" type="text" name="user.bio" [(ngModel)]="user.bio"></ion-textarea>
+                </ion-item> 
+              </ion-list>
+            </form>
           </ion-list>
-          <button color="danger" small ion-button (click)="saveChanges()">SAVE CHANGES</button>
+          <button color="danger" small ion-button type="submit" [disabled]="!userForm.valid" (click)="saveChanges()">SAVE CHANGES</button>
           <button color="danger" small ion-button (click)="deleteAccount()">DELETE ACCOUNT</button>
         </form>
       </ion-card-content>

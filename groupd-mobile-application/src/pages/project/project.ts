@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { ProjectData } from "../../providers/project-data";
 import { UserData } from "../../providers/user-data";
@@ -12,8 +12,6 @@ import { User } from "../../objects/user";
   templateUrl: 'project.html'
 })
 export class ProjectPage {
-  
-  alertCtrl: any;
 
   pos: any = 0;
 
@@ -40,7 +38,7 @@ export class ProjectPage {
 
   choosenPicture: string = "";
 
-  constructor(public navCtrl: NavController, public UserData:UserData, public ProjectData:ProjectData, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public UserData:UserData, public ProjectData:ProjectData, public alertCtrl: AlertController, public navParams: NavParams) {
     this.setProjectNull();
     this.setCreatorNull();
     this.getUser();
@@ -56,7 +54,7 @@ export class ProjectPage {
   this.showMessages = !this.showMessages; 
 }
   addFavourite(){
-    this.showAlert("Unsuccessful", "The project "+ this.project.projectName + " has been add to your bookmarks!");
+    this.showAlert("Success", "The project "+ this.project.projectName + " has been add to your bookmarks!");
   }
   showAlert(t: string, subT: string){
     let alert = this.alertCtrl.create({
