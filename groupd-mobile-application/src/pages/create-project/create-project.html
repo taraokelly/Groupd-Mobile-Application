@@ -10,76 +10,75 @@
 </ion-header>
 
 
-<ion-content padding>
-  
-  <form [formGroup]="projectForm">
-    <ion-list inset>
-      <ion-item>
-        <ion-label floating>Name:</ion-label>
-        <ion-input formControlName="name"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="!projectForm.controls.name.valid  && (projectForm.controls.name.dirty || submitAttempt)">
-        <small color="danger">Please enter a project name.</small>
-      </ion-item> 
-      <ion-item>
-        <ion-label floating>Positions: </ion-label>
-        <ion-input type="number" min="1" formControlName="maxMembers"></ion-input>
-      </ion-item>      
-      <ion-item *ngIf="!projectForm.controls.maxMembers.valid  && (projectForm.controls.maxMembers.dirty || submitAttempt)">
-        <small color="danger">Please enter a valid number.</small>
-      </ion-item> 
-      <ion-item>
-        <ion-label floating>Thumbnail Description: </ion-label>
-        <ion-input formControlName="thumb"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="!projectForm.controls.thumb.valid  && (projectForm.controls.thumb.dirty || submitAttempt)">
-        <small color="danger">Please enter a project description.</small>
-      </ion-item> 
-      <ion-item>
-        <ion-label floating>Description: </ion-label>
-        <ion-textarea rows="6" type="text" formControlName="desc"></ion-textarea>
-      </ion-item>
-      <ion-item *ngIf="!projectForm.controls.desc.valid  && (projectForm.controls.desc.dirty || submitAttempt)">
-        <small color="danger">Please enter a project description.</small>
-      </ion-item> 
-
-    </ion-list>
-    <hr>
-
-  </form>
-
-  <div *ngIf="edit">
-    <form>
-      <ion-item>
-        <ion-label floating>Member: </ion-label>
-        <ion-input type="text" name="member" [(ngModel)]="member"></ion-input>
-      </ion-item>
-      <br>
+<ion-content class="master">
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="projectForm">
+        <ion-list inset>
+          <ion-item>
+            <ion-label floating>Name:</ion-label>
+            <ion-input formControlName="name"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!projectForm.controls.name.valid  && (projectForm.controls.name.dirty || submitAttempt)">
+            <small color="danger">Please enter a project name.</small>
+          </ion-item> 
+          <ion-item>
+            <ion-label floating>Positions: </ion-label>
+            <ion-input type="number" min="1" formControlName="maxMembers"></ion-input>
+          </ion-item>      
+          <ion-item *ngIf="!projectForm.controls.maxMembers.valid  && (projectForm.controls.maxMembers.dirty || submitAttempt)">
+            <small color="danger">Please enter a valid number.</small>
+          </ion-item> 
+          <ion-item>
+            <ion-label floating>Thumbnail Description: </ion-label>
+            <ion-input formControlName="thumb"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!projectForm.controls.thumb.valid  && (projectForm.controls.thumb.dirty || submitAttempt)">
+            <small color="danger">Please enter a project description.</small>
+          </ion-item> 
+          <ion-item>
+            <ion-label floating>Description: </ion-label>
+            <ion-textarea rows="6" type="text" formControlName="desc"></ion-textarea>
+          </ion-item>
+          <ion-item *ngIf="!projectForm.controls.desc.valid  && (projectForm.controls.desc.dirty || submitAttempt)">
+            <small color="danger">Please enter a project description.</small>
+          </ion-item> 
+          <form>
+            <ion-item>
+              <ion-label floating>Tags: </ion-label>
+              <ion-input type="text" name="tag" [(ngModel)]="tag"></ion-input>
+            </ion-item>
+            <br>
+            <div class="wrapper">
+              <button color="dark" small ion-button (click)="addTag()">ADD TAG</button>
+            </div>
+          </form>
+        </ion-list>
+      </form>
+    <!--
+      <div *ngIf="edit">
+        <form>
+          <ion-item>
+            <ion-label floating>Member: </ion-label>
+            <ion-input type="text" name="member" [(ngModel)]="member"></ion-input>
+          </ion-item>
+          <br>
+          <div class="wrapper">
+            <button color="dark" small ion-button (click)="addMember()">ADD MEMBER</button>
+          </div>
+        </form>
+        <div class="wrapper">
+          <span *ngFor="let p of project.projectMembers; let i = index">
+            <button ion-button round icon-only small color="warm" (click)="deleteMember(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
+          </span>
+        </div>
+      </div> -->
       <div class="wrapper">
-        <button color="dark" small ion-button (click)="addMember()">ADD MEMBER</button>
+        <span *ngFor="let p of project.tags; let i = index">
+          <button ion-button round icon-only small color="warm" (click)="deleteTag(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
+        </span>
       </div>
-    </form>
-    <div class="wrapper">
-      <span *ngFor="let p of project.projectMembers; let i = index">
-        <button ion-button round icon-only small color="warm" (click)="deleteMember(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
-      </span>
-    </div>
-  </div>
-
-  <form>
-    <ion-item>
-      <ion-label floating>Tags: </ion-label>
-      <ion-input type="text" name="tag" [(ngModel)]="tag"></ion-input>
-    </ion-item>
-    <br>
-    <div class="wrapper">
-      <button color="dark" small ion-button (click)="addTag()">ADD TAG</button>
-    </div>
-  </form>
-  <div class="wrapper">
-    <span *ngFor="let p of project.tags; let i = index">
-      <button ion-button round icon-only small color="warm" (click)="deleteTag(i)"> &emsp;{{p}}<ion-icon name="close"></ion-icon></button>
-    </span>
-  </div>
-  <button color="danger" block ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid" (click)="addProject()">CREATE PROJECT</button>
+      <button color="danger" block ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid" (click)="addProject()">CREATE PROJECT</button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

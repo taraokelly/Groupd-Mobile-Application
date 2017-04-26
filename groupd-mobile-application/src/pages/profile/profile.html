@@ -13,7 +13,7 @@
 <ion-content padding>
 
   <div id="profile-bg" [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}"></div>
-  <div id="content">
+  <div *ngIf="found"id="content">
     <div id="profile-info" padding>
      <img id="profile-image" [src]="choosenPicture" onerror="this.src='assets/img/profile/Female.jpg'"> 
       <h3 id="profile-name">{{user.username}}</h3>
@@ -52,6 +52,9 @@
       </div> -->
        <hr>
       </div> 
+  </div>
+  <div *ngIf="!found" id="content">
+    <h3 id="profile-name">404 Not Found</h3>
   </div>
 
 </ion-content>

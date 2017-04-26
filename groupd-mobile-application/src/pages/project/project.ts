@@ -7,6 +7,9 @@ import { UserData } from "../../providers/user-data";
 import { Proj } from '../../objects/project';
 import { User } from "../../objects/user";
 
+import { ProfilePage } from "../profile/profile";
+import { EditProjectPage } from "../edit-project/edit-project";
+
 @Component({
   selector: 'page-project',
   templateUrl: 'project.html'
@@ -14,6 +17,8 @@ import { User } from "../../objects/user";
 export class ProjectPage {
 
   pos: any = 0;
+
+  isCreator: Boolean = false;
 
   //selectedSegment: string;
   hasTags: Boolean = true;
@@ -77,6 +82,9 @@ export class ProjectPage {
                 console.log("creator");
                 this.choosenPicture= this.directory + this.creator.gender + ".jpg";
                 this.found = true;
+                if(this.user.username===this.creator.username){
+                  this.isCreator = true;
+                }
               }
             },
             err => console.log("Unsuccessful!" + err),
@@ -86,42 +94,52 @@ export class ProjectPage {
   getProject(){
       //JSON.parse
       if(this.navParams.get('projectSelected')!=null||this.navParams.get('projectSelected')!=undefined){
-        this.project= JSON.parse(this.navParams.get('projectSelected'));
         //reload in the case of changes
-        this.ProjectData.getProject(this.project.projectId.toString()).subscribe(
+        this.ProjectData.getProject(this.navParams.get('projectSelected')).subscribe(
             data => {
               //console.log(data);
               if(!data.hasOwnProperty('message')){
-                //user found           
-                this.project=data;
+                  //user found           
+                  this.project=data;
+                  if(this.project.tags.length <1){
+                    this.hasTags = false;
+                  }
+                  /*if(this.project.comments.length <1){
+                    this.hasComments = false;
+                    console.log("Tags: In false");
+                  }*/
+                  this.pos = this.project.maxMembers;
+                  if(this.project.projectMembers.length<this.project.maxMembers){
+                    this.pos -= this.project.projectMembers.length;
+                  }
+                  else{
+                    this.pos = 0;
+                  }
+                  if(this.project.projectMembers.length<1){
+                    this.hasMembers =false;
+                }
+                //get project creator
+                this.getCreator();
               }
             },
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
-        if(this.project.tags.length <1){
-          this.hasTags = false;
-        }
-        /*if(this.project.comments.length <1){
-          this.hasComments = false;
-          console.log("Tags: In false");
-        }*/
-        this.pos = this.project.maxMembers;
-        if(this.project.projectMembers.length<this.project.maxMembers){
-          this.pos -= this.project.projectMembers.length;
-        }
-        else{
-          this.pos = 0;
-        }
-        if(this.project.projectMembers.length<1){
-          this.hasMembers =false;
-        }
-        //get project creator
-        this.getCreator();
       }
       else{
         this.found=false;
       }
+  }
+  creatorProfile(){
+    this.navCtrl.push( ProfilePage, {
+        param1: this.creator.username
+    });
+  }
+  editProject(){
+    console.log("In edit project");
+    this.navCtrl.push( EditProjectPage, {
+        projectSelected : this.project.projectId
+    });
   }
    getUser() {
     this.UserData.getCurrentUser().then((user) => {

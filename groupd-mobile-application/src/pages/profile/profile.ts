@@ -13,9 +13,13 @@ import { EditProfilePage } from "../edit-profile/edit-profile";
 })
 export class ProfilePage {
 
+  found: Boolean = false;
+
   public backgroundImage = "assets/img/background/orange.png";
 
   private user: User;
+
+  private currUser: User;
 
   username:any;
 
@@ -32,11 +36,12 @@ export class ProfilePage {
     //alert("Received param1: " + this.username)
     this.setUserNull();
     this.getUser();
+    this.getCurrentUser();
   }
   
-  getUser() {
+  getCurrentUser(){
     this.UserData.getCurrentUser().then((user) => {
-      this.user = user;
+      this.currUser = user;
       // Username can never change, therefore there is no point changing it
       if(user.username===this.username){
         this.currentUser = true;
@@ -51,7 +56,8 @@ export class ProfilePage {
                 //user not found
               }else{
                 //user found
-                  this.user = data;
+                  this.found = true;
+                  this.currUser = data;
                   this.choosenPicture= this.directory + this.user.gender + ".jpg";
               }
             },
@@ -60,7 +66,26 @@ export class ProfilePage {
         );
       this.UserData.setCurrentUser(user);
     });
+
   }
+
+  getUser() {
+      this.UserData.getUser(this.username).subscribe(
+            data => {
+              if(data.hasOwnProperty('message')){
+                //user not found
+              }else{
+                //user found
+                  this.found = true;
+                  this.user = data;
+                  this.choosenPicture= this.directory + this.user.gender + ".jpg";
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
+    }
+  
 
   toggleSkills(){
     this.showSkills= !this.showSkills;

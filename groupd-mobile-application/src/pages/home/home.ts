@@ -30,9 +30,8 @@ export class HomePage {
   }
   viewProject(p : Proj){
     this.navCtrl.push(ProjectPage, {
-        projectSelected: JSON.stringify(p)
+        projectSelected: p.projectId
     });
-    console.log(p);
   }
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
@@ -40,7 +39,6 @@ export class HomePage {
       //always reload user in the case of changes
       this.UserData.getUser(this.user.username.toString()).subscribe(
             data => {
-              //console.log(data);
               if(data.hasOwnProperty('message')){
                 //user not found
               }else{

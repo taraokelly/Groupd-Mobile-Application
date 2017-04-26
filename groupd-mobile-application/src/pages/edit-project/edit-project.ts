@@ -12,10 +12,12 @@ import { User } from "../../objects/user";
 import { ProjectPage } from "../project/project";
 
 @Component({
-  selector: 'page-create-project',
-  templateUrl: 'create-project.html'
+  selector: 'page-edit-project',
+  templateUrl: 'edit-project.html'
 })
-export class CreateProjectPage {
+export class EditProjectPage {
+
+  found: Boolean = false;
 
   user: User;
 
@@ -29,10 +31,11 @@ export class CreateProjectPage {
 
   private projectForm : FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ProjectData: ProjectData, public UserData: UserData,public alertCtrl: AlertController, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController,  public ProjectData: ProjectData, public UserData: UserData, public navParams: NavParams, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
     this.setProjectNull();
     this.setUserNull();
     this.getUser();
+    this.getProject();
     this.projectForm = this.formBuilder.group({
       name: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
       thumb: ['', Validators.compose([Validators.required, ContainsCharacterValidator.hasCharacter])],
@@ -59,18 +62,39 @@ export class CreateProjectPage {
       this.UserData.setCurrentUser(user);
     });
   }
-  addMember(){
-    if(this.member == null || this.member ==""){
-        console.log("Null String");
-      }
-      else if(this.member.trim().length==0){
-         console.log("String Full of Spaces");
-         this.member=null;
+  getProject(){
+      //JSON.parse
+      if(this.navParams.get('projectSelected')!=null||this.navParams.get('projectSelected')!=undefined){
+        //reload in the case of changes
+        this.ProjectData.getProject(this.navParams.get('projectSelected')).subscribe(
+            data => {
+              //console.log(data);
+              if(!data.hasOwnProperty('message')){
+                  //project found           
+                  this.project=data;
+                  if(this.project.projectName!= null || this.project.projectName!= undefined || this.project.projectName!= ""){
+                    this.projectForm.controls['name'].setValue(this.project.projectName);
+                    }
+                  if(this.project.projectThumb!= null || this.project.projectThumb!= undefined || this.project.projectThumb!= ""){
+                    this.projectForm.controls['thumb'].setValue(this.project.projectThumb);
+                    }
+                  if(this.project.projectDesc!= null || this.project.projectDesc!= undefined || this.project.projectDesc!= ""){
+                    this.projectForm.controls['desc'].setValue(this.project.projectDesc);
+                    }
+                  if(this.project.maxMembers!= null || this.project.maxMembers!=undefined  || this.project.projectDesc!= ""){
+                    this.projectForm.controls['maxMembers'].setValue(this.project.maxMembers);
+                    }
+                  console.log(data);
+                  this.found=true;
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
       }
       else{
-      this.project.projectMembers.push(this.member.replace(/^\s+|\s+$/g, ""));
-      this.member=null;
-    }
+        this.found=false;
+      }
   }
   deleteMember(i){
     this.project.projectMembers.splice(i, 1);
@@ -91,61 +115,29 @@ export class CreateProjectPage {
       this.tag=null;
     }
   }
+  addMember(){
+    if(this.member == null || this.member ==""){
+        console.log("Null String");
+      }
+      else if(this.member.trim().length==0){
+         console.log("String Full of Spaces");
+         this.member=null;
+      }
+     else if(!this.project.projectMembers.indexOf(this.member)){
+         this.member=null;
+      }
+      else{
+      this.project.projectMembers.push(this.member.replace(/^\s+|\s+$/g, ""));
+      this.member=null;
+    }
+  }
   deleteTag(i){
     this.project.tags.splice(i, 1);
   }
   viewProject(){
-      this.navCtrl.push(ProjectPage, {
+      this.navCtrl.setRoot(ProjectPage, {
           projectSelected: this.projectId
       });
-  }
-  addProject(){
-    this.project.projectName=this.projectForm.value.name.replace(/^\s+|\s+$/g, "");
-    this.project.projectThumb=this.projectForm.value.thumb.replace(/^\s+|\s+$/g, "");
-    this.project.projectDesc=this.projectForm.value.desc.replace(/^\s+|\s+$/g, "");
-    this.project.maxMembers=this.projectForm.value.maxMembers.replace(/^\s+|\s+$/g, "");
-    this.project.projectCreator=this.user.username;
-    this.project.time = new Date();
-    console.log(this.project);
-    this.ProjectData.addProject(JSON.stringify(this.project))
-      .subscribe(
-        data => {
-            if(data.message === 'Project Added'){
-              this.projectId = data.id;
-              this.setProjectNull();    
-              this.projectForm.reset();
-              this.successfulAlert();
-            }else{
-
-              this.showAlert("Unsuccessful", "Looks like something went wrong");
-            }
-        },
-        err => this.showAlert("Unsuccessful", "Looks like something went wrong"),
-        () => console.log("Finished")
-      ); 
-  }
-    //result alerts
-  successfulAlert() {
-    let alert = this.alertCtrl.create({
-      title: 'Success!',
-      subTitle: 'Proceed to the project page?',
-      buttons: [
-      {
-        text: 'No thanks',
-        role: 'cancel',
-        handler: data => {
-          console.log('Cancel clicked');
-        }
-      },
-      {
-        text: 'Yes',
-        handler: data => {
-             this.viewProject();
-          }
-        }
-      ]
-    });
-    alert.present();
   }
   showAlert(t: string, subT: string){
     let alert = this.alertCtrl.create({
@@ -199,5 +191,4 @@ export class CreateProjectPage {
         projects: []
       }
   }
-
 }

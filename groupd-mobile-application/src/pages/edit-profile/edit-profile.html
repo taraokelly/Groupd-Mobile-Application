@@ -71,12 +71,14 @@
               </ion-item>
               <br/>
               <div class="wrapper">
-                <button color="dark" ion-button (click)="addSkill()">ADD SKILL</button>
+                <button color="dark" ion-button small (click)="addSkill()">ADD SKILL</button>
               </div>
             </form>
-            <span *ngFor="let skill of user.skills; let i = index">
-              <button ion-button round icon-only small *ngIf="(user.skills.length<100) || (i > user.skills.length-100)" color="warm" (click)="deleteSkill(i)"> &emsp;{{skill}}<ion-icon name="close"></ion-icon></button>
-            </span>
+            <div class="wrapper">
+              <span *ngFor="let skill of user.skills; let i = index">
+                <button ion-button round icon-only small *ngIf="(user.skills.length<100) || (i > user.skills.length-100)" color="warm" (click)="deleteSkill(i)"> &emsp;{{skill}}<ion-icon name="close"></ion-icon></button>
+              </span>
+            </div>
             <form>
               <ion-list>
                 <ion-item>

@@ -26,6 +26,7 @@
           <span *ngFor="let p of project.tags; let i = index">
             <button ion-button round icon-only small color="warm"> &emsp;{{p}} &emsp;</button>
           </span>
+          </div>
         </div>
         <ion-grid>
         <ion-row>
@@ -39,7 +40,6 @@
           </ion-col>
         </ion-row>
         </ion-grid>
-      </div>
       <div *ngIf="hasMembers">
         <p class="label"><strong>Members:</strong></p>
         <div class="wrapper">
@@ -92,8 +92,11 @@
       </ion-col>
     </ion-row>
     <ion-card-content>
-      <div class="wrapper">
-        <button color="danger" block ion-button>MESSAGE</button>
+      <div *ngIf="!isCreator" class="wrapper">
+        <button color="danger" block ion-button (click)="creatorProfile()">VIEW PROFILE</button>
+      </div>
+      <div *ngIf="isCreator" class="wrapper">
+        <button color="danger" block ion-button (click)="editProject()">EDIT</button>
       </div>
     </ion-card-content>
   </ion-card>
