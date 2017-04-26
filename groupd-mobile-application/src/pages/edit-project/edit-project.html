@@ -80,7 +80,7 @@
           </div>
           </ion-list>
         <button color="danger" small ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid">SAVE CHANGES</button>
-        <button color="danger" small ion-button>DELETE PROJECT</button>
+        <button color="danger" small ion-button (click)="deleteProject()">DELETE PROJECT</button>
         </form>
       </ion-card-content>
     </ion-card>

@@ -109,7 +109,8 @@ export class EditProfilePage {
     this.UserData.deleteUser(this.user.username.toString()).subscribe(
       data =>{
         if(data.hasOwnProperty('message')){
-          this.showAlert("Success","Your profile has been updated!");
+          this.showAlert("Goodbye","Your profile has been deleted!");
+          this.UserData.logout();
         }
       },
       err => this.showAlert("Whoops","Looks like something went wrong!"),

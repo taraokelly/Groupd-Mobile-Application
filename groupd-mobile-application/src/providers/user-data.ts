@@ -19,6 +19,10 @@ export class UserData {
     this.events.publish('user:login');
   }
 
+   logout(){
+    this.events.publish('user:login');
+  }
+
   setCurrentUser(user: User): void{
      this.storage.set("currentUser", JSON.stringify(user));
      this.events.publish('user:changed');
@@ -37,6 +41,7 @@ export class UserData {
     return this.http.get('http://127.0.0.1:8080/api/users' + "/" + user)
     .map(res => res.json());
   }
+
   updateUser(user: User){
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');

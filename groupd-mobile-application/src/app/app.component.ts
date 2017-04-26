@@ -29,7 +29,6 @@ export interface PageInterface {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  //For now until we add a logged in menu
   rootPage: any = LoginPage;
 
   loggedOutPages: PageInterface[] = [
@@ -150,6 +149,7 @@ getLoginDetails() {
     
     this.events.subscribe('user:logout', () => {
       this.enableMenu(false);
+      this.nav.setRoot(LoginPage);
     });
   }
 }

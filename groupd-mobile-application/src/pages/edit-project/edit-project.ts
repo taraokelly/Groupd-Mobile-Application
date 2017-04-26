@@ -10,6 +10,7 @@ import { Proj } from '../../objects/project';
 import { User } from "../../objects/user";
 
 import { ProjectPage } from "../project/project";
+import { HomePage } from "../home/home";
 
 @Component({
   selector: 'page-edit-project',
@@ -139,6 +140,41 @@ export class EditProjectPage {
   }
   deleteTag(i){
     this.project.tags.splice(i, 1);
+  }
+  updateProject(){
+
+  }
+  delete(){
+    this.ProjectData.deleteProject(this.project.projectId.toString()).subscribe(
+      data =>{
+        if(data.hasOwnProperty('message')){
+          this.showAlert("Success","Your profile has been deleted!");
+          this.navCtrl.setRoot(HomePage);
+        }
+      },
+      err => this.showAlert("Whoops","Looks like something went wrong!"),
+      () => console.log("Finished")
+    );
+  }
+  deleteProject(){
+    let alert = this.alertCtrl.create({
+      title: 'Whoa, hold up',
+      subTitle: 'Are you want to delete this project?',
+      buttons: [
+      {
+        text: 'Close',
+        role: 'cancel',
+        handler: data => {}
+      },
+      {
+        text: 'Delete',
+        handler: data => {
+            this.delete();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
   viewProject(){
       this.navCtrl.setRoot(ProjectPage, {
