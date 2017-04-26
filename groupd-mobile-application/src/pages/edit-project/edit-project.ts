@@ -17,13 +17,15 @@ import { ProjectPage } from "../project/project";
 })
 export class EditProjectPage {
 
+  memFound: Boolean = true;
+
   found: Boolean = false;
 
   user: User;
 
   tag: String;
 
-  member: String;
+  member: string;
 
   project: Proj;
 
@@ -72,19 +74,10 @@ export class EditProjectPage {
               if(!data.hasOwnProperty('message')){
                   //project found           
                   this.project=data;
-                  if(this.project.projectName!= null || this.project.projectName!= undefined || this.project.projectName!= ""){
-                    this.projectForm.controls['name'].setValue(this.project.projectName);
-                    }
-                  if(this.project.projectThumb!= null || this.project.projectThumb!= undefined || this.project.projectThumb!= ""){
-                    this.projectForm.controls['thumb'].setValue(this.project.projectThumb);
-                    }
-                  if(this.project.projectDesc!= null || this.project.projectDesc!= undefined || this.project.projectDesc!= ""){
-                    this.projectForm.controls['desc'].setValue(this.project.projectDesc);
-                    }
-                  if(this.project.maxMembers!= null || this.project.maxMembers!=undefined  || this.project.projectDesc!= ""){
-                    this.projectForm.controls['maxMembers'].setValue(this.project.maxMembers);
-                    }
-                  console.log(data);
+                  this.projectForm.controls['name'].setValue(this.project.projectName);
+                  this.projectForm.controls['thumb'].setValue(this.project.projectThumb);
+                  this.projectForm.controls['desc'].setValue(this.project.projectDesc);
+                  this.projectForm.controls['maxMembers'].setValue(this.project.maxMembers);
                   this.found=true;
               }
             },
@@ -127,8 +120,21 @@ export class EditProjectPage {
          this.member=null;
       }
       else{
-      this.project.projectMembers.push(this.member.replace(/^\s+|\s+$/g, ""));
-      this.member=null;
+        this.UserData.getUser(this.member).subscribe(
+            data => {
+              if(data.hasOwnProperty('message')){
+                //user not found
+                this.memFound = false;
+              }else{
+                //user found
+                this.memFound = true;
+                this.project.projectMembers.push(this.member);
+                this.member=null;
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
     }
   }
   deleteTag(i){

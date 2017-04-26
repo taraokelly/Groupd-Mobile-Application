@@ -65,6 +65,9 @@
               <ion-label floating>Member: </ion-label>
               <ion-input type="text" name="member" [(ngModel)]="member"></ion-input>
             </ion-item>
+              <ion-item *ngIf="!memFound">
+              <small color="danger">User does not exist.</small>
+            </ion-item> 
             <br>
             <div class="wrapper">
               <button color="dark" small ion-button (click)="addMember()">ADD MEMBER</button>
