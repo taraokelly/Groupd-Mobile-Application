@@ -37,6 +37,62 @@
       <div *ngIf="currentUser">
         <button ion-button small color="danger" (click)="editProfile()">EDIT</button>
       </div>
+      
+      <div *ngFor="let p of projects | reverse">
+    <ion-card>
+      <ion-card-header class="h">
+        <ion-row>
+          <ion-col col-10 center text-center>
+       <!-- <div class="h">-->
+          <h2>{{p.projectName}}</h2>
+       <!-- </div>-->
+          </ion-col>
+          <ion-col col-2 center text-center>
+            <!--<button color="warm" ion-button icon-left clear small>-->
+              <ion-icon name="star" class="star"></ion-icon>
+           <!-- </button>-->
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+      <ion-card-content class="c">
+        <!--<div class="c">-->
+          <ion-grid>
+            <ion-row>
+              <ion-col col-9>
+                <p> {{p.projectThumb}} </p>
+              </ion-col>
+              <ion-col class="center">
+                <small class="pos" center>Positions:</small>
+                <p class="posnum" center>{{p.maxMembers - p.projectMembers.length}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      <!--  </div> -->
+      </ion-card-content>
+      <ion-row>
+
+        <ion-col col-4 center text-center>
+          <button color="danger" ion-button icon-left clear small (click)="viewProject(p)">
+            <!--<ion-icon name="thumbs-up"></ion-icon>-->
+            <div>View Project</div>
+          </button>
+        </ion-col>
+<!--
+        <ion-col center text-center>
+          <button color="warm" ion-button icon-left clear small>
+            <ion-icon name="star"></ion-icon>
+          </button>
+        </ion-col>
+    -->    
+        <ion-col col-8 center text-center>
+          <ion-note class="d">
+           <!-- {{p.time | date:'short'}} -->
+           {{p.time | date:'short'}}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+  </ion-card>
+  </div>
 
      <!-- <button ion-button color="danger" (click)="toggleSkills()">{{showSkills ? "Hide Skills" : "Show Skills"}} </button>-->
 

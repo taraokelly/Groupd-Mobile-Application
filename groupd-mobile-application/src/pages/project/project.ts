@@ -165,9 +165,6 @@ export class ProjectPage {
                             //Successful
                             //Save user to storage and trigger event to alert any the app page of the changes
                             this.showAlert("Success","Your project has been updated!");
-                            /*this.navCtrl.setRoot(ProjectPage, {
-                              projectSelected: this.project.projectId
-                            });*/
                           }
                         },
                         err => this.showAlert("Whoops","Looks like something went wrong!"),

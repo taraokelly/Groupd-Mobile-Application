@@ -4,8 +4,10 @@ import { NavController, NavParams } from 'ionic-angular';
 import { User } from "../../objects/user";
 
 import { UserData } from "../../providers/user-data";
+import { ProjectData } from "../../providers/project-data";
 
 import { EditProfilePage } from "../edit-profile/edit-profile";
+import { Proj } from "../../objects/project";
 
 @Component({
   selector: 'page-profile',
@@ -31,14 +33,38 @@ export class ProfilePage {
 
   choosenPicture: string = "";
 
-  constructor(public navCtrl: NavController, public UserData: UserData, public navParams: NavParams) {
+   projects: Proj[] = []
+   
+   proj: Proj[] = [];
+
+  constructor(public navCtrl: NavController, public UserData: UserData,public ProjectData: ProjectData, public navParams: NavParams) {
     this.username = this.navParams.get('param1'); 
     //alert("Received param1: " + this.username)
     this.setUserNull();
     this.getUser();
     this.getCurrentUser();
+    this.getProjects();
   }
   
+  getProjects(){
+    this.ProjectData.getAllProjects().subscribe(projects => {
+      this.proj = projects;
+      this.filter();
+    });
+  }
+  filter(){
+    for (var i = 0; i < this.proj.length; i++) {
+      if (this.proj[i].projectCreator === this.username) {
+          this.projects.push(this.proj[i]);
+      }
+      for (var j = 0; j < this.proj[i].projectMembers.length; j++){
+          if (this.proj[i].projectMembers[j] === this.username) {
+            this.projects.push(this.proj[i]);
+        }
+      }
+    }
+  }
+
   getCurrentUser(){
     this.UserData.getCurrentUser().then((user) => {
       this.currUser = user;
@@ -79,6 +105,7 @@ export class ProfilePage {
                   this.found = true;
                   this.user = data;
                   this.choosenPicture= this.directory + this.user.gender + ".jpg";
+                  
               }
             },
             err => console.log("Unsuccessful!" + err),

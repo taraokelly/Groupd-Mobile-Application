@@ -10,6 +10,7 @@ import { CreateProjectPage } from '../pages/create-project/create-project';
 import { ProjectPage } from '../pages/project/project';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { EditProjectPage } from '../pages/edit-project/edit-project';
+import { LogoutPage } from '../pages/logout/logout';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,6 +19,9 @@ import { UserData } from '../providers/user-data';
 import { ProjectData } from '../providers/project-data';
 
 import { Reverse } from '../pipes/reverse';
+import { Filter } from '../pipes/filter';
+
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -29,12 +33,15 @@ import { Reverse } from '../pipes/reverse';
     CreateProjectPage,
     ProjectPage,
     Reverse,
+    Filter,
     EditProfilePage,
-    EditProjectPage
+    EditProjectPage,
+    LogoutPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-		IonicStorageModule.forRoot()
+		IonicStorageModule.forRoot(),
+    Ng2SearchPipeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,7 +53,8 @@ import { Reverse } from '../pipes/reverse';
     CreateProjectPage,
     ProjectPage,
     EditProfilePage,
-    EditProjectPage
+    EditProjectPage,
+    LogoutPage
   ],
   providers: [
     StatusBar,

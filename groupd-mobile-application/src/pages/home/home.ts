@@ -18,6 +18,8 @@ export class HomePage {
 
   user: User;
 
+  term: String="";
+
   projects: Proj[];
 
   constructor(public navCtrl: NavController, public UserData:UserData, public ProjectData:ProjectData, public navParams: NavParams) {
@@ -36,6 +38,7 @@ export class HomePage {
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
+      this.term=user.username;
       //always reload user in the case of changes
       this.UserData.getUser(this.user.username.toString()).subscribe(
             data => {

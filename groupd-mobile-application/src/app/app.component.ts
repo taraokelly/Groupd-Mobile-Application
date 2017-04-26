@@ -12,6 +12,7 @@ import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
 import { CreateProjectPage } from '../pages/create-project/create-project';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
+import { LogoutPage } from '../pages/logout/logout';
 
 export interface PageInterface {
   title: string;
@@ -42,7 +43,8 @@ export class MyApp {
   ];
   accountPages: PageInterface[] = [
     { title: 'Profile', component: ProfilePage, icon: 'person', param:'username' },
-    { title: 'Edit Account', component: EditProfilePage, icon: 'contact' }
+    { title: 'Edit Account', component: EditProfilePage, icon: 'contact' },
+    { title: 'Log out', component: LogoutPage, icon: 'log-out' }
   ];
   
   username: String = "";
@@ -50,13 +52,26 @@ export class MyApp {
   email: String = "";
   directory: string = "assets/img/profile/";
   chosenPicture: string = "";
+  state: String = "";
 
 
   constructor(public menu: MenuController,  public events: Events, public userData: UserData, /*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
    this.initializeApp();
-   this.enableMenu(false);
+    this.enableMenu(false);
    this.startEvents();
+   //this.getState();
   }
+
+ /* getState(){
+  this.userData.getState().then((state) => {
+    if(state==="loggedOut"){
+      this.enableMenu(false);
+    }else{
+      this.enableMenu(true);
+      this.nav.root(HomePage);
+    }
+  });
+}*/
 
   initializeApp() {
     this.platform.ready().then(() => {

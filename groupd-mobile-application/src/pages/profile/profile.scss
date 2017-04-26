@@ -75,4 +75,39 @@ page-profile {
   #posts {
     text-align: justify;
   }
+  .h {
+        padding-top: 5px !important;
+        padding-bottom: 2px !important;
+        color: white;
+        text-align: center;
+        //border-bottom: 1px solid lightgrey !important;
+        border-bottom: 1px solid darkgrey !important;
+        //background-color: #f53d3d;
+        background-color: #222;
+        //padding-bottom: 10px !important;
+    }
+    .c {
+        padding-top: 12px !important;
+    }
+    .pos {
+        padding-top: 12px !important;
+        text-align: center;
+        color: gray;
+    }
+    .posnum {
+        color: red;
+        text-align: center;
+    }
+    .greeting {
+        text-align: center;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+    .center{
+        text-align: center;
+    }
+    .star {
+       font-size: 30px;
+       color: orange;
+    }
 }

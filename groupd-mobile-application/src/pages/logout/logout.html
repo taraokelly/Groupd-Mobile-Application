@@ -1,0 +1,26 @@
+<ion-header>
+
+    <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Logout</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-card>
+    <ion-card-title>
+      <div class="title">
+        <h2>Are you sure you want to log out?</h2>
+      </div>
+    </ion-card-title>
+    <ion-card-content>
+      <button ion-button block color="danger" (click)="logout()">LOG OUT</button>
+    </ion-card-content>
+
+  </ion-card>
+
+</ion-content>

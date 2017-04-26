@@ -17,10 +17,22 @@ export class UserData {
     //Save user to storage, trigger logged in event
     this.setCurrentUser(user);
     this.events.publish('user:login');
+    //this.setState("loggedIn");
   }
+    setState(s){
+      this.storage.set("state",s);
+    }
 
    logout(){
-    this.events.publish('user:login');
+    this.storage.set("state", "loggedOut");
+    this.events.publish('user:logout');
+  }
+  //logged in or out
+  getState(): Promise<String>{
+    return this.storage.get("state").then((value) => {
+                    console.log("In get state");
+                    return value;
+     }); 
   }
 
   setCurrentUser(user: User): void{
