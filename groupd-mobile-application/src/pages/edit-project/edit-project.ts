@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Events  } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ContainsCharacterValidator } from '../../validators/contains-character-validator';
 
@@ -34,7 +34,7 @@ export class EditProjectPage {
 
   private projectForm : FormGroup;
 
-  constructor(public navCtrl: NavController,  public ProjectData: ProjectData, public UserData: UserData, public navParams: NavParams, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,  public ProjectData: ProjectData, public events: Events, public UserData: UserData, public navParams: NavParams, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
     this.setProjectNull();
     this.setUserNull();
     this.getUser();
@@ -141,9 +141,6 @@ export class EditProjectPage {
   deleteTag(i){
     this.project.tags.splice(i, 1);
   }
-  updateProject(){
-
-  }
   delete(){
     this.ProjectData.deleteProject(this.project.projectId.toString()).subscribe(
       data =>{
@@ -155,6 +152,51 @@ export class EditProjectPage {
       err => this.showAlert("Whoops","Looks like something went wrong!"),
       () => console.log("Finished")
     );
+  }
+  save(){
+    //prepare data to be sent to server
+    this.project.projectName=this.projectForm.value.name.replace(/^\s+|\s+$/g, "");
+    this.project.projectThumb=this.projectForm.value.thumb.replace(/^\s+|\s+$/g, "");
+    this.project.projectDesc=this.projectForm.value.desc.replace(/^\s+|\s+$/g, "");
+    this.project.maxMembers=this.projectForm.value.maxMembers;
+
+    this.ProjectData.updateProject(this.project).subscribe(
+      data =>{
+        if(data.hasOwnProperty('message')){
+          //user wasn't found
+          this.showAlert("Whoops","Looks like something went wrong!");
+        }else{
+          //Successful
+          //Save user to storage and trigger event to alert any the app page of the changes
+          this.showAlert("Success","Your project has been updated!");
+          this.navCtrl.setRoot(ProjectPage, {
+            projectSelected: this.project.projectId
+          });
+        }
+      },
+      err => this.showAlert("Whoops","Looks like something went wrong!"),
+      () => console.log("Finished")
+    );
+  }
+  saveChanges(){
+    let alert = this.alertCtrl.create({
+      title: 'Just checking',
+      subTitle: 'Are you want to save these changes?',
+      buttons: [
+      {
+        text: 'Close',
+        role: 'cancel',
+        handler: data => {}
+      },
+      {
+        text: 'Save',
+        handler: data => {
+            this.save();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
   deleteProject(){
     let alert = this.alertCtrl.create({
