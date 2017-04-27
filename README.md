@@ -23,7 +23,13 @@ Points to consider:
 
 ## About Groupd
 
-Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd in courages and welcomes users of all professions and needs to use this platform to find teammates. Together we developed a shared RESTful API and database to assist our two front-ends. (will expand on this more)
+Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd in courages and welcomes users of all professions and needs to use this platform to find teammates. Together we developed a shared database(see [Why Groupd](#about-groupd) for database scheama) and RESTful API to manage our database and administer our CRUD features to assist our two front-ends(see [Groupd-BackEnd](https://github.com/ImErvin/Groupd-BackEnd) for full documentation). We wanted Groupd to allow users post their desired projects, communicate with other users and to work on projects with other users. Groupd can br used to recreationaly and/or to gain experience and to eventually build a portfolio from projects they have worked on, or to find team members for a start up business.
+
+See [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd) for full docmentation on the web application.
+
+(will move the following to features)
+
+I designed the Groupd-Mobile-Application with a sidemenu that intelligently knows when data changes. The user data provider is called to log a user in, triggers a logged in event to change the side menu. The user data also sets the user by storing the current user in local storage and triggering an event to alert any resources of the change. On every page load and reload the current user is reloaded from the API and user data provider will alert any resources of the changes, where the resources will asynchronously get the new data from storage.
 
 ## Why Groupd
 
