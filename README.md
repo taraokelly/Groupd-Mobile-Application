@@ -3,9 +3,12 @@
 
 ## Table of Contents
 
-+ [Introduction](##Introduction)
-
-+ [About Groupd](##About Groupd)
++ [Introduction](#introduction)
++ [About Groupd](#about-groupd)
++ [Goals](#goals)
++ [Technologies](#technologies)
++ [Issues](#issues)
++ [Conclusion](#conclusion)
 
 ## Introduction
 
