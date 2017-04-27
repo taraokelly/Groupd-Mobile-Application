@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Groupd-Mobile-Application was undertaken as an assignment for a semester long third year project. This assignment was devised and developed as a group project with @imervin. Groupd-Mobile-Application, the cross platform mobile application, is one of three repositories. The other two repositories include [Groupd-BackEnd]( https://github.com/ImErvin/Groupd-BackEnd), the groupd API with contributions from both parties, and [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd), the web application developed by @imervin. For more details about Groupd, please go to the [About Groupd](#about-groupd) section.
+Groupd-Mobile-Application was undertaken as an assignment for a semester long third year project. This assignment was devised and developed as a group project with @ImErvin. Groupd-Mobile-Application, the cross platform mobile application, is one of three repositories. The other two repositories include [Groupd-BackEnd]( https://github.com/ImErvin/Groupd-BackEnd), the groupd API with contributions from both parties, and [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd), the web application developed by @imervin. For more details about Groupd, please go to the [About Groupd](#about-groupd) section.
 
 Points to consider: 
 
@@ -23,9 +23,13 @@ Points to consider:
 
 ## About Groupd
 
-Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have.
+Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. (will expand on this more)
 
 ## Why Groupd
+
+After my detachment from [my origional idea](#original-idea), I joined a classmates project, @ImErvin, who's project seemed very amicable to me. We were also both eager to work in group to experience and practice collaborating on Github. Ervin welcomed the idea of a mobile application equivalent to his web application. Joining to form a group we could add extra features. Together, we designed a new database scheama, attached below, and updated the API to correspond with these changes.
+
+![alt text](https://github.com/taraokelly/Groupd-Mobile-Application/img/Groupd-DB-Design.PNG "Database Shceama")
 
 ## Original Idea
 
@@ -53,7 +57,7 @@ Issues:
 + An app that does launch start up would not have been approved by the windows store, to be more power efficient.
 + This application would be too demanding to be a windows service.
 
-Although I have abandoned this idea as my end of year project, I do not wish to give up on implementing this project, maybe not as a windows store application. I have already implemented the facial recognition for an assignment where we had to create a Windows Universal Platform Application this semester, this WUP application can be found on Github: [Safe-Note](https://github.com/taraokelly/Safe-Note), and on the Windows Store: [Note-Safe](https://www.microsoft.com/en-us/store/p/note-safe/9nvcc3qgf9c8)(the name Safe-Note was not available at the time of submission). 
+Although I have abandoned this idea as my end of year project, I do not wish to give up on implementing this project, maybe not as a windows store application. I have already implemented the facial recognition for an assignment where we had to create a Windows Universal Platform Application this semester, this WUP application can be found on Github: [Safe-Note](https://github.com/taraokelly/Safe-Note), and on the Windows Store: [Note Safe](https://www.microsoft.com/en-us/store/p/note-safe/9nvcc3qgf9c8)(the name Safe Note was not available at the time of submission). 
 
 ## Goals
 
