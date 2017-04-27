@@ -19,7 +19,7 @@ Groupd-Mobile-Application was undertaken as an assignment for a semester long th
 Points to consider: 
 
 + Ionic 2 was a new technology for me, see [Technologies](#technologies) for more.
-+ Due to unforseen circumstances my original end of year project idea did not work out, leaving me with just a month to start and complete a new end of year project.
++ Due to unforseen circumstances my original end of year project idea did not work out, leaving me with just a month to start and complete a new end of year project, see [Original Idea](#original-idea) for more.
 
 ## About Groupd
 
@@ -34,15 +34,15 @@ My original idea was to build a windows desktop security app, Encrypt Keeper.
 Encrypt Keeper would:
 
 + Be developed in C# and in Visual Studio.
-+ Be published to the windows store.
++ Be published to the Windows Store.
 + Encrypt important files on log out.
-+ Launch as a background process on start-up.
++ Launch a background process on start-up.
 + Have Bluetooth enabled and an interface to discover Bluetooth devices.
 + Check bluetooth devices for the user's mobile mac address (which will be stored by using the GUI, described below).
-+ If the mobile's mac address is a match, it will have a message box pop up to ask for admin password.
++ If the mobile's mac address is a match, it will have a message box pop up to ask for the admin password.
 + If the password is a match, the files will be decrypted.
 + Implement a Handshake protocol with the device in every 5 seconds.
-+ If no face was found, it would use the camera preview to access the camera, unknown to the user, and use facial recognition to compare with a photo of the user’s face.
++ If no device was found, it would use the camera preview to access the camera, unknown to the user, and use facial recognition to compare with a photo of the user’s face.
 + If the face is not a match the user’s picture is sent to the user’s email account.
 + If the face is a match, like with the bluetooth authenication, the message box would appear to ask for the admin password.
 + There would be a mechanism for users to log into GUI application with another password to decrypt files if the facial recognition is at fault or the phone is at fault. The GUI can also be used to specify the folders to encrypt and the users credentials. Again if a user logs in to the GUI application another email can be sent to the user informing them of this.
@@ -53,7 +53,7 @@ Issues:
 + An app that does launch start up would not have been approved by the windows store, to be more power efficient.
 + This application would be too demanding to be a windows service.
 
-Although I have abandoned this idea as my end of year project, I do not wish to give up on implementing this project, maybe not as a windows store application. I have already implemented the facial recognition for an assignment where we had to create a Windows Universal Platform Application this semester, this WUP application can be found on Github: [Safe-Note](https://github.com/taraokelly/Safe-Note), and on the Windows Store:[Note-Safe](https://www.microsoft.com/en-us/store/p/note-safe/9nvcc3qgf9c8)(the name Safe-Note was not available at time of submission). 
+Although I have abandoned this idea as my end of year project, I do not wish to give up on implementing this project, maybe not as a windows store application. I have already implemented the facial recognition for an assignment where we had to create a Windows Universal Platform Application this semester, this WUP application can be found on Github: [Safe-Note](https://github.com/taraokelly/Safe-Note), and on the Windows Store: [Note-Safe](https://www.microsoft.com/en-us/store/p/note-safe/9nvcc3qgf9c8)(the name Safe-Note was not available at the time of submission). 
 
 ## Goals
 
