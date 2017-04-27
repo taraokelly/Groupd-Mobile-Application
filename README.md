@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Groupd-Mobile-Application was undertaken as an assignment for a semester long third year project. This assignment was devised and developed as a group project with @ImErvin. Groupd-Mobile-Application, the cross platform mobile application, is one of three repositories. The other two repositories include [Groupd-BackEnd]( https://github.com/ImErvin/Groupd-BackEnd), the groupd API with contributions from both parties, and [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd), the web application developed by @imervin. For more details about Groupd, please go to the [About Groupd](#about-groupd) section.
+Groupd-Mobile-Application was undertaken as an assignment for a semester long third year project. This assignment was devised and developed as a group project with [ImErvin](https://github.com/ImErvin). Groupd-Mobile-Application, the cross platform mobile application, is one of three repositories. The other two repositories include [Groupd-BackEnd]( https://github.com/ImErvin/Groupd-BackEnd), the groupd API with contributions from both parties, and [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd), the web application developed by [ImErvin](https://github.com/ImErvin). For more details about Groupd, please go to the [About Groupd](#about-groupd) section.
 
 Points to consider: 
 
@@ -23,13 +23,13 @@ Points to consider:
 
 ## About Groupd
 
-Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. (will expand on this more)
+Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd in courages and welcomes users of all professions and needs to use this platform to find teammates. Together we developed a shared RESTful API and database to assist our two front-ends. (will expand on this more)
 
 ## Why Groupd
 
-After my detachment from [my original idea](#original-idea), I joined a classmates project, @ImErvin, who's project seemed very amicable to me. We were also both eager to work in group to experience and practice collaborating on Github. Ervin welcomed the idea of a mobile application equivalent to his web application. Joining to form a group we could add extra features. Together, we designed a new database scheama, attached below, and updated the API to correspond with these changes.
+After my detachment from [my original idea](#original-idea), I joined a classmates project, [ImErvin](https://github.com/ImErvin), who's project seemed very amicable to me. We were also both eager to work in group to experience and practice collaborating on Github. Ervin welcomed the idea of a mobile application equivalent to his web application. Joining to form a group we could add extra features. Together, we designed a new database scheama, attached below, and updated the API to correspond with these changes.
 
-![alt text](https://github.com/taraokelly/Groupd-Mobile-Application/tree/master/img/Groupd-DB-Design.PNG "Database Shceama")
+![alt text](https://github.com/taraokelly/Groupd-Mobile-Application/blob/master/img/Groupd-DB-Design.png "Database Shceama")
 
 ## Original Idea
 
