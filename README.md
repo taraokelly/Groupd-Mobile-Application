@@ -27,9 +27,9 @@ Groupd is a social netwrking site devised to help users find team mates to work 
 
 ## Why Groupd
 
-After my detachment from [my origional idea](#original-idea), I joined a classmates project, @ImErvin, who's project seemed very amicable to me. We were also both eager to work in group to experience and practice collaborating on Github. Ervin welcomed the idea of a mobile application equivalent to his web application. Joining to form a group we could add extra features. Together, we designed a new database scheama, attached below, and updated the API to correspond with these changes.
+After my detachment from [my original idea](#original-idea), I joined a classmates project, @ImErvin, who's project seemed very amicable to me. We were also both eager to work in group to experience and practice collaborating on Github. Ervin welcomed the idea of a mobile application equivalent to his web application. Joining to form a group we could add extra features. Together, we designed a new database scheama, attached below, and updated the API to correspond with these changes.
 
-![alt text](https://github.com/taraokelly/Groupd-Mobile-Application/img/Groupd-DB-Design.PNG "Database Shceama")
+![alt text](https://github.com/taraokelly/Groupd-Mobile-Application/tree/master/img/Groupd-DB-Design.PNG "Database Shceama")
 
 ## Original Idea
 
