@@ -8,6 +8,7 @@ import { ProjectData } from "../../providers/project-data";
 
 import { EditProfilePage } from "../edit-profile/edit-profile";
 import { Proj } from "../../objects/project";
+import { ProjectPage } from "../project/project";
 
 @Component({
   selector: 'page-profile',
@@ -101,7 +102,14 @@ export class ProfilePage {
 
   toggleSkills(){
     this.showSkills= !this.showSkills;
-}
+  }
+
+  viewProject(p : Proj){
+    this.navCtrl.push(ProjectPage, {
+        projectSelected: p.projectId
+    });
+  }
+
   editProfile(){
     this.navCtrl.push(EditProfilePage);
   }

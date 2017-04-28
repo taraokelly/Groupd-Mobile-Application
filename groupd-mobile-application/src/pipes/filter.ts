@@ -9,8 +9,7 @@ export class Filter implements PipeTransform{
 
   transform(items: any[], args: string):any {
 
-    if(args=== null || args===undefined){
-      console.log("In filter if(args=== null || args===undefined).");
+    if(args === null || args === undefined){
      return items;
     }
     return items.filter(item => {
