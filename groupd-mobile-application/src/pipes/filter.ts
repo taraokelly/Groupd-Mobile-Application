@@ -8,9 +8,8 @@ import { PipeTransform } from '@angular/core';
 export class Filter implements PipeTransform{
 
   transform(items: any[], args: string):any {
-
-    if(args === null || args === undefined){
-     return items;
+    if(args === null || args === undefined || args === ""){
+     return [];
     }
     return items.filter(item => {
       return item.projectCreator === args || (item.projectMembers.indexOf(args) > -1);

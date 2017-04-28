@@ -1,0 +1,63 @@
+<ion-header>
+
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Search Projects</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="masters">
+
+<div class="wrapper" *ngIf="!found">
+  <h1>404 Not Found</h1>
+</div>
+
+<div *ngIf="found">
+  <ion-searchbar [(ngModel)]="query"> </ion-searchbar>
+    <div *ngFor="let p of projects | reverse | filter:query">
+    <ion-card>
+      <ion-card-header class="h">
+        <ion-row>
+          <ion-col col-10 center text-center>
+          <h2>{{p.projectName}}</h2>
+          </ion-col>
+          <ion-col col-2 center text-center>
+              <ion-icon name="star" class="star"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+      <ion-card-content class="c">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-9>
+                <p> {{p.projectThumb}} </p>
+              </ion-col>
+              <ion-col class="center">
+                <small class="pos" center>Positions:</small>
+                <p class="posnum" center>{{p.maxMembers - p.projectMembers.length}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-card-content>
+      <ion-row>
+
+        <ion-col col-4 center text-center>
+          <button color="danger" ion-button icon-left clear small (click)="viewProject(p)">
+            <div>View Project</div>
+          </button>
+        </ion-col>  
+        <ion-col col-8 center text-center>
+          <ion-note class="d">
+           {{p.time | date:'short'}}
+          </ion-note>
+        </ion-col>
+      </ion-row>
+  </ion-card>
+  </div>
+</div>
+
+</ion-content>

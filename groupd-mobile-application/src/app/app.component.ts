@@ -13,6 +13,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { CreateProjectPage } from '../pages/create-project/create-project';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { LogoutPage } from '../pages/logout/logout';
+import { SearchPage } from '../pages/search/search';
 
 export interface PageInterface {
   title: string;
@@ -39,7 +40,8 @@ export class MyApp {
 
   loggedInPages: PageInterface[] = [
     { title: 'Home', component: HomePage, icon: 'home' },
-    { title: 'New Project', component: CreateProjectPage, icon: 'create' }
+    { title: 'New Project', component: CreateProjectPage, icon: 'create' },
+    { title: 'Search', component: SearchPage, icon: 'search'}
   ];
   accountPages: PageInterface[] = [
     { title: 'Profile', component: ProfilePage, icon: 'person', param:'username' },
