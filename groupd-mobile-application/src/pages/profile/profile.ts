@@ -23,7 +23,7 @@ export class ProfilePage {
 
   private currUser: User;
 
-  username:any;
+  username: string;
 
   currentUser: boolean = false;
 
@@ -39,7 +39,6 @@ export class ProfilePage {
 
   constructor(public navCtrl: NavController, public UserData: UserData,public ProjectData: ProjectData, public navParams: NavParams) {
     this.username = this.navParams.get('param1'); 
-    //alert("Received param1: " + this.username)
     this.setUserNull();
     this.getUser();
     this.getCurrentUser();
@@ -48,21 +47,8 @@ export class ProfilePage {
   
   getProjects(){
     this.ProjectData.getAllProjects().subscribe(projects => {
-      this.proj = projects;
-      this.filter();
+      this.projects = projects;
     });
-  }
-  filter(){
-    for (var i = 0; i < this.proj.length; i++) {
-      if (this.proj[i].projectCreator === this.username) {
-          this.projects.push(this.proj[i]);
-      }
-      for (var j = 0; j < this.proj[i].projectMembers.length; j++){
-          if (this.proj[i].projectMembers[j] === this.username) {
-            this.projects.push(this.proj[i]);
-        }
-      }
-    }
   }
 
   getCurrentUser(){
@@ -101,7 +87,6 @@ export class ProfilePage {
                 //user not found
               }else{
                 //user found
-                console.log("Profile:" + data);
                   this.found = true;
                   this.user = data;
                   this.choosenPicture= this.directory + this.user.gender + ".jpg";

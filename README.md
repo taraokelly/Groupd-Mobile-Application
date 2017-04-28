@@ -16,14 +16,14 @@
 
 Groupd-Mobile-Application was undertaken as an assignment for a semester long third year project. This assignment was devised and developed as a group project with [ImErvin](https://github.com/ImErvin). Groupd-Mobile-Application, the cross platform mobile application, is one of three repositories. The other two repositories include [Groupd-BackEnd]( https://github.com/ImErvin/Groupd-BackEnd), the groupd API with contributions from both parties, and [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd), the web application developed by [ImErvin](https://github.com/ImErvin). For more details about Groupd, please go to the [About Groupd](#about-groupd) section.
 
-Points to consider: 
+**Points to consider:** 
 
 + Ionic 2 was a new technology for me, see [Technologies](#technologies) for more.
-+ Due to unforseen circumstances my original end of year project idea did not work out, leaving me with just a month to start and complete a new end of year project, see [Original Idea](#original-idea) for more.
++ Due to unforeseen circumstances my original end of year project idea did not work out, leaving me with just a month to start and complete a new end of year project, see [Original Idea](#original-idea) for more.
 
 ## About Groupd
 
-Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd in courages and welcomes users of all professions and needs to use this platform to find teammates. Together we developed a shared database(see [Why Groupd](#about-groupd) for database scheama) and RESTful API to manage our database and administer our CRUD features to assist our two front-ends(see [Groupd-BackEnd](https://github.com/ImErvin/Groupd-BackEnd) for full documentation). We wanted Groupd to allow users post their desired projects, communicate with other users and to work on projects with other users. Groupd can br used to recreationaly and/or to gain experience and to eventually build a portfolio from projects they have worked on, or to find team members for a start up business.
+Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd in courages and welcomes users of all professions and needs to use this platform to find teammates. Together, Ervin and I developed a shared database(see [Why Groupd](#about-groupd) for database schema) and RESTful API to manage our database and administer our CRUD features to assist our two front-ends(see [Groupd-BackEnd](https://github.com/ImErvin/Groupd-BackEnd) for full documentation). We wanted Groupd to allow users post their desired projects, communicate with other users and to work on projects with other users. Groupd can be used to recreationaly and/or to gain experience and to eventually build a portfolio from projects they have worked on, or to find team members for a start up business.
 
 See [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd) for full docmentation on the web application.
 
@@ -33,15 +33,15 @@ I designed the Groupd-Mobile-Application with a sidemenu that intelligently know
 
 ## Why Groupd
 
-After my detachment from [my original idea](#original-idea), I joined a classmates project, [ImErvin](https://github.com/ImErvin), who's project seemed very amicable to me. We were also both eager to work in group to experience and practice collaborating on Github. Ervin welcomed the idea of a mobile application equivalent to his web application. Joining to form a group we could add extra features. Together, we designed a new database scheama, attached below, and updated the API to correspond with these changes.
+After my detachment from [my original idea](#original-idea), I joined a classmate's project, [ImErvin](https://github.com/ImErvin), who's project seemed very amicable to me. We were also both eager to work in group to experience and practice collaborating on Github. Ervin welcomed the idea of a mobile application equivalent to his web application. Joining to form a group we could add extra features. Together, we designed a new database schema, attached below, and updated the API to correspond with these changes.
 
-![alt text](https://github.com/taraokelly/Groupd-Mobile-Application/blob/master/img/Groupd-DB-Design.png "Database Shceama")
+![alt text](https://github.com/taraokelly/Groupd-Mobile-Application/blob/master/img/Groupd-DB-Design.png "Database Schema")
 
 ## Original Idea
 
 My original idea was to build a windows desktop security app, Encrypt Keeper.
 
-Encrypt Keeper would:
+**Encrypt Keeper would:**
 
 + Be developed in C# and in Visual Studio.
 + Be published to the Windows Store.
@@ -57,7 +57,7 @@ Encrypt Keeper would:
 + If the face is a match, like with the bluetooth authenication, the message box would appear to ask for the admin password.
 + There would be a mechanism for users to log into GUI application with another password to decrypt files if the facial recognition is at fault or the phone is at fault. The GUI can also be used to specify the folders to encrypt and the users credentials. Again if a user logs in to the GUI application another email can be sent to the user informing them of this.
 
-Issues:
+**Issues:**
 
 + I could not find a way to start the windows universal app to run on start up, the user had to open the application once after start up to activate the background process.
 + An app that does launch start up would not have been approved by the windows store, to be more power efficient.
