@@ -18,7 +18,7 @@ export interface User {
 
 export interface Ratings{
 		rating: Rating,
-		ratedby: [ Ratedby ]
+		ratedby:  Ratedby[]
 	}
 
 export interface Rating{

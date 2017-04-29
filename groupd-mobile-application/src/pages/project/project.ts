@@ -263,12 +263,7 @@ export class ProjectPage {
               sum_of_rates: null,
               rate_count: null
             },
-          ratedby: [
-            {
-              username: null,
-              rate: null
-            }
-          ]
+          ratedby: []
         },
         bookmarks: [],
         projects: []

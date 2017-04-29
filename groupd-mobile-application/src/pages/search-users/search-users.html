@@ -31,6 +31,9 @@
         <ion-card-content>
           <div class="wrapper">
             <p>{{u.occupation}} &bull; {{u.email}}</p>
+            <div *ngIf="u.ratings.rating.sum_of_rates != null">
+              <p><strong>{{u.ratings.rating.sum_of_rates / u.ratings.rating.rate_count}} stars</strong></p>
+            </div>
             <span *ngFor="let skill of u.skills; let i = index">
               <ion-chip color="warm">
                 <ion-label>{{skill}}</ion-label>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { User } from "../../objects/user";
 
@@ -38,7 +38,7 @@ export class ProfilePage {
    
    proj: Proj[] = [];
 
-  constructor(public navCtrl: NavController, public UserData: UserData,public ProjectData: ProjectData, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public UserData: UserData,public ProjectData: ProjectData, public navParams: NavParams) {
     this.username = this.navParams.get('param1'); 
     this.setUserNull();
     this.getUser();
@@ -109,7 +109,137 @@ export class ProfilePage {
         projectSelected: p.projectId
     });
   }
+  showPrompt() {
+    let prompt = this.alertCtrl.create({
+      title: 'Rate ' + this.username,
+      message: "Rate " + this.username + ' out of five stars',
+      inputs: [
+        {
+          name: 'rate',
+          type: 'number'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            if(data.rate!=""){          
+                var f=false;
+                console.log(data.rate);
+                if(data.rate>5){
+                  data.rate=5;
+                }
+                if(data.rate<0){
+                  data.rate=0;
+                }
+                /*if(this.user.ratings.ratedby.length===0){
+                  console.log("No ratings");
+                }*/
+                //else{
 
+                  //pull down the latest doc of the user, in case of changes
+                  this.UserData.getUser(this.username).subscribe(
+                      latestUser => {
+                        if(latestUser.hasOwnProperty('message')){
+                          //user not found
+                        }else{
+                          //user found
+                            this.found = true;
+                            this.user = latestUser;
+                            this.choosenPicture= this.directory + this.user.gender + ".jpg";
+                            
+                            if(this.user.ratings.ratedby.length===0){
+                              console.log("No ratings");
+                              //add the username and rate to rated by
+                              this.user.ratings.ratedby.push({username: this.currUser.username, rate: parseInt(data.rate)});
+                              this.user.ratings.rating.sum_of_rates = parseInt(data.rate);
+                              this.user.ratings.rating.rate_count = 1;
+                              
+                            }else{
+                              for(var i=0;i<this.user.ratings.ratedby.length;i++){
+                                if(this.user.ratings.ratedby[i].username===this.currUser.username){
+                                  console.log("This user has rated before");
+                                  f=true;
+                                  //change rate
+                                  //minus the old rate
+                                  this.user.ratings.rating.sum_of_rates -= this.user.ratings.ratedby[i].rate;
+                                  //add the new rate
+                                  this.user.ratings.rating.sum_of_rates += parseInt(data.rate);
+                                  //overwrite the old raate
+                                  this.user.ratings.ratedby[i].rate = parseInt(data.rate);
+                                }
+                              }
+                              if(!f){
+                                console.log("This user has NOT rated before");
+                                //get latest user
+                                //add the username and rate to rated by
+                                this.user.ratings.ratedby.push({username: this.currUser.username, rate: parseInt(data.rate)});
+                                //add the rate to the sum
+                                this.user.ratings.rating.sum_of_rates += parseInt(data.rate);
+                                //increment the rate counter
+                                this.user.ratings.rating.rate_count ++;
+                              }
+                            }       
+                        }
+                        console.log(this.user.ratings);
+                        this.updateUser();
+                      },
+                      err => {
+                        console.log("Unsuccessful!" + err);
+                        this.found=false;
+                    },
+                      () => console.log("Finished")
+                  );
+                 /*for(var i=0;i<this.user.ratings.ratedby.length;i++){
+                    if(this.user.ratings.ratedby[i].username===this.currUser.username){
+                      console.log("This user has rated before");
+                      found=true;
+                      //change rate
+                    }
+                  }
+                  if(!found){
+                    console.log("This user has NOT rated before");
+                    //get latest user
+                    //add rate
+                  }*/
+             //}
+              console.log(data.rate); 
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  updateUser(){
+    this.UserData.updateUser(this.user).subscribe(
+      data =>{
+        if(data.hasOwnProperty('message')){
+          //user wasn't found
+          this.showAlert("Whoops","Looks like something went wrong!");
+        }else{
+          //Successful
+          this.user = data;
+        }
+      },
+      err => this.showAlert("Whoops","Looks like something went wrong!"),
+      () => console.log("Finished")
+    );
+  }
+  showAlert(t: string, subT: string){
+    let alert = this.alertCtrl.create({
+                title: t,
+                subTitle: subT,
+                buttons: ['Dismiss']
+              });
+              alert.present();
+    }
   editProfile(){
     this.navCtrl.push(EditProfilePage);
   }
@@ -131,12 +261,7 @@ export class ProfilePage {
               sum_of_rates: null,
               rate_count: null
             },
-          ratedby: [
-            {
-              username: null,
-              rate: null
-            }
-          ]
+          ratedby: []
         },
         bookmarks: [],
         projects: []
