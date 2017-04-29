@@ -14,6 +14,7 @@ import { CreateProjectPage } from '../pages/create-project/create-project';
 import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { LogoutPage } from '../pages/logout/logout';
 import { SearchPage } from '../pages/search/search';
+import { BookmarksPage } from '../pages/bookmarks/bookmarks';
 
 export interface PageInterface {
   title: string;
@@ -45,6 +46,7 @@ export class MyApp {
   ];
   accountPages: PageInterface[] = [
     { title: 'Profile', component: ProfilePage, icon: 'person', param:'username' },
+    { title: 'Favourites', component: BookmarksPage, icon: 'star' },
     { title: 'Edit Account', component: EditProfilePage, icon: 'contact' },
     { title: 'Log out', component: LogoutPage, icon: 'log-out' }
   ];

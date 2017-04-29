@@ -1,0 +1,47 @@
+page-bookmarks {
+    .masters {
+        background-color: #eaeaea;
+    }
+    .h {
+        padding-top: 5px !important;
+        padding-bottom: 2px !important;
+        color: #ffffff;
+        text-align: center;
+        //border-bottom: 1px solid lightgrey !important;
+        border-bottom: 1px solid darkgrey !important;
+        //background-color: #f53d3d;
+        background-color: #222;
+        //padding-bottom: 10px !important;
+    }
+    .htext{
+        color: white;
+    }
+    .c {
+        padding-top: 12px !important;
+    }
+    .wrapper {
+        text-align: center;
+    }
+    .pos {
+        padding-top: 12px !important;
+        text-align: center;
+        color: gray;
+    }
+    .posnum {
+        color: red;
+        text-align: center;
+    }
+    .greeting {
+        text-align: center;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+    .center{
+        text-align: center;
+    }
+    .star {
+       font-size: 30px;
+       color: orange;
+    }
+
+}

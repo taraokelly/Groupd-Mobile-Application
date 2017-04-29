@@ -1,50 +1,34 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 
-import { UserData } from "../../providers/user-data";
 import { ProjectData } from "../../providers/project-data";
+import { UserData } from "../../providers/user-data";
 
 import { Proj } from '../../objects/project';
-import { User } from '../../objects/user';
-
-import { CreateProjectPage } from "../create-project/create-project";
+import { User } from "../../objects/user";
 import { ProjectPage } from "../project/project";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-bookmarks',
+  templateUrl: 'bookmarks.html'
 })
-export class HomePage {
+export class BookmarksPage {
 
   user: User;
 
-  term: String="";
+  projects: Proj[];
 
-  projects: Proj[] = [];
-
-  constructor(public navCtrl: NavController, public UserData:UserData, public alertCtrl: AlertController, public ProjectData:ProjectData, public navParams: NavParams) {
-    this.setUserNull();
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public UserData: UserData, public ProjectData: ProjectData) {
     this.getUser();
-    this.getProjects();
   }
-  newProject(){
-    this.navCtrl.setRoot(CreateProjectPage);
-  }
-  viewProject(p : Proj){
-    this.navCtrl.push(ProjectPage, {
-        projectSelected: p.projectId
-    });
-  }
+
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
-      this.term=user.username;
       //always reload user in the case of changes
       this.UserData.getUser(this.user.username.toString()).subscribe(
             data => {
-              if(data.hasOwnProperty('message')){
-                //user not found
-              }else{
+              if(!data.hasOwnProperty('message')){
                 //user found
                   this.user = data;
               }
@@ -52,17 +36,36 @@ export class HomePage {
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
+      this.getProjects();
       this.UserData.setCurrentUser(user);
     });
   }
-
-  getProjects(){
-    this.ProjectData.getAllProjects().subscribe(projects => {
-      this.projects = projects;
+  getProjects() {
+    this.projects=[];
+    for(var i=0;i<this.user.bookmarks.length;i++){
+      //this
+        //reload in the case of changes
+        console.log("Bookmark: " + this.user.bookmarks[i]);
+        this.ProjectData.getProject(this.user.bookmarks[i].toString()).subscribe(
+            data => {
+              if(!data.hasOwnProperty('message')){
+                  //project found           
+                  this.projects.push(data);     
+                  console.log(data);   
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
+        console.log(this.projects);
+      }
+  }
+  viewProject(p : Proj){
+    this.navCtrl.push(ProjectPage, {
+        projectSelected: p.projectId
     });
   }
-
-  addFavourite(p: Proj){
+   addFavourite(p: Proj){
     console.log("In add Fav");
     this.UserData.getUser(this.user.username.toString()).subscribe(data=> {
       this.user = data;
@@ -83,6 +86,7 @@ export class HomePage {
                   this.user.bookmarks.splice(this.user.bookmarks.indexOf(p.projectId),1);
                   this.UserData.updateUser(this.user).subscribe(data=>{
                       this.user = data;
+                      this.getProjects();
                       this.UserData.setCurrentUser(this.user);
                     },
                     err => {
@@ -113,7 +117,6 @@ export class HomePage {
       this.showAlert("Whoops","Looks like something went wrong!");
     });
   }
-
   showAlert(t: string, subT: string){
     let alert = this.alertCtrl.create({
                 title: t,
@@ -122,53 +125,4 @@ export class HomePage {
               });
               alert.present();
   }
-  deleteProject() {
-    let alert = this.alertCtrl.create({
-      title: 'Whoa, hold up',
-      subTitle: 'Are you sure you want to remove this project?',
-      buttons: [
-      {
-        text: 'Close',
-        role: 'cancel',
-        handler: data => {}
-      },
-      {
-        text: 'Remove',
-        handler: data => {
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-  //reset user object
-  setUserNull(){
-    this.user = {
-        email: null,
-        username: null,
-        password: null,
-        firstName: null,
-        surname: null,
-        address: null,
-        skills: [],
-        bio: null,
-        occupation: null,
-        ratings: {
-          rating: 
-            {
-              sum_of_rates: null,
-              rate_count: null
-            },
-          ratedby: [
-            {
-              username: null,
-              rate: null
-            }
-          ]
-        },
-        bookmarks: [],
-        projects: []
-      }
-  }
-
 }

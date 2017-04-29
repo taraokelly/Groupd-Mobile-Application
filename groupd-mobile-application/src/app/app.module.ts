@@ -15,6 +15,7 @@ import { SearchPage } from '../pages/search/search';
 import { SearchProjectsPage } from '../pages/search-projects/search-projects';
 import { SearchUsersPage } from '../pages/search-users/search-users'; 
 import { RatersModelPage } from '../pages/raters-model/raters-model';
+import { BookmarksPage } from '../pages/bookmarks/bookmarks';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -48,7 +49,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     SearchUsersPage,
     FilterProjects,
     FilterUsers,
-    RatersModelPage 
+    RatersModelPage,
+    BookmarksPage 
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -70,7 +72,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     SearchPage,
     SearchProjectsPage,
     SearchUsersPage,
-    RatersModelPage 
+    RatersModelPage,
+    BookmarksPage 
   ],
   providers: [
     StatusBar,

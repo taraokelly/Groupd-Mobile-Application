@@ -181,7 +181,7 @@ export class EditProjectPage {
   saveChanges(){
     let alert = this.alertCtrl.create({
       title: 'Just checking',
-      subTitle: 'Are you want to save these changes?',
+      subTitle: 'Are you sure you want to save these changes?',
       buttons: [
       {
         text: 'Close',
@@ -201,7 +201,7 @@ export class EditProjectPage {
   deleteProject(){
     let alert = this.alertCtrl.create({
       title: 'Whoa, hold up',
-      subTitle: 'Are you want to delete this project?',
+      subTitle: 'Are you sure you want to delete this project?',
       buttons: [
       {
         text: 'Close',
