@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar color="dark">
+    <button ion-button clear (click)="closeModal()">
+      <ion-icon class="closeIcon" name="close"></ion-icon>
+    </button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="masters">
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <hr>
+        <div *ngFor="let r of raters">
+        <ion-item>
+          <ion-row>
+            <ion-col col-10>
+              <div class="username">
+                <button color="danger" ion-button icon-left clear small (click)="viewProfile(r)">
+                  <div class="textSize">{{r.username}}</div>
+                </button>
+              </div>
+            </ion-col>
+            <ion-col col-2>
+              <div class="rate">
+                <p class="textSize">{{r.rate}}</p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+        <hr>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

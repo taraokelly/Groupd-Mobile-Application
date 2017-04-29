@@ -1,6 +1,6 @@
 <ion-header>
 
-    <ion-navbar color="dark">
+  <ion-navbar color="dark">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -22,6 +22,11 @@
         <p><strong>{{user.ratings.rating.sum_of_rates / user.ratings.rating.rate_count}} stars</strong></p>
       </div>
       <p class="profile-description">{{user.bio}}</p>
+       <div *ngIf="currentUser">
+        <button color="danger" ion-button icon-left clear small (click)="showRaters()">
+          <div>Rates</div>
+        </button>
+      </div>
       <button color="danger" ion-button icon-left clear small (click)="toggleSkills()">
             <div>{{showSkills ? "Hide Skills" : "Show Skills"}}</div>
           </button>
@@ -38,7 +43,7 @@
       <div *ngIf="currentUser">
         <button ion-button small color="danger" (click)="editProfile()">EDIT</button>
       </div>
-      
+      <hr>
       <div *ngFor="let p of projects | reverse | filter:username">
         <ion-card>
           <ion-card-header class="h">
@@ -80,7 +85,6 @@
           </ion-row>
       </ion-card>
     </div>
-    <hr>
   </div> 
   </div>
   <div *ngIf="!found" id="content">

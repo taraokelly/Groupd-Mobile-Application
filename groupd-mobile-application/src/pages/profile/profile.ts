@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 
 import { User } from "../../objects/user";
 
@@ -7,6 +7,8 @@ import { UserData } from "../../providers/user-data";
 import { ProjectData } from "../../providers/project-data";
 
 import { EditProfilePage } from "../edit-profile/edit-profile";
+import { RatersModelPage } from "../raters-model/raters-model";
+
 import { Proj } from "../../objects/project";
 import { ProjectPage } from "../project/project";
 
@@ -38,7 +40,7 @@ export class ProfilePage {
    
    proj: Proj[] = [];
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public UserData: UserData,public ProjectData: ProjectData, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public UserData: UserData,public ProjectData: ProjectData, public navParams: NavParams) {
     this.username = this.navParams.get('param1'); 
     this.setUserNull();
     this.getUser();
@@ -98,7 +100,10 @@ export class ProfilePage {
             () => console.log("Finished")
         );
     }
-  
+  showRaters(){
+    let ratersModal = this.modalCtrl.create(RatersModelPage, { raters: JSON.stringify(this.user.ratings.ratedby) });
+    ratersModal.present();
+  }
 
   toggleSkills(){
     this.showSkills= !this.showSkills;
@@ -138,10 +143,6 @@ export class ProfilePage {
                 if(data.rate<0){
                   data.rate=0;
                 }
-                /*if(this.user.ratings.ratedby.length===0){
-                  console.log("No ratings");
-                }*/
-                //else{
 
                   //pull down the latest doc of the user, in case of changes
                   this.UserData.getUser(this.username).subscribe(
@@ -196,19 +197,6 @@ export class ProfilePage {
                     },
                       () => console.log("Finished")
                   );
-                 /*for(var i=0;i<this.user.ratings.ratedby.length;i++){
-                    if(this.user.ratings.ratedby[i].username===this.currUser.username){
-                      console.log("This user has rated before");
-                      found=true;
-                      //change rate
-                    }
-                  }
-                  if(!found){
-                    console.log("This user has NOT rated before");
-                    //get latest user
-                    //add rate
-                  }*/
-             //}
               console.log(data.rate); 
             }
           }
