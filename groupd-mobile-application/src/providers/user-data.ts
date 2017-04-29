@@ -54,6 +54,11 @@ export class UserData {
     .map(res => res.json());
   }
 
+  getAllUsers(){
+    return this.http.get('http://127.0.0.1:8080/api/users')
+    .map(res => res.json());
+  }
+
   updateUser(user: User){
       var headers = new Headers();
       headers.append('Content-Type', 'application/json');

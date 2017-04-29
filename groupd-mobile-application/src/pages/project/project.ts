@@ -54,13 +54,7 @@ export class ProjectPage {
     this.setCommentNull();
     this.getUser();
     this.getProject();
-    //this.getProject();
-    //this.selectedSegment = 'project';
   }
-  /* onSegmentChanged(segmentButton) {
-    this.selectedSegment=segmentButton.value;
-    
-  }*/
   toggleMessages(){
   this.showMessages = !this.showMessages; 
 }
@@ -78,7 +72,6 @@ export class ProjectPage {
     getCreator(){
       this.UserData.getUser(this.project.projectCreator.toString()).subscribe(
             data => {
-              //console.log(data);
               if(data.hasOwnProperty('message')){
                 //user not found
                 this.found=false;
@@ -108,7 +101,6 @@ export class ProjectPage {
         //reload in the case of changes
         this.ProjectData.getProject(this.navParams.get('projectSelected')).subscribe(
             data => {
-              //console.log(data);
               if(!data.hasOwnProperty('message')){
                   //user found           
                   this.project=data;

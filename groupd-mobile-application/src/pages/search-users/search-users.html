@@ -10,6 +10,37 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="masters">
+
+  <div class="wrapper" *ngIf="!found">
+    <h1>404 Not Found</h1>
+  </div>
+
+  <div *ngIf="found">
+    <ion-searchbar [(ngModel)]="query"> </ion-searchbar>
+    <div *ngFor="let u of users | reverse | filterusers:query">
+      <ion-card>
+        <ion-row>
+          <ion-col col-3>
+            <img class="user-avatar round" [src]="'assets/img/profile/'+u.gender+'.jpg'" onerror="this.src='assets/img/profile/default-profile.jpg'"/>
+          </ion-col>
+          <ion-col col-9>
+            <ion-card-title class="usertitle">{{u.username}}</ion-card-title>
+          </ion-col>
+        </ion-row>
+        <ion-card-content>
+          <div class="wrapper">
+            <p>{{u.occupation}} &bull; {{u.email}}</p>
+            <span *ngFor="let skill of u.skills; let i = index">
+              <ion-chip color="warm">
+                <ion-label>{{skill}}</ion-label>
+              </ion-chip>
+            </span>
+          </div>
+          <button color="danger" block ion-button (click)="viewProfile(u)">VIEW PROFILE</button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 
 </ion-content>

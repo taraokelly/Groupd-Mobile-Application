@@ -18,12 +18,12 @@
 
 <div *ngIf="found">
   <ion-searchbar [(ngModel)]="query"> </ion-searchbar>
-    <div *ngFor="let p of projects | reverse | filter:query">
+    <div *ngFor="let p of projects | reverse | filterprojects:query">
     <ion-card>
       <ion-card-header class="h">
         <ion-row>
           <ion-col col-10 center text-center>
-          <h2>{{p.projectName}}</h2>
+          <h2 class="htext">{{p.projectName}}</h2>
           </ion-col>
           <ion-col col-2 center text-center>
               <ion-icon name="star" class="star"></ion-icon>
