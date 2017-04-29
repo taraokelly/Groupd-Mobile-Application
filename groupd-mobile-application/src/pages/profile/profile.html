@@ -17,10 +17,9 @@
     <div id="profile-info" padding>
      <img id="profile-image" [src]="choosenPicture" onerror="this.src='assets/img/profile/Female.jpg'"> 
       <h3 id="profile-name">{{user.username}}</h3>
-      <!--<h6 color="danger">3.5 stars</h6> -->
       <p>{{user.occupation}} &bull; {{user.address}} &bull; 3.5 stars</p>
+      <p><strong>{{user.email}}</strong></p>
       <p class="profile-description">{{user.bio}}</p>
-      <!--<p color="warm">{{user.skills}}</p>-->
       <button color="danger" ion-button icon-left clear small (click)="toggleSkills()">
             <div>{{showSkills ? "Hide Skills" : "Show Skills"}}</div>
           </button>
@@ -39,75 +38,48 @@
       </div>
       
       <div *ngFor="let p of projects | reverse | filter:username">
-    <ion-card>
-      <ion-card-header class="h">
-        <ion-row>
-          <ion-col col-10 center text-center>
-       <!-- <div class="h">-->
-          <h2 class="htext">{{p.projectName}}</h2>
-       <!-- </div>-->
-          </ion-col>
-          <ion-col col-2 center text-center>
-            <!--<button color="warm" ion-button icon-left clear small>-->
-              <ion-icon name="star" class="star"></ion-icon>
-           <!-- </button>-->
-          </ion-col>
-        </ion-row>
-      </ion-card-header>
-      <ion-card-content class="c">
-        <!--<div class="c">-->
-          <ion-grid>
+        <ion-card>
+          <ion-card-header class="h">
             <ion-row>
-              <ion-col col-9>
-                <p> {{p.projectThumb}} </p>
+              <ion-col col-10 center text-center>
+              <h2 class="htext">{{p.projectName}}</h2>
               </ion-col>
-              <ion-col class="center">
-                <small class="pos" center>Positions:</small>
-                <p class="posnum" center>{{p.maxMembers - p.projectMembers.length}}</p>
+              <ion-col col-2 center text-center>
+                  <ion-icon name="star" class="star"></ion-icon>
               </ion-col>
             </ion-row>
-          </ion-grid>
-      <!--  </div> -->
-      </ion-card-content>
-      <ion-row>
+          </ion-card-header>
+          <ion-card-content class="c">
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-9>
+                    <p> {{p.projectThumb}} </p>
+                  </ion-col>
+                  <ion-col class="center">
+                    <small class="pos" center>Positions:</small>
+                    <p class="posnum" center>{{p.maxMembers - p.projectMembers.length}}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+          </ion-card-content>
+          <ion-row>
 
-        <ion-col col-4 center text-center>
-          <button color="danger" ion-button icon-left clear small (click)="viewProject(p)">
-            <!--<ion-icon name="thumbs-up"></ion-icon>-->
-            <div>View Project</div>
-          </button>
-        </ion-col>
-<!--
-        <ion-col center text-center>
-          <button color="warm" ion-button icon-left clear small>
-            <ion-icon name="star"></ion-icon>
-          </button>
-        </ion-col>
-    -->    
-        <ion-col col-8 center text-center>
-          <ion-note class="d">
-           <!-- {{p.time | date:'short'}} -->
-           {{p.time | date:'short'}}
-          </ion-note>
-        </ion-col>
-      </ion-row>
-  </ion-card>
-  </div>
+            <ion-col col-4 center text-center>
+              <button color="danger" ion-button icon-left clear small (click)="viewProject(p)">
+                <div>View Project</div>
+              </button>
+            </ion-col>
 
-     <!-- <button ion-button color="danger" (click)="toggleSkills()">{{showSkills ? "Hide Skills" : "Show Skills"}} </button>-->
-
-     <!-- <button ion-button *ngIf="!following" small color="purple" (click)="follow()">Follow</button>
-      <button ion-button *ngIf="following" class="follow-button" small color="purple" (click)="follow()">Following<ion-icon name="checkmark"></ion-icon></button>
-      -->
- <!-- <div *ngIf="showSkills">
-        <div *ngFor="let skill of user.skills; let i = index">
-          <ion-chip color="warm">
-            <ion-label>{{skill}}</ion-label>
-          </ion-chip>
-        </div>
-      </div> -->
-       <hr>
-      </div> 
+            <ion-col col-8 center text-center>
+              <ion-note class="d">
+              {{p.time | date:'short'}}
+              </ion-note>
+            </ion-col>
+          </ion-row>
+      </ion-card>
+    </div>
+    <hr>
+  </div> 
   </div>
   <div *ngIf="!found" id="content">
     <h3 id="profile-name">404 Not Found</h3>
