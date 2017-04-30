@@ -63,53 +63,32 @@ export class MyApp {
    this.initializeApp();
     this.enableMenu(false);
    this.startEvents();
-   //this.getState();
   }
-
- /* getState(){
-  this.userData.getState().then((state) => {
-    if(state==="loggedOut"){
-      this.enableMenu(false);
-    }else{
-      this.enableMenu(true);
-      this.nav.root(HomePage);
-    }
-  });
-}*/
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      // The platform is ready and our plugins are available.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // don't want the back button to show in this scenario
+    //if has param (the profile page)
+    //set root and pass in param
     if(page.hasOwnProperty('param')){
-      //alert("Page has param: " + page.param);
       this.nav.setRoot(page.component, {
         param1: page.param
     });
     }
     else{
+      //set root without param
       this.nav.setRoot(page.component);
     }     
   }
 
+    //set the color of the active page to be red
    isActive(page: PageInterface) {
-    let childNav = this.nav.getActiveChildNav();
-
-    // Tabs are a special case because they have their own navigation
-    if (childNav) {
-      if (childNav.getSelected() && childNav.getSelected().root === page.tabComponent) {
-        return 'danger';
-      }
-      return;
-    }
 
     if (this.nav.getActive() && this.nav.getActive().component === page.component) {
       return 'danger';
@@ -117,10 +96,12 @@ export class MyApp {
     return;
   }
 
+   //toggle logged in/out menu
    enableMenu(loggedIn: boolean) {
     this.menu.enable(loggedIn, 'loggedInMenu');
     this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
+  //get user data for profile param, and any user data shown in the side menu
   getUserDetails() {
     this.userData.getCurrentUser().then((user) => {
     console.log("In get user details - app component");
@@ -130,12 +111,10 @@ export class MyApp {
     this.email = user.email;
     this.chosenPicture= this.directory + user.gender + ".jpg";
     this.accountPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
-  });/*.then((user) => {
-    console.log("Triggering login event");
-    this.events.publish('user:login');
-  });*/
-
+  });
 }
+//get user data for profile param, any user data shown in the side menu,
+//and trigger 
 getLoginDetails() {
     this.userData.getCurrentUser().then((user) => {
     console.log("In get user details - app component");
@@ -147,16 +126,16 @@ getLoginDetails() {
     this.accountPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
   }).then((user) => {
     console.log("Triggering login event");
-    this.events.publish('user:logined');
+    this.events.publish('user:loggedin');
   });
 }
-
+  //start listening for events
   startEvents(){
     this.events.subscribe('user:login', () => {
       this.getLoginDetails();
       console.log("Logged in event triggered");
     });
-    this.events.subscribe('user:logined', () => {
+    this.events.subscribe('user:loggedin', () => {
       this.enableMenu(true);
       this.nav.setRoot(HomePage);
       console.log("Logged in event triggered");

@@ -18,10 +18,22 @@ export class BookmarksPage {
 
   projects: Proj[];
 
+  refreshing: Boolean = false;
+
+  refresher: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public UserData: UserData, public ProjectData: ProjectData) {
     this.getUser();
   }
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
 
+    //setTimeout(() => {
+      this.refreshing = true;
+      this.refresher = refresher;
+      this.getUser();
+    //}, 2000);
+  }
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
@@ -45,7 +57,6 @@ export class BookmarksPage {
     for(var i=0;i<this.user.bookmarks.length;i++){
       //this
         //reload in the case of changes
-        console.log("Bookmark: " + this.user.bookmarks[i]);
         this.ProjectData.getProject(this.user.bookmarks[i].toString()).subscribe(
             data => {
               if(!data.hasOwnProperty('message')){
@@ -57,7 +68,9 @@ export class BookmarksPage {
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
-        console.log(this.projects);
+        if(this.refreshing==true){
+          this.refresher.complete();
+        }
       }
   }
   viewProject(p : Proj){
@@ -66,7 +79,6 @@ export class BookmarksPage {
     });
   }
    addFavourite(p: Proj){
-    console.log("In add Fav");
     this.UserData.getUser(this.user.username.toString()).subscribe(data=> {
       this.user = data;
       if(this.user.bookmarks.indexOf(p.projectId)>-1){

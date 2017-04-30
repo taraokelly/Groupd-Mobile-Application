@@ -23,6 +23,10 @@ export class SearchProjectsPage {
 
   projects: Proj[];
 
+  refreshing: Boolean = false;
+
+  refresher: any;
+
   constructor(public navCtrl: NavController, public UserData:UserData, public ProjectData:ProjectData, public navParams: NavParams) {
     this.setUserNull();
     this.getUser();
@@ -33,6 +37,17 @@ export class SearchProjectsPage {
     this.navCtrl.push(ProjectPage, {
         projectSelected: p.projectId
     });
+  }
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.found = true;
+      this.projects = [];
+      this.refreshing = true;
+      this.refresher = refresher;
+      this.setUserNull();
+      this.getUser();
+      this.getProjects();
+      }, 500);
   }
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
@@ -63,6 +78,9 @@ export class SearchProjectsPage {
       console.log("Unsuccessful!" + err);
       this.found = false;
     });
+    if(this.refreshing==true){
+          this.refresher.complete();
+        }
   }
 
  //reset user object

@@ -48,12 +48,29 @@ export class ProjectPage {
 
   choosenPicture: string = "";
 
+  refreshing: Boolean = false;
+
+  refresher: any;
+
   constructor(public navCtrl: NavController, public UserData:UserData, public ProjectData:ProjectData, public alertCtrl: AlertController, public navParams: NavParams) {
     this.setProjectNull();
     this.setCreatorNull();
     this.setCommentNull();
     this.getUser();
     this.getProject();
+  }
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    //setTimeout(() => {
+      this.refreshing = true;
+      this.refresher = refresher;
+      this.setProjectNull();
+      this.setCreatorNull();
+      this.setCommentNull();
+      this.getUser();
+      this.getProject();
+    //}, 2000);
   }
   toggleMessages(){
   this.showMessages = !this.showMessages; 
@@ -89,6 +106,9 @@ export class ProjectPage {
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
+        if(this.refreshing==true){
+          this.refresher.complete();
+        }
     }
     goToProfile(m){
       this.navCtrl.setRoot(ProfilePage,{

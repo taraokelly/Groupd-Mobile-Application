@@ -40,12 +40,26 @@ export class ProfilePage {
    
    proj: Proj[] = [];
 
+   refreshing: Boolean = false;
+
+   refresher: any;
+
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public UserData: UserData,public ProjectData: ProjectData, public navParams: NavParams) {
     this.username = this.navParams.get('param1'); 
     this.setUserNull();
     this.getUser();
     this.getCurrentUser();
     this.getProjects();
+  }
+
+  doRefresh(refresher) {
+
+      this.projects = [];
+      this.refreshing = true;
+      this.refresher = refresher;
+      this.getUser();
+      this.getCurrentUser();
+      this.getProjects();
   }
   
   getProjects(){
@@ -99,6 +113,9 @@ export class ProfilePage {
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
+        if(this.refreshing==true){
+          this.refresher.complete();
+        }
     }
   showRaters(){
     let ratersModal = this.modalCtrl.create(RatersModelPage, { raters: JSON.stringify(this.user.ratings.ratedby) });

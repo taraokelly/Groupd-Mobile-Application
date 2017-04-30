@@ -16,16 +16,30 @@ import { ProjectPage } from "../project/project";
 })
 export class HomePage {
 
+  found: Boolean = true;
+
   user: User;
 
   term: String="";
 
   projects: Proj[] = [];
 
+  refreshing: Boolean = false;
+
+  refresher: any;
+
   constructor(public navCtrl: NavController, public UserData:UserData, public alertCtrl: AlertController, public ProjectData:ProjectData, public navParams: NavParams) {
     this.setUserNull();
     this.getUser();
     this.getProjects();
+  }
+  doRefresh(refresher) {
+      this.projects = [];
+      this.found = true;
+      this.refreshing = true;
+      this.refresher = refresher;
+      this.getUser();
+      this.getProjects();
   }
   newProject(){
     this.navCtrl.setRoot(CreateProjectPage);
@@ -59,7 +73,14 @@ export class HomePage {
   getProjects(){
     this.ProjectData.getAllProjects().subscribe(projects => {
       this.projects = projects;
+    },
+    err => {
+      console.log("Unsuccessful!" + err);
+      this.found = false;
     });
+    if(this.refreshing==true){
+          this.refresher.complete();
+        }
   }
 
   addFavourite(p: Proj){

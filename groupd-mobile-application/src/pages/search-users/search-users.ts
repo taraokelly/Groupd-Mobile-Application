@@ -21,12 +21,26 @@ export class SearchUsersPage {
 
   users: User[];
 
+  refreshing: Boolean = false;
+
+  refresher: any;
+
   constructor(public navCtrl: NavController, public UserData:UserData, public navParams: NavParams) {
     this.setUserNull();
     this.getUser();
     this.getUsers();
   }
-
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.found = true;
+      this.users = [];
+      this.refreshing = true;
+      this.refresher = refresher;
+      this.setUserNull();
+      this.getUser();
+      this.getUsers();
+      }, 500);
+  }
   viewProfile(u : User){
     this.navCtrl.push(ProfilePage, {
         param1: u.username
@@ -61,6 +75,9 @@ export class SearchUsersPage {
       console.log("Unsuccessful!" + err);
       this.found = false;
     });
+    if(this.refreshing==true){
+          this.refresher.complete();
+        }
   }
 
  //reset user object

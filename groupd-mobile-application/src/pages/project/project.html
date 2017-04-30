@@ -11,6 +11,13 @@
 
 
 <ion-content class="masters">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
   <div *ngIf="found">
     <ion-card class="project">
       <ion-card-header class="h">
@@ -115,24 +122,3 @@
   <h1>404 Not Found</h1>
 </div>
 </ion-content>
-<!--
-<ion-toolbar>
-  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)" color="danger"> 
-    <ion-segment-button value="project">
-      Project
-    </ion-segment-button>
-    <ion-segment-button value="creator">
-      Creator
-    </ion-segment-button>
-  </ion-segment>
-</ion-toolbar>
-
-<ion-content padding>
-<div *ngIf="selectedSegment==project">
-  <h1>{{ project.projectName }}</h1>
-</div>
-<div *ngIf="selectedSegment==creator">
-  <h1>{{ project.projectCreator }}</h1>
-</div>
-</ion-content>
--->

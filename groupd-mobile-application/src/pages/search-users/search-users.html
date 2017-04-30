@@ -11,6 +11,13 @@
 
 
 <ion-content class="masters">
+  
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
 
   <div class="wrapper" *ngIf="!found">
     <h1>404 Not Found</h1>

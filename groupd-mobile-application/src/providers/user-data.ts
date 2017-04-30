@@ -17,7 +17,6 @@ export class UserData {
     //Save user to storage, trigger logged in event
     this.setCurrentUser(user);
     this.events.publish('user:login');
-    //this.setState("loggedIn");
   }
     setState(s){
       this.storage.set("state",s);

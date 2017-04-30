@@ -11,7 +11,16 @@
 
 
 <ion-content padding class="masters">
-
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!found" class="wrapper">
+    <h3 >404 Not Found</h3>
+  </div>
   <ion-card class="greeting">
     <h1>Hello {{user.firstName}}!</h1>
     <p>Would you like to make a new project?</p>

@@ -11,7 +11,13 @@
 
 
 <ion-content padding>
-
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
   <div id="profile-bg" [ngStyle]="{'background-image': 'url(' + backgroundImage +')'}"></div>
   <div *ngIf="found"id="content">
     <div id="profile-info" padding>
