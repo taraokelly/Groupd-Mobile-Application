@@ -34,7 +34,7 @@ export class ProjectPage {
 
   hasComments: Boolean = true;
 
-  found: Boolean;
+  found: Boolean = true;
 
   user: User;
 
@@ -56,7 +56,7 @@ export class ProjectPage {
     this.setProjectNull();
     this.setCreatorNull();
     this.setCommentNull();
-    this.getUser();
+    //this.getUser();
     this.getProject();
   }
   doRefresh(refresher) {
@@ -65,10 +65,11 @@ export class ProjectPage {
     //setTimeout(() => {
       this.refreshing = true;
       this.refresher = refresher;
+      this.found=true;
       this.setProjectNull();
       this.setCreatorNull();
       this.setCommentNull();
-      this.getUser();
+      //this.getUser();
       this.getProject();
     //}, 2000);
   }
@@ -103,7 +104,10 @@ export class ProjectPage {
                 }
               }
             },
-            err => console.log("Unsuccessful!" + err),
+            err => {
+              console.log("Unsuccessful!" + err);
+              this.found = false;
+            },
             () => console.log("Finished")
         );
         if(this.refreshing==true){
@@ -138,10 +142,17 @@ export class ProjectPage {
                     this.hasMembers =false;
                 }
                 //get project creator
-                this.getCreator();
+                ///this.getCreator();
+                this.getUser();
+              }
+              else{
+                this.found=false;
               }
             },
-            err => console.log("Unsuccessful!" + err),
+            err => {
+              console.log("Unsuccessful!" + err);
+              this.found=false;
+          },
             () => console.log("Finished")
         );
       }
@@ -227,12 +238,17 @@ export class ProjectPage {
             data => {
               if(data.hasOwnProperty('message')){
                 //user not found
+                this.found=false;
               }else{
                 //user found
                   this.user = data;
               }
+              this.getCreator();
             },
-            err => console.log("Unsuccessful!" + err),
+            err => {
+              console.log("Unsuccessful!" + err);
+              this.found = false;
+            },
             () => console.log("Finished")
         );
       this.UserData.setCurrentUser(user);

@@ -62,7 +62,7 @@ export class MyApp {
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
       this.enableMenu(hasLoggedIn);
-      if(hasLoggedIn===true){this.rootPage = HomePage;}
+      if(hasLoggedIn){this.rootPage = HomePage;}
       else{this.rootPage = LoginPage;}
     });
    this.startEvents();
