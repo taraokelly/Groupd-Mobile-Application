@@ -88,5 +88,8 @@ export class UserData {
       return value;
     });
   };
+  setHasSeenTutorial(): void {
+    this.storage.set('hasSeenTutorial', true);
+  };
   
 }

@@ -15,6 +15,7 @@ import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 import { LogoutPage } from '../pages/logout/logout';
 import { SearchPage } from '../pages/search/search';
 import { BookmarksPage } from '../pages/bookmarks/bookmarks';
+import { TutorialPage } from '../pages/tutorial/tutorial';
 
 export interface PageInterface {
   title: string;
@@ -50,6 +51,9 @@ export class MyApp {
     { title: 'Edit Account', component: EditProfilePage, icon: 'contact' },
     { title: 'Log out', component: LogoutPage, icon: 'log-out' }
   ];
+  aboutPages: PageInterface[] = [
+    { title: 'Tutorial', component: TutorialPage, icon: 'information' }
+  ];
   
   username: String = "";
   occupation: String = "";
@@ -60,10 +64,21 @@ export class MyApp {
   constructor(public menu: MenuController, public events: Events, public userData: UserData, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
    this.initializeApp();
     // decide which menu items should be hidden by current login status stored in local storage
-    this.userData.hasLoggedIn().then((hasLoggedIn) => {
-      this.enableMenu(hasLoggedIn);
-      if(hasLoggedIn){this.rootPage = HomePage;}
-      else{this.rootPage = LoginPage;}
+    this.userData.checkHasSeenTutorial().then((hasSeenTutorial) => {
+      if(!hasSeenTutorial){
+        //set the root to Tutorial on the first opening of app
+        this.rootPage = TutorialPage;
+        //set menu to logged out menu as the user cannot be logged in yet
+        this.enableMenu(false);
+        //set the has seen tutorial to true
+        this.userData.setHasSeenTutorial();
+      }else{
+        this.userData.hasLoggedIn().then((hasLoggedIn) => {
+          this.enableMenu(hasLoggedIn);
+          if(hasLoggedIn){this.rootPage = HomePage;}
+          else{this.rootPage = LoginPage;}
+        });
+      }
     });
    this.startEvents();
   }
@@ -114,7 +129,7 @@ export class MyApp {
     this.email = user.email;
     this.chosenPicture= this.directory + user.gender + ".jpg";
     this.accountPages.forEach(function(p){if (p.title === 'Profile') p.param=user.username;} );
-  });
+  }).catch(()=>{});
 }
 //get user data for profile param, any user data shown in the side menu,
 //and trigger 
@@ -130,7 +145,7 @@ getLoginDetails() {
   }).then((user) => {
     console.log("Triggering login event");
     this.events.publish('user:loggedin');
-  });
+  }).catch(()=>{});
 }
   //start listening for events
   startEvents(){

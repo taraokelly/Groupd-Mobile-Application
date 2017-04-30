@@ -20,6 +20,16 @@
             </button>
         </ion-list>
 
+        <ion-list>
+          <ion-list-header>
+            About
+          </ion-list-header>
+            <button ion-item menuClose ion-item *ngFor="let p of aboutPages" (click)="openPage(p)">
+              <ion-icon item-left [name]="p.icon" [color]="isActive(p)"></ion-icon>
+              {{p.title}}
+            </button>
+        </ion-list>
+
     </ion-content>
 
      </ion-menu> 
@@ -55,6 +65,16 @@
               {{p.title}}
             </button>
         </ion-list>
+
+        <ion-list>
+          <ion-list-header>
+            About
+          </ion-list-header>
+            <button ion-item menuClose ion-item *ngFor="let p of aboutPages" (click)="openPage(p)">
+              <ion-icon item-left [name]="p.icon" [color]="isActive(p)"></ion-icon>
+              {{p.title}}
+            </button>
+        </ion-list> 
 
     </ion-content>
 

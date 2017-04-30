@@ -1,0 +1,51 @@
+<!-- Adapted from https://github.com/driftyco/ionic-conference-app -->
+<ion-header no-border>
+  <ion-navbar>
+    <ion-buttons end *ngIf="showSkip">
+      <button ion-button (click)="startApp()" color="danger">Skip</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-bounce>
+  <ion-slides #slides (ionSlideWillChange)="onSlideChangeStart($event)" pager>
+
+    <ion-slide>
+      <img src="assets/img/logo/logo.png" class="slide-image"/>
+      <h2 class="slide-title">
+        Welcome to <b>Groupd</b>
+      </h2>
+      <p>
+        The <b>social networking app</b> that helps <b>you</b> find creative projects, and like-minded individuals to work on projects with.
+      </p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/logo/birds.png" class="slide-image"/>
+      <h2 class="slide-title" >How does Groupd work?</h2>
+      <p><b>Groupd</b> allows users to post projects, add members to projects, have customisable profiles with a list of projects they may have created or been a member of, and explore other projects and profiles.</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/logo/birds.png" class="slide-image"/>
+      <h2 class="slide-title">Looking for team mates to work on a project idea you have?</h2>
+      <p>Simply search users by name or their skills!</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/logo/birds.png" class="slide-image"/>
+      <h2 class="slide-title">Looking for a project to work on?</h2>
+      <p>Just search projects by name or their tags! Or explore the home page for the latest projects!</p>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/img/logo/birds.png" class="slide-image"/>
+      <h2 class="slide-title">Ready to get started?</h2>
+      <button ion-button icon-right large clear color="danger" (click)="startApp()">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>
