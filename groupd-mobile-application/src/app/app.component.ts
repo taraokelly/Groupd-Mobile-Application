@@ -32,7 +32,7 @@ export interface PageInterface {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any;
 
   loggedOutPages: PageInterface[] = [
     { title: 'Log In', component: LoginPage, icon: 'log-in' },
@@ -56,12 +56,15 @@ export class MyApp {
   email: String = "";
   directory: string = "assets/img/profile/";
   chosenPicture: string = "";
-  state: String = "";
 
-
-  constructor(public menu: MenuController,  public events: Events, public userData: UserData, /*public storage: Storage,*/ public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public menu: MenuController, public events: Events, public userData: UserData, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
    this.initializeApp();
-    this.enableMenu(false);
+    // decide which menu items should be hidden by current login status stored in local storage
+    this.userData.hasLoggedIn().then((hasLoggedIn) => {
+      this.enableMenu(hasLoggedIn);
+      if(hasLoggedIn===true){this.rootPage = HomePage;}
+      else{this.rootPage = LoginPage;}
+    });
    this.startEvents();
   }
 

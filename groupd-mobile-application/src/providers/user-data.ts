@@ -11,27 +11,23 @@ import { User } from "../objects/user";
 
 @Injectable()
 export class UserData {
+
+  HAS_LOGGED_IN = 'hasLoggedIn';
+  HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
+
   constructor(public http: Http, public events: Events, public storage: Storage) {}
 
   login(user: User){
-    //Save user to storage, trigger logged in event
+    //Save user to storage, trigger login in event
+    this.storage.set('hasLoggedIn', true);
     this.setCurrentUser(user);
     this.events.publish('user:login');
   }
-    setState(s){
-      this.storage.set("state",s);
-    }
 
    logout(){
-    this.storage.set("state", "loggedOut");
+    this.storage.remove('hasLoggedIn');
+    this.storage.remove('currentUser');
     this.events.publish('user:logout');
-  }
-  //logged in or out
-  getState(): Promise<String>{
-    return this.storage.get("state").then((value) => {
-                    console.log("In get state");
-                    return value;
-     }); 
   }
 
   setCurrentUser(user: User): void{
@@ -81,5 +77,16 @@ export class UserData {
     })
     .map(res => res.json());
   }
+  hasLoggedIn(): Promise<boolean> {
+    return this.storage.get('hasLoggedIn').then((value) => {
+      return value;
+    });
+  };
+
+  checkHasSeenTutorial(): Promise<string> {
+    return this.storage.get('hasSeenTutorial').then((value) => {
+      return value;
+    });
+  };
   
 }
