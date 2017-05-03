@@ -36,7 +36,7 @@ export class ProfilePage {
 
   choosenPicture: string = "";
 
-   projects: Proj[] = []
+   projects: Proj[] = [];
    
    proj: Proj[] = [];
 
@@ -49,7 +49,6 @@ export class ProfilePage {
     this.setUserNull();
     this.getUser();
     this.getCurrentUser();
-    this.getProjects();
   }
 
   doRefresh(refresher) {
@@ -59,13 +58,23 @@ export class ProfilePage {
       this.refresher = refresher;
       this.getUser();
       this.getCurrentUser();
-      this.getProjects();
   }
-  
-  getProjects(){
-    this.ProjectData.getAllProjects().subscribe(projects => {
-      this.projects = projects;
-    });
+
+  getProjects() {
+    this.projects=[];
+    for(var i=this.user.projects.length-1;i>=0;i--){
+        this.ProjectData.getProject(this.user.projects[i].toString()).subscribe(
+            data => {
+              if(!data.hasOwnProperty('message')){
+                  //project found           
+                  this.projects.push(data);     
+                  console.log(data);   
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
+      }
   }
 
   getCurrentUser(){
@@ -86,13 +95,12 @@ export class ProfilePage {
               }else{
                 //user found
                   this.currUser = data;
-                  this.choosenPicture= this.directory + this.user.gender + ".jpg";
+                  this.UserData.setCurrentUser(this.currUser);
               }
             },
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
-      this.UserData.setCurrentUser(user);
     });
 
   }
@@ -106,7 +114,10 @@ export class ProfilePage {
                 //user found
                   this.found = true;
                   this.user = data;
+                  //this.userProjects= this.user.projects;
                   this.choosenPicture= this.directory + this.user.gender + ".jpg";
+                  //this.userProjects = this.user.projects;
+                  this.getProjects();
                   
               }
             },

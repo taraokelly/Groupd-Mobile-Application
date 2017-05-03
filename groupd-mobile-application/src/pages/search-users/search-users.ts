@@ -55,6 +55,7 @@ export class SearchUsersPage {
               if(!data.hasOwnProperty('message')){
                 //user found
                 this.user = data;
+                this.UserData.setCurrentUser(this.user);
               }
             },
             err => {
@@ -63,7 +64,6 @@ export class SearchUsersPage {
             },
             () => console.log("Finished")
         );
-      this.UserData.setCurrentUser(user);
     });
   }
 

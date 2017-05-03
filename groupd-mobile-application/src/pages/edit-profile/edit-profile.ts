@@ -53,12 +53,12 @@ export class EditProfilePage {
                 this.userForm.controls['occupation'].setValue(this.user.occupation);
                 console.log("In get User - user found");
                 this.found = true;
+                this.UserData.setCurrentUser(this.user);
               }
             },
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
-      this.UserData.setCurrentUser(user);
     });
   }
   saveChanges(){
@@ -106,6 +106,39 @@ export class EditProfilePage {
     );
   }
   delete(){
+     this.UserData.getAllUsers().subscribe(users => {
+
+      for(var i = 0; i < users.length; i ++){
+        for(var j=0;j< users[i].ratings.ratedby.length;j++){
+          if(users[i].ratings.ratedby[j].username===this.user.username){
+            console.log("This user has rated before");
+            users[i].ratings.rating.sum_of_rates -= users[i].ratings.ratedby[j].rate;
+            users[i].ratings.rating.rate_count --;
+            users[i].ratings.ratedby.splice(j,1);
+            //so that the user does't have a false zero star rating
+            if(users[i].ratings.ratedby.length == 0){
+                users[i].ratings.rating.sum_of_rates = null;
+            }
+
+            this.UserData.updateUser(users[i]).subscribe(updatedData=>{
+              if(updatedData.hasOwnProperty('message')){
+                console.log("Problem removing rating from: " + users[i].username);
+              }
+            },
+            err=>console.log("Problem removing rating from: " + users[i].username)
+            );
+          }
+        }
+      }
+    },
+    err => {
+      this.showAlert("Whoops","Looks like something went wrong!");
+    });
+    /*for(var j=0;j<this.user.ratings.ratedby.length;j++){
+        if(user[i].ratings.ratedby[j].username===this.user.username){
+          console.log("This user has rated before"); 
+        }
+    }*/
     this.UserData.deleteUser(this.user.username.toString()).subscribe(
       data =>{
         if(data.hasOwnProperty('message')){

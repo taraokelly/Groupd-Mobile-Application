@@ -38,6 +38,7 @@ export class SearchProjectsPage {
         projectSelected: p.projectId
     });
   }
+  //refresh data
   doRefresh(refresher) {
     setTimeout(() => {
       this.found = true;
@@ -49,6 +50,7 @@ export class SearchProjectsPage {
       this.getProjects();
       }, 500);
   }
+  //refresh current user
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
@@ -58,6 +60,7 @@ export class SearchProjectsPage {
               if(!data.hasOwnProperty('message')){
                 //user found
                 this.user = data;
+                this.UserData.setCurrentUser(this.user);
               }
             },
             err => {
@@ -66,10 +69,9 @@ export class SearchProjectsPage {
             },
             () => console.log("Finished")
         );
-      this.UserData.setCurrentUser(user);
     });
   }
-
+  //get all projects, show 404 if not found 
   getProjects(){
     this.ProjectData.getAllProjects().subscribe(projects => {
       this.projects = projects;

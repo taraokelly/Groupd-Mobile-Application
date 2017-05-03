@@ -25,7 +25,6 @@ export class ProjectPage {
 
   isCreator: Boolean = false;
 
-  //selectedSegment: string;
   hasTags: Boolean = true;
 
   showMessages: Boolean =false;
@@ -33,6 +32,8 @@ export class ProjectPage {
   hasMembers: Boolean = true;
 
   hasComments: Boolean = true;
+
+  cFound: Boolean = true;
 
   found: Boolean = true;
 
@@ -56,16 +57,16 @@ export class ProjectPage {
     this.setProjectNull();
     this.setCreatorNull();
     this.setCommentNull();
-    //this.getUser();
     this.getProject();
   }
+  //refresh data
   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
 
     //setTimeout(() => {
       this.refreshing = true;
       this.refresher = refresher;
       this.found=true;
+      this.cFound=true;
       this.setProjectNull();
       this.setCreatorNull();
       this.setCommentNull();
@@ -73,12 +74,11 @@ export class ProjectPage {
       this.getProject();
     //}, 2000);
   }
+  //show/hide messages
   toggleMessages(){
   this.showMessages = !this.showMessages; 
 }
-  addFavourite(){
-    this.showAlert("Success", "The project "+ this.project.projectName + " has been add to your bookmarks!");
-  }
+//alert template
   showAlert(t: string, subT: string){
     let alert = this.alertCtrl.create({
                 title: t,
@@ -87,26 +87,33 @@ export class ProjectPage {
               });
               alert.present();
     }
+    //get creator of project and check if curr user is the creator
+    //if the creator is not found(if the creator account has been deleted) don't display the creator
     getCreator(){
       this.UserData.getUser(this.project.projectCreator.toString()).subscribe(
             data => {
               if(data.hasOwnProperty('message')){
                 //user not found
-                this.found=false;
+                this.cFound=false;
               }else{
-                //user found           
-                this.creator=data;
-                console.log("creator");
-                this.choosenPicture= this.directory + this.creator.gender + ".jpg";
-                this.found = true;
-                if(this.user.username===this.creator.username){
-                  this.isCreator = true;
+                //user found   
+                //check if the project creator has the projectId in case
+                //a user deletes their account and then another new user takes the same username,
+                //which is now available
+                if(data.projects.indexOf(this.project.projectId) > -1){       
+                  this.creator=data;
+                  this.choosenPicture= this.directory + this.creator.gender + ".jpg";
+                  if(this.user.username===this.creator.username){
+                    this.isCreator = true;
+                  }
+                }else{
+                  this.cFound=false;
                 }
               }
             },
             err => {
               console.log("Unsuccessful!" + err);
-              this.found = false;
+              this.cFound = false;
             },
             () => console.log("Finished")
         );
@@ -115,8 +122,25 @@ export class ProjectPage {
         }
     }
     goToProfile(m){
-      this.navCtrl.setRoot(ProfilePage,{
-        param1: m
+      //the following error handling is done so that
+      //if a member deletes their account and another user takes there name,
+      //they will not be directed to the new user's page
+      
+      //pull down member
+      this.UserData.getUser(m).subscribe(data=>{
+        //check if member has project projectId
+        if(data.hasOwnProperty('message')){
+          this.showAlert("Sorry","This member has was not found or does not exist anymore");
+        }
+        else{
+          if(data.projects.indexOf(this.project.projectId) > -1){
+            this.navCtrl.setRoot(ProfilePage,{
+              param1: m
+            });
+          }else{
+            this.showAlert("Sorry","This member has was not found or does not exist anymore");
+          }
+        }
       });
     }
   getProject(){
@@ -160,6 +184,7 @@ export class ProjectPage {
         this.found=false;
       }
   }
+  //validate comment, refresh project object, add comment, update user
   addComment(){
     if(this.comment == null || this.comment ==""){
         console.log("Null String");
@@ -217,18 +242,20 @@ export class ProjectPage {
         );
       }
   }
-
+  //go to creator profile
   creatorProfile(){
     this.navCtrl.push( ProfilePage, {
         param1: this.creator.username
     });
   }
+  //go to edit project
   editProject(){
     console.log("In edit project");
     this.navCtrl.push( EditProjectPage, {
         projectSelected : this.project.projectId
     });
   }
+  //get current user
    getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
@@ -242,6 +269,7 @@ export class ProjectPage {
               }else{
                 //user found
                   this.user = data;
+                  this.UserData.setCurrentUser(this.user);
               }
               this.getCreator();
             },
@@ -251,7 +279,59 @@ export class ProjectPage {
             },
             () => console.log("Finished")
         );
-      this.UserData.setCurrentUser(user);
+    });
+  }
+  //refresh user, add or remove from user, update user
+  addFavourite(p: Proj){
+    console.log("In add Fav");
+    this.UserData.getUser(this.user.username.toString()).subscribe(data=> {
+      this.user = data;
+      if(this.user.bookmarks.indexOf(p.projectId)>-1){
+        this.UserData.setCurrentUser(this.user);
+            let alert = this.alertCtrl.create({
+              title: 'Whoa, hold up',
+              subTitle: 'Are you sure you want to remove this project?',
+              buttons: [
+              {
+                text: 'Close',
+                role: 'cancel',
+                handler: data => {}
+              },
+              {
+                text: 'Remove',
+                handler: data => {
+                  this.user.bookmarks.splice(this.user.bookmarks.indexOf(p.projectId),1);
+                  this.UserData.updateUser(this.user).subscribe(data=>{
+                      this.user = data;
+                      this.UserData.setCurrentUser(this.user);
+                    },
+                    err => {
+                      console.log("Unsuccessful!" + err);
+                      this.showAlert("Whoops","Looks like something went wrong!");
+                    });
+                  }
+                }
+              ]
+            });
+            alert.present();
+      }else{
+        this.user.bookmarks.push(p.projectId);
+        this.UserData.setCurrentUser(this.user);
+        
+        this.UserData.updateUser(this.user).subscribe(data=>{
+          this.user = data;
+          this.UserData.setCurrentUser(this.user);
+          this.showAlert("Success!", p.projectName + " was added to your favourites.");
+        },
+        err => {
+          console.log("Unsuccessful!" + err);
+          this.showAlert("Whoops","Looks like something went wrong!");
+        });
+      }
+    },
+    err => {
+      console.log("Unsuccessful!" + err);
+      this.showAlert("Whoops","Looks like something went wrong!");
     });
   }
   //reset project object

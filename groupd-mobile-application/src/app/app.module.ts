@@ -25,7 +25,6 @@ import { UserData } from '../providers/user-data';
 import { ProjectData } from '../providers/project-data';
 
 import { Reverse } from '../pipes/reverse';
-import { Filter } from '../pipes/filter';
 import { FilterProjects } from '../pipes/filter-projects';
 import { FilterUsers } from '../pipes/filter-users';
 
@@ -41,7 +40,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     CreateProjectPage,
     ProjectPage,
     Reverse,
-    Filter,
     EditProfilePage,
     EditProjectPage,
     LogoutPage,

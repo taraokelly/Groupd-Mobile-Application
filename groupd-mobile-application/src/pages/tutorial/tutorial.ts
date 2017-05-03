@@ -19,6 +19,7 @@ showSkip = true;
 
   constructor(public navCtrl: NavController, public UserData: UserData, public menu: MenuController) { }
 
+  //navigate to HomePage or LoginPage based on logged in state
   startApp() {
     this.UserData.hasLoggedIn().then((hasLoggedIn)=>{
       if(hasLoggedIn){this.navCtrl.setRoot(HomePage);}

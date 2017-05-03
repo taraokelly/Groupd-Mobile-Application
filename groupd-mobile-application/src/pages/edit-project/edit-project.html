@@ -4,7 +4,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Edit Page</ion-title>
+    <ion-title>Edit Project</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -79,8 +79,10 @@
             </span>
           </div>
           </ion-list>
-        <button color="danger" small ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid" (click)="saveChanges()">SAVE CHANGES</button>
-        <button color="danger" small ion-button (click)="deleteProject()">DELETE PROJECT</button>
+          <div class="wrapper">
+            <button color="danger" small ion-button type="submit" [disabled]="!projectForm.valid || !projectForm.valid" (click)="saveChanges()">SAVE CHANGES</button>
+            <button color="danger" small ion-button (click)="deleteProject()">DELETE PROJECT</button>
+          </div>
         </form>
       </ion-card-content>
     </ion-card>

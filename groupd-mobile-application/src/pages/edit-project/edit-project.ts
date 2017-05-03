@@ -32,6 +32,10 @@ export class EditProjectPage {
 
   projectId: string
 
+  membersAdded: String[] = [];
+
+  membersRemoved: String[] = [];
+
   private projectForm : FormGroup;
 
   constructor(public navCtrl: NavController,  public ProjectData: ProjectData, public events: Events, public UserData: UserData, public navParams: NavParams, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
@@ -57,12 +61,12 @@ export class EditProjectPage {
               }else{
                 //user found
                   this.user = data;
+                  this.UserData.setCurrentUser(this.user);
               }
             },
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
-      this.UserData.setCurrentUser(user);
     });
   }
   getProject(){
@@ -91,6 +95,11 @@ export class EditProjectPage {
       }
   }
   deleteMember(i){
+    if(this.membersAdded.indexOf(this.project.projectMembers[i])>-1){
+      this.membersAdded.splice(this.membersAdded.indexOf(this.project.projectMembers[i]), 1);
+    }else{
+      this.membersRemoved.push(this.project.projectMembers[i]);
+    }
     this.project.projectMembers.splice(i, 1);
   }
   addTag(){
@@ -129,6 +138,12 @@ export class EditProjectPage {
               }else{
                 //user found
                 this.memFound = true;
+                if(this.membersRemoved.indexOf(this.member)>-1){
+                  this.membersRemoved.splice(this.membersRemoved.indexOf(this.member), 1);
+                }else{
+                  this.membersAdded.push(this.member);
+                }
+                //this.membersAdded.push(this.member);
                 this.project.projectMembers.push(this.member);
                 this.member=null;
               }
@@ -142,10 +157,56 @@ export class EditProjectPage {
     this.project.tags.splice(i, 1);
   }
   delete(){
+    //pull down latest user doc
+    //splice project ID from creator's projects
+    //update & refresh global copy of user
+    this.UserData.getUser(this.user.username.toString()).subscribe(
+            data => {
+              if(!data.hasOwnProperty('message')){
+                  //user found
+                  this.user = data;
+                  this.user.projects.splice(this.user.projects.indexOf(this.project.projectName));
+                  this.UserData.updateUser(this.user).subscribe(updatedData=>{
+                    if(updatedData.hasOwnProperty('message')){
+                      console.log("Error removing project from creator");
+                    }else{
+                      this.UserData.setCurrentUser(this.user);
+                    }
+                  },      
+                  err =>{
+                    console.log("Error removing project from creator");
+                  }); 
+              }
+            },
+            err => console.log("Unsuccessful!" + err),
+            () => console.log("Finished")
+        );
+    //pull down member docs
+    //splice project ID from projects
+    //update
+    for(var i = 0; i < this.project.projectMembers.length; i++){
+      //pull down user
+      this.UserData.getUser(this.project.projectMembers[i].toString()).subscribe(data=>{
+      //splice project id from list
+      data.projects.splice(data.projects.indexOf(this.project.projectId), 1);
+      //update user
+      this.UserData.updateUser(data).subscribe(updatedData=>{
+          if(updatedData.hasOwnProperty('message')){
+            console.log("Error removing project from member: " + this.project.projectMembers[i]);
+          }
+        },      
+        err =>{
+          console.log("Error removing project from member: " + this.project.projectMembers[i]);;
+        });
+      },
+      err =>{
+        console.log("Error removing project from member: " + this.project.projectMembers[i]);
+      });
+    }
     this.ProjectData.deleteProject(this.project.projectId.toString()).subscribe(
       data =>{
         if(data.hasOwnProperty('message')){
-          this.showAlert("Success","Your profile has been deleted!");
+          this.showAlert("Success","Your project has been deleted!");
           this.navCtrl.setRoot(HomePage);
         }
       },
@@ -154,7 +215,56 @@ export class EditProjectPage {
     );
   }
   save(){
+
+    for(var i = 0; i < this.membersRemoved.length; i++){
+      //pull down user
+      this.UserData.getUser(this.membersRemoved[i].toString()).subscribe(data=>{
+        //splice project id from list
+        data.projects.splice(data.projects.indexOf(this.project.projectId), 1);
+        //update user
+        this.UserData.updateUser(data).subscribe(updatedData=>{
+          if(updatedData.hasOwnProperty('message')){
+            this.showAlert("Whoops","There was a problem removing the member " + this.membersRemoved[i] + " from " + this.project.projectName);
+            this.project.projectMembers.push(this.membersRemoved[i]);
+          }
+        },      
+        err =>{
+          this.showAlert("Whoops","There was a problem removing the member " + this.membersRemoved[i] + " from " + this.project.projectName);
+          this.project.projectMembers.push(this.membersRemoved[i]);
+        });
+      },
+      err =>{
+        this.showAlert("Whoops","There was a problem removing the member " + this.membersRemoved[i] + " from " + this.project.projectName);
+        this.project.projectMembers.push(this.membersRemoved[i]);
+      });
+    }
+
+    for(var i = 0; i < this.membersAdded.length; i++){
+      //pull down user
+      this.UserData.getUser(this.membersAdded[i].toString()).subscribe(data=>{
+         //push project id to list
+         data.projects.push(this.project.projectId);
+        //update user
+        this.UserData.updateUser(data).subscribe(updatedData=>{
+          if(updatedData.hasOwnProperty('message')){
+            this.showAlert("Whoops","There was a problem adding the member " + this.membersAdded[i] + " to " + this.project.projectName);
+            this.project.projectMembers.splice(this.project.projectMembers.indexOf(this.membersAdded[i]), 1);
+          }
+        },      
+        err =>{
+          this.showAlert("Whoops","There was a problem adding the member " + this.membersAdded[i] + " to " + this.project.projectName);
+          this.project.projectMembers.splice(this.project.projectMembers.indexOf(this.membersAdded[i]), 1);
+        });
+      },
+      err =>{
+        this.showAlert("Whoops","There was a problem adding the member " + this.membersAdded[i] + " to " + this.project.projectName);
+        this.project.projectMembers.splice(this.project.projectMembers.indexOf(this.membersAdded[i]), 1);
+      });
+    }
     //prepare data to be sent to server
+    if(this.project.projectMembers.length>this.project.maxMembers){
+      this.project.maxMembers = this.project.projectMembers.length;
+    }
     this.project.projectName=this.projectForm.value.name.replace(/^\s+|\s+$/g, "");
     this.project.projectThumb=this.projectForm.value.thumb.replace(/^\s+|\s+$/g, "");
     this.project.projectDesc=this.projectForm.value.desc.replace(/^\s+|\s+$/g, "");

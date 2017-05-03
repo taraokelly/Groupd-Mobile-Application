@@ -63,7 +63,7 @@
           </button>
         </ion-col>
         <ion-col center text-center>
-          <button color="warm" ion-button icon-left clear small (click)="addFavourite()">
+          <button color="warm" ion-button icon-left clear small (click)="addFavourite(project)">
             <ion-icon name="star"></ion-icon>
             <div>Favourite</div>
           </button>
@@ -71,9 +71,7 @@
       </ion-row>
         <div *ngIf="showMessages" >
           <hr>
-          <div *ngFor="let c of project.comments; let i = index">
-            <!--<ion-list>
-              <ion-item> -->    
+          <div *ngFor="let c of project.comments; let i = index">  
               <ion-row>
                 <ion-col col-4>
                  <p><strong>{{c.username}}</strong></p>
@@ -83,8 +81,6 @@
                 </ion-col>
                 </ion-row>
                 <hr>
-         <!--     </ion-item>
-            </ion-list> -->
           </div>
           <ion-item>
               <ion-input type="text" name="comment" placeholder="Comment" [(ngModel)]="comment"></ion-input>
@@ -94,29 +90,30 @@
     </ion-card-content>
     <div class class="footer">
           <ion-note class="wrapper">
-          <!-- {{p.time | date:'short'}} -->
           {{project.time | date:'medium'}}
         </ion-note>
       </div>
   </ion-card>
-  <ion-card>
-    <ion-row>
-      <ion-col col-3>
-        <img class="user-avatar round" [src]="choosenPicture" onerror="this.src='assets/img/profile/default-profile.jpg'"/>
-      </ion-col>
-      <ion-col col-9>
-        <ion-card-title class="creatortitle">{{creator.username}}</ion-card-title>
-      </ion-col>
-    </ion-row>
-    <ion-card-content>
-      <div *ngIf="!isCreator" class="wrapper">
-        <button color="danger" block ion-button (click)="creatorProfile()">VIEW PROFILE</button>
-      </div>
-      <div *ngIf="isCreator" class="wrapper">
-        <button color="danger" block ion-button (click)="editProject()">EDIT</button>
-      </div>
-    </ion-card-content>
-  </ion-card>
+  <div *ngIf="cFound">
+    <ion-card>
+      <ion-row>
+        <ion-col col-3>
+          <img class="user-avatar round" [src]="choosenPicture" onerror="this.src='assets/img/profile/default-profile.jpg'"/>
+        </ion-col>
+        <ion-col col-9>
+          <ion-card-title class="creatortitle">{{creator.username}}</ion-card-title>
+        </ion-col>
+      </ion-row>
+      <ion-card-content>
+        <div *ngIf="!isCreator" class="wrapper">
+          <button color="danger" block ion-button (click)="creatorProfile()">VIEW PROFILE</button>
+        </div>
+        <div *ngIf="isCreator" class="wrapper">
+          <button color="danger" block ion-button (click)="editProject()">EDIT</button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
   </div>
 <div class="wrapper" *ngIf="!found">
   <h1>404 Not Found</h1>

@@ -33,6 +33,7 @@ export class HomePage {
     this.getUser();
     this.getProjects();
   }
+  //refresh data
   doRefresh(refresher) {
       this.projects = [];
       this.found = true;
@@ -41,14 +42,17 @@ export class HomePage {
       this.getUser();
       this.getProjects();
   }
+  //navigate to create project page
   newProject(){
     this.navCtrl.setRoot(CreateProjectPage);
   }
+  //navigate to project page with selected project as a parameter
   viewProject(p : Proj){
     this.navCtrl.push(ProjectPage, {
         projectSelected: p.projectId
     });
   }
+  //refresh current user
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
@@ -56,20 +60,18 @@ export class HomePage {
       //always reload user in the case of changes
       this.UserData.getUser(this.user.username.toString()).subscribe(
             data => {
-              if(data.hasOwnProperty('message')){
-                //user not found
-              }else{
+              if(!data.hasOwnProperty('message')){
                 //user found
                   this.user = data;
+                  this.UserData.setCurrentUser(this.user);
               }
             },
             err => console.log("Unsuccessful!" + err),
             () => console.log("Finished")
         );
-      this.UserData.setCurrentUser(user);
     });
   }
-
+  //get all projects, show 404 if not found
   getProjects(){
     this.ProjectData.getAllProjects().subscribe(projects => {
       this.projects = projects;
@@ -82,7 +84,8 @@ export class HomePage {
           this.refresher.complete();
         }
   }
-
+  //pull down latest v of user doc, in the case of changes, 
+  //add or remove selected project id from user favourites
   addFavourite(p: Proj){
     console.log("In add Fav");
     this.UserData.getUser(this.user.username.toString()).subscribe(data=> {
@@ -122,6 +125,7 @@ export class HomePage {
         this.UserData.updateUser(this.user).subscribe(data=>{
           this.user = data;
           this.UserData.setCurrentUser(this.user);
+          this.showAlert("Success!", p.projectName + " was added to your favourites.");
         },
         err => {
           console.log("Unsuccessful!" + err);
@@ -134,7 +138,7 @@ export class HomePage {
       this.showAlert("Whoops","Looks like something went wrong!");
     });
   }
-
+  //simple alert template
   showAlert(t: string, subT: string){
     let alert = this.alertCtrl.create({
                 title: t,
@@ -143,25 +147,7 @@ export class HomePage {
               });
               alert.present();
   }
-  deleteProject() {
-    let alert = this.alertCtrl.create({
-      title: 'Whoa, hold up',
-      subTitle: 'Are you sure you want to remove this project?',
-      buttons: [
-      {
-        text: 'Close',
-        role: 'cancel',
-        handler: data => {}
-      },
-      {
-        text: 'Remove',
-        handler: data => {
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
+  
   //reset user object
   setUserNull(){
     this.user = {

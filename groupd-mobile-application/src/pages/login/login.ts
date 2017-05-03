@@ -5,7 +5,6 @@ import { SignupPage } from "../signup/signup";
 import { UserData } from "../../providers/user-data";
 
 import { LoginForm } from '../../objects/login-form';
-//import { User } from '../../objects/user';
 
 @Component({
   selector: 'page-login',
@@ -19,7 +18,7 @@ export class LoginPage {
   constructor(private navCtrl: NavController, public navParams: NavParams, public UserData: UserData, public loadingCtrl: LoadingController, public alertCtrl: AlertController, public app: App) {
     this.setLoginFormNull();
    }
-
+   //validate login credentials, error handle invalid credentials, login user with data
   login() {
     //Check if login credentials are null or only spaces before http call
     if(this.loginForm.username!=null || this.loginForm.password!=null ){
@@ -36,10 +35,6 @@ export class LoginPage {
                 //user found
                 //compare data.username && .password with loginForm
                 if(this.loginForm.password === data.password){
-                  //valid password - relocate
-                  //this.showAlert('Logged in!', 'Thanks for logging in.');
-                  //this.events.publish('user:login');
-                  //this.navCtrl.setRoot(SignupPage);
                   this.UserData.login(data);
                 }else{
                   //invalid password
@@ -53,7 +48,7 @@ export class LoginPage {
       }
     }
   }
-
+  //alert template
   showAlert(t: string, subT: string){
     let alert = this.alertCtrl.create({
                 title: t,
@@ -62,14 +57,14 @@ export class LoginPage {
               });
               alert.present();
     }
-
+    //set object null
   setLoginFormNull(){
     this.loginForm = {
       username: null,
       password: null
     }
   }
-
+  //navigate to sign up
   goToSignup() {
     this.navCtrl.setRoot(SignupPage);
   }

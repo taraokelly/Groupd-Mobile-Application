@@ -25,6 +25,7 @@ export class BookmarksPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public UserData: UserData, public ProjectData: ProjectData) {
     this.getUser();
   }
+  //refresh data
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
 
@@ -34,6 +35,7 @@ export class BookmarksPage {
       this.getUser();
     //}, 2000);
   }
+  //refresh current user
   getUser() {
     this.UserData.getCurrentUser().then((user) => {
       this.user = user;
@@ -52,11 +54,10 @@ export class BookmarksPage {
       this.UserData.setCurrentUser(user);
     });
   }
+  //get all project listed in bookmarks
   getProjects() {
     this.projects=[];
-    for(var i=0;i<this.user.bookmarks.length;i++){
-      //this
-        //reload in the case of changes
+    for(var i=this.user.bookmarks.length-1;i>=0;i--){
         this.ProjectData.getProject(this.user.bookmarks[i].toString()).subscribe(
             data => {
               if(!data.hasOwnProperty('message')){
@@ -73,11 +74,13 @@ export class BookmarksPage {
         }
       }
   }
+  //naviagte to project page with selected project as a parameter
   viewProject(p : Proj){
     this.navCtrl.push(ProjectPage, {
         projectSelected: p.projectId
     });
   }
+  //pull down user, then add or remove selected project ID from bookmarks, and update user
    addFavourite(p: Proj){
     this.UserData.getUser(this.user.username.toString()).subscribe(data=> {
       this.user = data;
@@ -129,6 +132,7 @@ export class BookmarksPage {
       this.showAlert("Whoops","Looks like something went wrong!");
     });
   }
+  //alert template
   showAlert(t: string, subT: string){
     let alert = this.alertCtrl.create({
                 title: t,

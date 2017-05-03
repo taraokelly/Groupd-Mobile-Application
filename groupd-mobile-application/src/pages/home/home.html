@@ -48,7 +48,7 @@
               </ion-col>
               <ion-col class="center">
                 <small class="pos" center>Positions:</small>
-                <p class="posnum" center>{{p.maxMembers - p.projectMembers.length}}</p>
+                <p class="posnum" center>{{p.maxMembers<0 ? p.maxMembers - p.projectMembers.length : "0"}}</p>
               </ion-col>
             </ion-row>
           </ion-grid>
