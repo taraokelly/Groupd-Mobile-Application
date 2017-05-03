@@ -84,6 +84,7 @@ Although I have abandoned this idea as my end of year project, I do not wish to 
 
 **Additional Features**
 
+- [x] Click on members, will relocate to the member's profile page.
 - [ ] Click on tags/skills, alert will pop up with options: projects, users. Will then redirect to the search page's specified tab with the tag loaded in search bar.
 - [ ] User to user messaging
 - [ ] Featured projects on homepage 
