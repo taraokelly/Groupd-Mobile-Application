@@ -24,7 +24,7 @@ Groupd-Mobile-Application was undertaken as an assignment for a semester long th
 
 ## About Groupd
 
-Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd in courages and welcomes users of all professions and needs to use this platform to find teammates. Together, Ervin and I developed a shared database(see [Why Groupd](#about-groupd) for database schema) and RESTful API to manage our database and administer our CRUD features to assist our two front-ends(see [Groupd-BackEnd](https://github.com/ImErvin/Groupd-BackEnd) for full documentation). We wanted Groupd to allow users post their desired projects, communicate with other users and to work on projects with other users. Groupd can be used to recreationaly and/or to gain experience and to eventually build a portfolio from projects they have worked on, or to find team members for a start up business.
+Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd encourages and welcomes users of all professions and needs to use this platform to find teammates. Together, Ervin and I developed a shared database(see [Why Groupd](#about-groupd) for database schema) and RESTful API to manage our database and administer our CRUD features to assist our two front-ends(see [Groupd-BackEnd](https://github.com/ImErvin/Groupd-BackEnd) for full documentation). We wanted Groupd to allow users post their desired projects, communicate with other users and to work on projects with other users. Groupd can be used to recreationaly and/or to gain experience and to eventually build a portfolio from projects they have worked on, or to find team members for a start up business.
 
 See [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd) for full docmentation on the web application.
 
@@ -91,7 +91,7 @@ Although I have abandoned this idea as my end of year project, I do not wish to 
 
 ## Architecture
 
-I designed the Groupd-Mobile-Application with a sidemenu that intelligently knows when data changes. The user data provider is called to log a user in or out, triggers a logged in event to change the side menu. The user data also sets the user by storing the current user in local storage and triggering an event to alert any resources of the change. On every page load and reload the current user is reloaded from the API and user data provider will alert any resources of the changes, where the resources will asynchronously get the new data from storage.
+I designed the Groupd-Mobile-Application with a sidemenu that intelligently knows when data changes. The user data provider is called to log a user in or out, and triggers a logged in event to change the side menu. The user data also sets the user by storing the current user in local storage and triggering an event to alert any resources of the change. On every page load and reload the current user is reloaded from the API and user data provider will alert any resources of the changes, where the resources will asynchronously get the new data from storage.
 
 The logged out menu is made up of two sections:
 
@@ -106,19 +106,19 @@ The logged in menu is made up of three sections:
 
 **Sign Up**
 
-The sign up page consists of a set of slides, with a form in each slide to take in the sign up data. I used angular 2's formbuilder to validate the input in real time with built in validators and custom validators. Unfortunatly, I could not get the asynchronous custom username-availability-validator to work, as the validator's methods are static, I could not figure out how to use a http call inside the validator. The validation for the username's availabilty is done once the data is submit. If the user name is taken, the user will automatically be taken to the necessary slide and be alerted that the username is taken. If the username is available, data is saved as a user, the form's are reset, and the user is alerted to the success and given the option to go to straight to the log in page.
+The sign up page consists of a set of slides, with a form in each slide to take in the sign up data. I used angular 2's formbuilder to validate the input in real time with built in validators and custom validators. Unfortunatly, I could not get the asynchronous custom username-availability-validator to work, as the validator's methods are static, I could not figure out how to use a http call inside the validator. The validation for the username's availabilty is done once the data is submit. If the username is already taken, the user will automatically be taken to the necessary slide and be alerted that the username is taken. If the username is available, data is saved as a user, the form's are reset, and the user is alerted to the success and given the option to go to straight to the log in page.
 
 **Log In**
 
-The log in page is pretty self explanatory, the user can log in with their username and password. If the username doesn't exist, the user will be alerted that the password is invalid. If the username exists and the password is invalid, the user will also be alerted of this. If the username and password is a match, the user will be logged in by the user provider as described above, and relocated to the home page as a logged in user.
+The log in page is pretty self explanatory, the user can log in with their username and password. If the username doesn't exist, the user will be alerted that the user name was not found. If the username exists and the password is invalid, the user will also be alerted of this. If the username and password is a match, the user will be logged in by the user provider as described above, and relocated to the home page as a logged in user. The log in state will be saved in storage so that the user will already be logged in on the following application start-ups, unless the user logs out.
 
 **Tutorial**
 
-A set of slides explaining Groupd and a breif description of how to use it.
+A set of slides explaining Groupd and a brief description of how to use it.
 
 **Home**
 
-The home page consists of a list of all the projects displayed in seperate cards, each project card has the project name, the project thumbnail description, the time created and the amount of available positions. Each card also has two buttons; one to add or remove to or from the user's favourites/bookmarks, and one to view the project in the project page. 
+The home page consists of a list of all the projects displayed in seperate cards, each project card has the project name, the project thumbnail description, the time created and the amount of available positions. Each card also has two buttons; one to add or remove the project to or from the user's favourites/bookmarks, and one to view the project in the project page. 
 
 **Project Page**
 
@@ -126,7 +126,7 @@ The project page takes the project ID in as a parameter, from there it gets the 
 
 The creator card consists of the placeholder icon determined by the creator's gender (male or female - default is female), the creator name and a button. If the viewer is the creator, the button will bring the viewer to the edit project page. If the viewer is not the creator, the button would bring the user to the creator's profile.
 
-The project card consists of the project name, project thumbnail description, project description, maximum positions, positions available, tags, and members. If the project member is clicked, Groupd will check if this member still exists(the member may have deleted their profile, then another new user may have taken their name). The project card also has two buttons located at the footer of the card; the comments button, which shows and hides the comments section, and the favourite button to add or remove the project to or from the viewer's projects. 
+The project card consists of the project name, project thumbnail description, project description, maximum positions, positions available, tags, and members. If the project member is clicked, Groupd will check if this member still exists(the member may have deleted their profile, then another new user may have taken their name). If the member does exist, the viewer will be relocated to the member's profile. The project card also has two buttons located at the footer of the card; the comments button, which shows and hides the comments section, and the favourite button to add or remove the project to or from the viewer's projects. 
 
 The comments section consists of a list of the project comments, with an input box to add a comment underneath.
 
@@ -174,11 +174,17 @@ The log out page has a button that calls the user data provider to tigger the lo
 
  **Why Ionic 2?**
 
- As Ervin had already began using angular 1, it could be seen as more sensible to use Ionic 1 to build my mobile application as he already had a bulk of the work done. I, however, chose Ionic 2 as I would rather my work to be completely dignified as my own, and, the *main reason*, being that Ionic 2 offers *many improvements*. Josh Morony effectively describes these improvements [here](https://www.joshmorony.com/7-reasons-why-ionic-2-is-better-than-ionic-1/). In my opinion, Ionic 2, being the newer and improved version of Ionic, will continue to be improved and will be the focus of Ionic's team. The same can be said for the angularjs team, in angular 2's case. I was also eager to experience using typescript.
+ As Ervin had already began using angular 1, it could be seen as more sensible to use Ionic 1 to build my mobile application as he already had a bulk of the work done. I, however, chose Ionic 2 as I would rather my work be completely dignified as my own, and the *main reason* being that Ionic 2 offers *many improvements*. Josh Morony effectively describes these improvements [here](https://www.joshmorony.com/7-reasons-why-ionic-2-is-better-than-ionic-1/). In my opinion, Ionic 2, being the newer and improved version of Ionic, will continue to be improved and will be the focus of Ionic's team. The same can be said for the angularjs team, in angular 2's case. I was also quite eager to experience using typescript.
 
 ## Issues
 
++ Due to time limitations we decided to store the comments in the project document, rather the comments as a seperate document with a reference to it in the project document.
++ As my objects were interfaces, changes to the schema proved quite troublesome managing existing data with the database being hosted locally for testing purposes.
++ The username caused issues upon managing where it is referenced upon deletion since another user can then take that username.
+
 ## Conclusion
+
+To conclude, this project has been a rewarding experience. Working in a group and using Ionic 2 for the first time both being great contributors to this. If I were to re-do the project, I would start on this project idea from the beginning, rather than after another project idea attempt. I would also reference a seperate comment document, rather than embeding the comments in the projects document, as that comments are related data to the project, however changes with differing volatiliy to the rest of the project data. Comments can also grow quite rapidly to a possibly infinite amount, and should not burden the project document with in possible great size. Finally, I would consider using a unique ID in the place of the unique username, and I would definitely add a property like, "dormant": true/false. This property would be used in the place of actually deleting the user document, would solve the problem of the referenced usernames(or IDs if that would be changed) being confused with a old/new users, and would serve useful to offer old users a recovery option.
 
 **References:**
 
