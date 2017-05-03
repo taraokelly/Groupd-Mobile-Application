@@ -7,7 +7,8 @@
 + [About Groupd](#about-groupd)
 + [Why Groupd](#about-groupd)
 + [Original Idea](#original-idea)
-+ [Goals](#goals)
++ [Features](#features)
++ [Architecture](#architecture)
 + [Technologies](#technologies)
 + [Issues](#issues)
 + [Conclusion](#conclusion)
@@ -26,10 +27,6 @@ Groupd-Mobile-Application was undertaken as an assignment for a semester long th
 Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd in courages and welcomes users of all professions and needs to use this platform to find teammates. Together, Ervin and I developed a shared database(see [Why Groupd](#about-groupd) for database schema) and RESTful API to manage our database and administer our CRUD features to assist our two front-ends(see [Groupd-BackEnd](https://github.com/ImErvin/Groupd-BackEnd) for full documentation). We wanted Groupd to allow users post their desired projects, communicate with other users and to work on projects with other users. Groupd can be used to recreationaly and/or to gain experience and to eventually build a portfolio from projects they have worked on, or to find team members for a start up business.
 
 See [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd) for full docmentation on the web application.
-
-(will move the following to features)
-
-I designed the Groupd-Mobile-Application with a sidemenu that intelligently knows when data changes. The user data provider is called to log a user in, triggers a logged in event to change the side menu. The user data also sets the user by storing the current user in local storage and triggering an event to alert any resources of the change. On every page load and reload the current user is reloaded from the API and user data provider will alert any resources of the changes, where the resources will asynchronously get the new data from storage.
 
 ## Why Groupd
 
@@ -65,9 +62,119 @@ My original idea was to build a windows desktop security app, Encrypt Keeper.
 
 Although I have abandoned this idea as my end of year project, I do not wish to give up on implementing this project, maybe not as a windows store application. I have already implemented the facial recognition for an assignment where we had to create a Windows Universal Platform Application this semester, this WUP application can be found on Github: [Safe-Note](https://github.com/taraokelly/Safe-Note), and on the Windows Store: [Note Safe](https://www.microsoft.com/en-us/store/p/note-safe/9nvcc3qgf9c8)(the name Safe Note was not available at the time of submission). 
 
-## Goals
+## Features
+
+**Main Features:**
+
+- [x] Login/Sign up page
+- [x] Create project page
+- [x] Home page, displaying all projects posted
+- [x] Project page, displaying project details and the creator
+- [x] Projects comment section
+- [x] Profile page, displaying the user details and their projects, whether a creator or a member
+- [x] User ratings
+- [x] Search projects by project name and tags
+- [x] Search users by username and skills
+- [x] Bookmark/favourite a project
+- [x] Edit Account
+- [x] Delete Account
+- [x] Edit Project
+- [x] Delete Account
+- [x] Create a good user interface and effective user experience throughout the app
+
+**Additional Features**
+
+- [ ] Click on tags/skills, alert will pop up with options: projects, users. Will then redirect to the search page's specified tab with the tag loaded in search bar.
+- [ ] User to user messaging
+- [ ] Featured projects on homepage 
+- [ ] Download profile details as PDF
+
+## Architecture
+
+I designed the Groupd-Mobile-Application with a sidemenu that intelligently knows when data changes. The user data provider is called to log a user in or out, triggers a logged in event to change the side menu. The user data also sets the user by storing the current user in local storage and triggering an event to alert any resources of the change. On every page load and reload the current user is reloaded from the API and user data provider will alert any resources of the changes, where the resources will asynchronously get the new data from storage.
+
+The logged out menu is made up of two sections:
+
++ Account - Log in, Sign up.
++ About - Tutorial.
+
+The logged in menu is made up of three sections:
+
++ Home, New Project, Search.
++ Account - Profile, Favourites, Edit Account, Log out.
++ About - Tutorial.
+
+**Sign Up**
+
+The sign up page consists of a set of slides, with a form in each slide to take in the sign up data. I used angular 2's formbuilder to validate the input in real time with built in validators and custom validators. Unfortunatly, I could not get the asynchronous custom username-availability-validator to work, as the validator's methods are static, I could not figure out how to use a http call inside the validator. The validation for the username's availabilty is done once the data is submit. If the user name is taken, the user will automatically be taken to the necessary slide and be alerted that the username is taken. If the username is available, data is saved as a user, the form's are reset, and the user is alerted to the success and given the option to go to straight to the log in page.
+
+**Log In**
+
+The log in page is pretty self explanatory, the user can log in with their username and password. If the username doesn't exist, the user will be alerted that the password is invalid. If the username exists and the password is invalid, the user will also be alerted of this. If the username and password is a match, the user will be logged in by the user provider as described above, and relocated to the home page as a logged in user.
+
+**Tutorial**
+
+A set of slides explaining Groupd and a breif description of how to use it.
+
+**Home**
+
+The home page consists of a list of all the projects displayed in seperate cards, each project card has the project name, the project thumbnail description, the time created and the amount of available positions. Each card also has two buttons; one to add or remove to or from the user's favourites/bookmarks, and one to view the project in the project page. 
+
+**Project Page**
+
+The project page takes the project ID in as a parameter, from there it gets the project's data and the creator's data. This page consists of two cards, the project card and the creator card. If the creator of the project has deleted their account or was not found the creator card does not appear. 
+
+The creator card consists of the placeholder icon determined by the creator's gender (male or female - default is female), the creator name and a button. If the viewer is the creator, the button will bring the viewer to the edit project page. If the viewer is not the creator, the button would bring the user to the creator's profile.
+
+The project card consists of the project name, project thumbnail description, project description, maximum positions, positions available, tags, and members. If the project member is clicked, Groupd will check if this member still exists(the member may have deleted their profile, then another new user may have taken their name). The project card also has two buttons located at the footer of the card; the comments button, which shows and hides the comments section, and the favourite button to add or remove the project to or from the viewer's projects. 
+
+The comments section consists of a list of the project comments, with an input box to add a comment underneath.
+
+**Edit Project**
+
+The edit project page is simply a form with the projects previously entered/saved data loaded into the input boxes. The edit project page's form is very similar to the project page's form, the difference being in the edit project page, the creator can add members. The creator can only add members who exist in the database. The creator is given two options, save changes or delete. Both options are received with an alert warning when clicked. On save changes the user document of any members changed are updated and the project document is also updated. On delete, any instance of the project in the creator and members is removed and the project is deleted permanently.
+
+**New Project**
+
+Similar to the edit project page, the new project page is a form with real time valitation. It has a single button to add the new project.
+
+**Search** 
+
+Search is a tabbed page, with the tabs being: search project and search users.
+
+Search projects uses a custom pipe to search for projects by project name or tags in real time. This is ideal for users looking for projects to work on. The layout of the list of projects is the same as the home page.
+
+Search users uses a custom pipe to search for users by username or skills in real time. This is ideal for users looking for users to work on their projects. Each user displayed is displayed in a card, with the following details: gender icon, occupation, email, and tags. The card also has a button to go to the selected user's page.
+
+**Profile**
+
+The profile page takes the username in as a parameter, it then gets the user document and checks if it is the viewer's profile. The profile displays the user's username, location, occupation, email, rating, and skills. If it is the viewers profile the viewer is shown an edit button, that will relocate to the edit account page(described below), and a show raters button, that will have a modal pop up with a list of all the raters and their rates. The viewer can also click on the rater's usernames to relocate to their profiles. If it is not the viewer's profile, the viewer will be shown a rate button. If the rate button is clicked, an alert will pop up with an input box to enter rating. If the viewer has rated this person before, it will overwrite their last rate. The user's projects, whether a member or creator, are also displayed in the same format as the projects in the home page.
+
+**Favourites**
+
+The favourite page will display all of the projects saved in the user's favourites. The layout of the list of projects is the same as the home page.
+
+**Edit Account**
+
+The edit account page is simply a form with the projects previously entered/saved data loaded into the input boxes. The viewer is given two options, save changes or delete. Both options are received with an alert warning when clicked. On save changes the user document is updated. On delete, the user's ratings are removed from any other user's ratings(if the rating were not deleted, the ratings may become problematic if another user takes the same username once it's available) and the user document is deleted from the database.
+
+**Log out**
+
+The log out page has a button that calls the user data provider to tigger the logout event to change the menu, to clear the local storage and relocate to the log in page.
 
 ## Technologies
+
+**Ionic**
+
+ The Ionic Framework can be used to create of cross platform mobile applications or web applications with HTML, CSS and JavaScript(Angular).
+
+ **Ionic 1 vs Ionic 2**
+
+ Ionic 1 uses angular 1, html and css whereas Ionic 2 uses angular 2, html and scss.
+
+ **Why Ionic 2?**
+
+ As Ervin had already began using angular 1, it could be seen as more sensible to use Ionic 1 to build my mobile application as he already had a bulk of the work done. I, however, chose Ionic 2 as I would rather my work to be completely dignified as my own, and, the *main reason*, being that Ionic 2 offers *many improvements*. Josh Morony effectively describes these improvements [here](https://www.joshmorony.com/7-reasons-why-ionic-2-is-better-than-ionic-1/). In my opinion, Ionic 2, being the newer and improved version of Ionic, will continue to be improved and will be the focus of Ionic's team. The same can be said for the angularjs team, in angular 2's case. I was also eager to experience using typescript.
 
 ## Issues
 

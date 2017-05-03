@@ -262,9 +262,6 @@ export class EditProjectPage {
       });
     }
     //prepare data to be sent to server
-    if(this.project.projectMembers.length>this.project.maxMembers){
-      this.project.maxMembers = this.project.projectMembers.length;
-    }
     this.project.projectName=this.projectForm.value.name.replace(/^\s+|\s+$/g, "");
     this.project.projectThumb=this.projectForm.value.thumb.replace(/^\s+|\s+$/g, "");
     this.project.projectDesc=this.projectForm.value.desc.replace(/^\s+|\s+$/g, "");
