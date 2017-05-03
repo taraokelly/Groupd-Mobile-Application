@@ -178,13 +178,14 @@ The log out page has a button that calls the user data provider to tigger the lo
 
 ## Issues
 
++ Building a custom validator to asynchronously check the username's availability in real time proved to be quite puzzling as I could not use a http call in a static method. After spending an extensive amount of time on this, I decided to move on as I could not afford to spend any more time on the matter.
 + Due to time limitations we decided to store the comments in the project document, rather the comments as a seperate document with a reference to it in the project document.
 + As my objects were interfaces, changes to the schema proved quite troublesome managing existing data with the database being hosted locally for testing purposes.
 + The username caused issues upon managing where it is referenced upon deletion since another user can then take that username.
 
 ## Conclusion
 
-To conclude, this project has been a rewarding experience. Working in a group and using Ionic 2 for the first time both being great contributors to this. If I were to re-do the project, I would start on this project idea from the beginning, rather than after another project idea attempt. I would also reference a seperate comment document, rather than embeding the comments in the projects document, as that comments are related data to the project, however changes with differing volatiliy to the rest of the project data. Comments can also grow quite rapidly to a possibly infinite amount, and should not burden the project document with in possible great size. Finally, I would consider using a unique ID in the place of the unique username, and I would definitely add a property like, "dormant": true/false. This property would be used in the place of actually deleting the user document, would solve the problem of the referenced usernames(or IDs if that would be changed) being confused with a old/new users, and would serve useful to offer old users a recovery option.
+To conclude, this project has been a rewarding experience. Working in a group and using Ionic 2 for the first time both being great contributors to this. If I were to re-do the project, I would start on this project idea from the beginning, rather than after another project idea attempt. I would also reference a seperate comments document, rather than embeding the comments in the projects document, as that comments are related data to the project, however changes with differing volatiliy to the rest of the project data. Comments can also grow quite rapidly to a possibly infinite amount, and should not burden the project document with it's possible great size. Finally, I would consider using a unique ID in the place of the unique username, and I would definitely add a property like, "dormant": true/false. This property would be used in the place of actually deleting the user document, would solve the problem of the referenced usernames(or IDs if that would be changed) being confused with a old/new users, and would serve useful to offer old users a recovery option.
 
 **References:**
 
