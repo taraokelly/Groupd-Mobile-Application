@@ -11,6 +11,7 @@
 + [Architecture](#architecture)
 + [Technologies](#technologies)
 + [Issues](#issues)
++ [How to Run](#how-to-run)
 + [Conclusion](#conclusion)
 
 ## Introduction
@@ -24,7 +25,7 @@ Groupd-Mobile-Application was undertaken as an assignment for a semester long th
 
 ## About Groupd
 
-Groupd is a social netwrking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd encourages and welcomes users of all professions and needs to use this platform to find teammates. Together, Ervin and I developed a shared database(see [Why Groupd](#about-groupd) for database schema) and RESTful API to manage our database and administer our CRUD features to assist our two front-ends(see [Groupd-BackEnd](https://github.com/ImErvin/Groupd-BackEnd) for full documentation). We wanted Groupd to allow users post their desired projects, communicate with other users and to work on projects with other users. Groupd can be used to recreationaly and/or to gain experience and to eventually build a portfolio from projects they have worked on, or to find team members for a start up business.
+Groupd is a social networking site devised to help users find team mates to work on a project idea they may have. Groupd was designed with developers in mind, however, Groupd encourages and welcomes users of all professions and needs to use this platform to find teammates. Together, Ervin and I developed a shared database(see [Why Groupd](#about-groupd) for database schema) and RESTful API to manage our database and administer our CRUD features to assist our two front-ends(see [Groupd-BackEnd](https://github.com/ImErvin/Groupd-BackEnd) for full documentation). We wanted Groupd to allow users post their desired projects, communicate with other users and to work on projects with other users. Groupd can be used to recreationaly and/or to gain experience and to eventually build a portfolio from projects they have worked on. Groupd is also useful for finding team members for a start up business.
 
 See [Groupd-FrontEnd](https://github.com/ImErvin/Groupd-FrontEnd) for full docmentation on the web application.
 
@@ -184,9 +185,27 @@ The log out page has a button that calls the user data provider to tigger the lo
 + As my objects were interfaces, changes to the schema proved quite troublesome managing existing data with the database being hosted locally for testing purposes.
 + The username caused issues upon managing where it is referenced upon deletion since another user can then take that username.
 
+## How to Run
+
+Follow the steps in [Groupd-BackEnd: How to Run](https://github.com/ImErvin/Groupd-BackEnd#how-to-run).
+
+If you do not have Ionic 2 installed, follow the installation steps on the Ionic website found [here](https://ionicframework.com/docs/intro/installation/).
+
+Clone this repository and run the command:
+
+```
+npm install
+```
+
+Once everything else is set up and running. Make sure you current directory is: groupd-mobile-application (a sub-directory of the repository). Then run the following command:
+
+```
+ionic lab
+```
+
 ## Conclusion
 
-To conclude, this project has been a rewarding experience. Working in a group and using Ionic 2 for the first time both being great contributors to this. If I were to re-do the project, I would start on this project idea from the beginning, rather than after another project idea attempt. I would also reference a seperate comments document, rather than embeding the comments in the projects document, as that comments are related data to the project, however changes with differing volatiliy to the rest of the project data. Comments can also grow quite rapidly to a possibly infinite amount, and should not burden the project document with it's possible great size. Finally, I would consider using a unique ID in the place of the unique username, and I would definitely add a property like, "dormant": true/false. This property would be used in the place of actually deleting the user document, would solve the problem of the referenced usernames(or IDs if that would be changed) being confused with a old/new users, and would serve useful to offer old users a recovery option.
+To conclude, this project has been a rewarding experience. Working in a group and using Ionic 2 for the first time both being great contributors to this. If I were to re-do the project, I would start on this project idea from the beginning, rather than after another project idea attempt. I would also reference a seperate comments document, rather than embeding the comments in the projects document, as the comments are related data to the project, however the comments change with differing volatiliy to the rest of the project data. Comments can also grow quite rapidly to a possibly infinite amount, and should not burden the project document with it's possible great size. Finally, I would consider using a unique ID in the place of the unique username, and I would definitely add a property like, "dormant": true/false. This property would be used in the place of actually deleting the user document, would solve the problem of the referenced usernames(or IDs if that would be changed) being confused with old/new users, and would serve useful to offer old users a recovery option.
 
 **References:**
 
